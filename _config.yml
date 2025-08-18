@@ -12,6 +12,7 @@ baseurl: ""
 
 # --- Plugins supportés par GitHub Pages ---
 plugins:
+  - jekyll-remote-theme
   - jekyll-include-cache
   - jekyll-sitemap
   - jekyll-feed
