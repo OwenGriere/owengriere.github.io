@@ -1,32 +1,67 @@
-# --- Thème via remote_theme (recommandé pour GitHub Pages) ---
+# ---- Site basics ----
+title: "Camille Salazar — Portfolio"
+name: "Camille Joy Salazar"
+description: "Projets, notes et publications"
+locale: fr
+url: "https://OwenGriere.github.io" 
+baseurl: ""
+
+# ---- Theme ----
 remote_theme: "mmistakes/minimal-mistakes@latest"
 minimal_mistakes_skin: "default"
 
-# --- Site ---
-locale: fr
-title: "Owen Griere"
-name: "Owen Griere"
-description: "Portfolio & notes"
-url: "https://owengriere.github.io"   
-baseurl: ""                            
+# ---- Collections / Permalinks ----
+permalink: /:categories/:title/
 
-# --- Plugins supportés par GitHub Pages ---
+# ---- Plugins (tous supportés par GitHub Pages) ----
 plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
-  - jekyll-sitemap
   - jekyll-feed
+  - jekyll-sitemap
 
-# --- Auteur (pour author_profile) ---
+# ---- Author profile (affiché sur la page d'accueil) ----
 author:
-  name: "Owen Griere"
-  avatar: # ex: "/assets/images/portrait.jpg"
-  bio: "Ingénieur — laser, analyse de défaillance, data."
+  name: "Camille Joy Salazar"
+  avatar: # ex: "/assets/images/avatar.jpg"
+  bio: "M1 Génie Physique — Laser & data @ CNES • Passion pour l'optique, CEM et spatial"
   location: "Toulouse, FR"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/OwenGriere"
+      url: "https://github.com/<votre-utilisateur>"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/<votre-handle>/"
 
-# --- Sortie / URLs ---
-permalink: /:categories/:title/
+# ---- Navigation ----
+# Voir _data/navigation.yml
+navbar:
+  title: "Camille Salazar"
+
+# ---- Footer ----
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/<votre-utilisateur>"
+    - label: "Contact"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:camille.salazar@example.com"
+
+# ---- Build settings ----
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - README.md
+  - node_modules
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+
+# ---- Analytics (optionnel) ----
+# google_analytics: G-XXXXXXXXXX
