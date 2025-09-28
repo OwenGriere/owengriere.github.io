@@ -1,9 +1,7 @@
-assets/
 .jekyll-cache/
 _sass/
 _includes/
 _layouts/
-_data/
 
 staticman.yml
 package-lock.json

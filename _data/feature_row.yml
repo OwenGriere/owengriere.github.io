@@ -1,0 +1,22 @@
+highlights:
+  - image_path: /assets/images/cover-placeholder.png
+    alt: "Projet Laser"
+    title: "Décapsulation laser — CNES"
+    excerpt: "Optimisation des paramètres (WF7 vs WF8), reproductibilité, modèles et visualisations."
+    url: /projets/laser-cnes/
+    btn_label: "Voir"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/cover-placeholder.png
+    alt: "Clustering & Heatmaps"
+    title: "Analyse de données & CEM"
+    excerpt: "K-fold CV, heatmaps d'erreurs, dendrogrammes, corrélations."
+    url: /categories/#data
+    btn_label: "Explorer"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/cover-placeholder.png
+    alt: "Microscopie"
+    title: "Optique & Microscopie"
+    excerpt: "Révision confocal/2P, PSF, tache d'Airy, limites de diffraction."
+    url: /categories/#optique
+    btn_label: "Lire"
+    btn_class: "btn--primary"

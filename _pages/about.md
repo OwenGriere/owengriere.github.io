@@ -5,5 +5,9 @@ permalink: /about/
 author_profile: true
 ---
 
-Salut, moi c’est **Camille**. J’étudie le **Génie Physique** et je travaille sur des sujets **laser**, **spatial** et **data**.
-Ce site regroupe mes projets, notes de cours et ressources pour préparer mes **candidatures de stage 2026**.
+# CV
+
+[Download my CV](/assets/docs/CV_academique.pdf)
+
+![CV](/assets/images/CV_académique_1.jpg)
+![CV](/assets/images/CV_académique_2.jpg)
