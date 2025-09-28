@@ -7,7 +7,7 @@ url: "https://owengriere.github.io"
 baseurl: ""
 
 # ---- Theme ----
-remote_theme: "mmistakes/minimal-mistakes@latest"
+remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: "default"
 
 # ---- Collections / Permalinks ----
