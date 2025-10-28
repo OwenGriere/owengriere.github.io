@@ -1,8 +1,8 @@
 ---
 layout: single
-permalink: /about/
+permalink: /profile/
 author_profile: false
-toc: false 
+toc: true 
 classes: ["wide", "cvpage"]
 ---
 
