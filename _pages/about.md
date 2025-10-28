@@ -1,6 +1,7 @@
 ---
 layout: single
 permalink: /about/
+classes: wide
 ---
 
 Dans cette section sont présent mon CV ainsi que mes expériences détaillée afin que vous puissiez davantage comprendre le coeur de mes projets.

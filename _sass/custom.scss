@@ -1,0 +1,29 @@
+/* ==== Page CV pleine largeur ==== */
+.page__content {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0 1rem; /* petit espace latéral pour respirer */
+}
+
+/* ==== Agrandir les images (CV inclus) ==== */
+.page__content img {
+  display: block;
+  margin: 1.5em auto;
+  width: 98%;
+  max-width: 1600px; /* optionnel : limite sur grands écrans */
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ==== Supprimer les marges inutiles autour du contenu ==== */
+.page__inner-wrap {
+  max-width: none !important;
+  padding: 0;
+}
+
+/* ==== Spécifique aux pages CV ==== */
+.page__content img.cv {
+  width: 100%;
+  box-shadow: none;
+}
