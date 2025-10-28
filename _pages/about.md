@@ -2,7 +2,7 @@
 layout: single
 permalink: /about/
 author_profile: false
-classes: wide
+classes: ["wide", "cvpage"]
 ---
 
 Dans cette section sont présent mon CV ainsi que mes expériences détaillée afin que vous puissiez davantage comprendre le coeur de mes projets.

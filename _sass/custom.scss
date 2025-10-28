@@ -1,36 +1,40 @@
-/* ==== Page CV pleine largeur ==== */
-.page.about .sidebar,
-.page.about .author__avatar,
-.page.about .author__content,
-.page.about .author__urls-wrapper {
-  display: none !important;
-}
-
-.page__content {
-  max-width: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0 1rem; /* petit espace latéral pour respirer */
-}
-
-/* ==== Agrandir les images (CV inclus) ==== */
+/* Images générales */
 .page__content img {
   display: block;
   margin: 1.5em auto;
-  width: 98%;
-  max-width: 1600px; /* optionnel : limite sur grands écrans */
-  border-radius: 4px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
-/* ==== Supprimer les marges inutiles autour du contenu ==== */
-.page__inner-wrap {
+/* === Page CV (About) === */
+.cvpage .page__inner-wrap {
   max-width: none !important;
-  padding: 0;
+  width: 100% !important;
+  margin-left: 0 !important;
+  padding: 0 !important;
 }
 
-/* ==== Spécifique aux pages CV ==== */
-.page__content img.cv {
+.cvpage .sidebar,
+.cvpage .author__avatar,
+.cvpage .author__content,
+.cvpage .author__urls-wrapper {
+  display: none !important;
+}
+
+/* Images du CV scanné (pleine largeur) */
+.cvpage .page__content img {
   width: 100%;
+  max-width: none;
+  margin: 0 auto 1rem;
   box-shadow: none;
+  border-radius: 0;
+}
+
+/* Mobile: un léger padding pour éviter que le texte touche les bords */
+@media (max-width: 1024px) {
+  .cvpage .page__inner-wrap {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
 }
