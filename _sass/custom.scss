@@ -46,3 +46,42 @@
   margin: 0 !important;
   padding: 0 !important;
 }
+
+/* #################### Page single #################### */
+
+body.layout--single .page.cvpage .sidebar,
+body.layout--single .page.cvpage .sidebar__right,
+body.layout--single .page.cvpage .author__avatar,
+body.layout--single .page.cvpage .author__content,
+body.layout--single .page.cvpage .author__urls-wrapper {
+  display: none !important;
+}
+
+/* 2) On écrase toute réserve/marge/padding du conteneur principal */
+body.layout--single .page.cvpage,
+body.layout--single .page.cvpage .page__inner-wrap,
+body.layout--single .page.cvpage .page__content {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 3) Images du CV en vraie pleine largeur */
+body.layout--single .page.cvpage .page__content img {
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 auto 1rem !important;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* 4) Légère respiration sur mobile */
+@media (max-width: 1024px) {
+  body.layout--single .page.cvpage .page__inner-wrap,
+  body.layout--single .page.cvpage .page__content {
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+  }
+}
