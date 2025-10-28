@@ -1,21 +1,16 @@
 /* === Page CV (About) en pleine largeur, sans marge gauche === */
 
-/* 1) Supprimer toute sidebar potentielle */
+/* Cacher toute sidebar/colonne auteur si encore injectée par un layout */
 .page.cvpage .sidebar,
 .page.cvpage .sidebar__right,
 .page.cvpage .author__avatar,
 .page.cvpage .author__content,
-.page.cvpage .author__urls-wrapper {
-  display: none !important;
-}
+.page.cvpage .author__urls-wrapper { display: none !important; }
 
-/* 2) Enlever le padding/marge laissé au conteneur central */
-.page.cvpage {
-  padding-left: 0 !important;
-  margin-left: 0 !important;
-}
+/* Neutraliser les marges/paddings du conteneur de la page */
+.page.cvpage { padding-left: 0 !important; margin-left: 0 !important; }
 
-/* 3) Étendre complètement les wrappers internes du layout "single" */
+/* Étendre le wrapper interne et le contenu */
 .page.cvpage .page__inner-wrap,
 .page.cvpage .page__content {
   max-width: none !important;
@@ -24,7 +19,7 @@
   margin: 0 !important;
 }
 
-/* 4) Images du CV : vraies pleine largeur */
+/* Images du CV en bord à bord */
 .page.cvpage .page__content img {
   display: block;
   width: 100% !important;
@@ -34,7 +29,7 @@
   border-radius: 0;
 }
 
-/* 5) Sur mobile, garder un léger breathing room */
+/* Un peu de respiration sur mobile */
 @media (max-width: 1024px) {
   .page.cvpage .page__inner-wrap,
   .page.cvpage .page__content {
@@ -43,7 +38,7 @@
   }
 }
 
-.page.cvpage ~ .sidebar { display: none !important; } /* au cas où une sidebar suit l'article */
+/* En dernier recours, si un wrapper global garde une largeur/offset */
 .page.cvpage .page__container,
 .page.cvpage .initial-content {
   max-width: none !important;
