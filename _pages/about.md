@@ -9,5 +9,6 @@ author_profile: true
 
 [Download my CV](/assets/docs/CV_academique.pdf)
 
-![CV](/assets/images/CV_académique_1.jpg)
-![CV](/assets/images/CV_académique_2.jpg)
+<img src="/assets/images/CV_academique_1.jpg" alt="CV" style="width:95%; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2);">
+
+<img src="/assets/images/CV_academique_2.jpg" alt="CV" style="width:95%; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2);">
