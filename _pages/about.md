@@ -15,3 +15,4 @@ Dans cette section sont présent mon CV ainsi que mes expériences détaillée a
 ![CV](/assets/images/CV_academique_2.jpg){: .cv}
 
 ## Explication des diverses missions
+

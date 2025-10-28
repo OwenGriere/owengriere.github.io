@@ -1,4 +1,11 @@
 /* ==== Page CV pleine largeur ==== */
+.page.about .sidebar,
+.page.about .author__avatar,
+.page.about .author__content,
+.page.about .author__urls-wrapper {
+  display: none !important;
+}
+
 .page__content {
   max-width: 100%;
   width: 100%;
