@@ -66,6 +66,7 @@ exclude:
 include:
   - _pages
   - _data
+  - _sass
   
 # ---- Analytics (optionnel) ----
 # google_analytics: G-XXXXXXXXXX

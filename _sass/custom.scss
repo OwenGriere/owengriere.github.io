@@ -1,40 +1,53 @@
-/* Images générales */
-.page__content img {
-  display: block;
-  margin: 1.5em auto;
-  width: 90%;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-}
+/* === Page CV (About) en pleine largeur, sans marge gauche === */
 
-/* === Page CV (About) === */
-.cvpage .page__inner-wrap {
-  max-width: none !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  padding: 0 !important;
-}
-
-.cvpage .sidebar,
-.cvpage .author__avatar,
-.cvpage .author__content,
-.cvpage .author__urls-wrapper {
+/* 1) Supprimer toute sidebar potentielle */
+.page.cvpage .sidebar,
+.page.cvpage .sidebar__right,
+.page.cvpage .author__avatar,
+.page.cvpage .author__content,
+.page.cvpage .author__urls-wrapper {
   display: none !important;
 }
 
-/* Images du CV scanné (pleine largeur) */
-.cvpage .page__content img {
-  width: 100%;
-  max-width: none;
-  margin: 0 auto 1rem;
+/* 2) Enlever le padding/marge laissé au conteneur central */
+.page.cvpage {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* 3) Étendre complètement les wrappers internes du layout "single" */
+.page.cvpage .page__inner-wrap,
+.page.cvpage .page__content {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* 4) Images du CV : vraies pleine largeur */
+.page.cvpage .page__content img {
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 auto 1rem !important;
   box-shadow: none;
   border-radius: 0;
 }
 
-/* Mobile: un léger padding pour éviter que le texte touche les bords */
+/* 5) Sur mobile, garder un léger breathing room */
 @media (max-width: 1024px) {
-  .cvpage .page__inner-wrap {
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+  .page.cvpage .page__inner-wrap,
+  .page.cvpage .page__content {
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
   }
+}
+
+.page.cvpage ~ .sidebar { display: none !important; } /* au cas où une sidebar suit l'article */
+.page.cvpage .page__container,
+.page.cvpage .initial-content {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }

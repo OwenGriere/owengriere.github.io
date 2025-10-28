@@ -1,7 +1,9 @@
 ---
 layout: single
 permalink: /projects/
-classes: wide
+author_profile: false
+toc: false 
+classes: ["wide", "cvpage"]
 ---
 
 ## Outils BioInformatiques développés
