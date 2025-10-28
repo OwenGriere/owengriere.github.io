@@ -10,5 +10,5 @@ Dans cette section sont présent mon CV ainsi que mes expériences détaillée a
 
 [Download my CV](/assets/docs/CV_academique.pdf)
 
-![CV](/assets/images/CV_académique_1.jpg)
-![CV](/assets/images/CV_académique_2.jpg)
+![CV](/assets/images/CV_academique_1.jpg){: .cv}
+![CV](/assets/images/CV_academique_2.jpg){: .cv}
