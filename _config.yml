@@ -1,6 +1,6 @@
 # ---- Site basics ----
-title: "Camille Salazar — Portfolio"
-name: "Camille Joy Salazar"
+title: "Owen GRIERE — Portfolio"
+name: "Owen GRIERE"
 description: "Projets, notes et publications"
 locale: fr
 url: "https://owengriere.github.io" 
@@ -22,32 +22,32 @@ plugins:
 
 # ---- Author profile (affiché sur la page d'accueil) ----
 author:
-  name: "Camille Joy Salazar"
+  name: "Owen GRIERE"
   avatar: # ex: "/assets/images/avatar.jpg"
-  bio: "M1 Génie Physique — Laser & data @ CNES • Passion pour l'optique, CEM et spatial"
+  bio: "Ingénieur BioInformaticien"
   location: "Toulouse, FR"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/<votre-utilisateur>"
+      url: "https://github.com/OwenGriere"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/<votre-handle>/"
+      url: "https://www.linkedin.com/in/owen-griere-11189b1b0/"
 
 # ---- Navigation ----
 # Voir _data/navigation.yml
 navbar:
-  title: "Camille Salazar"
+  title: "Owen GRIERE"
 
 # ---- Footer ----
 footer:
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/<votre-utilisateur>"
+      url: "https://github.com/OwenGriere"
     - label: "Contact"
       icon: "fas fa-fw fa-envelope"
-      url: "mailto:camille.salazar@example.com"
+      url: "mailto:owen.griere@gmail.com"
 
 # ---- Build settings ----
 markdown: kramdown
