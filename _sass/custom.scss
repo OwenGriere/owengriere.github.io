@@ -73,3 +73,11 @@ body.cvpage .page__container {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+body.cvpage article.page,
+body.cvpage #main,
+body.cvpage .page__inner-wrap,
+body.cvpage .page__content {
+  padding-left: 5rem !important;
+  padding-right: 5rem !important;
+}
