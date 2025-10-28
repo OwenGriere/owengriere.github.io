@@ -1,87 +1,75 @@
-/* === Page CV (About) en pleine largeur, sans marge gauche === */
+/* ===================================================================
+   CUSTOM — Page /profile/ (wide + cvpage) en vraie pleine largeur
+   - cible uniquement le <body> qui porte la classe .cvpage
+   - neutralise la réserve TOC (200px) du thème à >= 64em
+   - supprime toute sidebar/colonne auteur si présente
+   - étend #main, .page__inner-wrap, .page__content à 100%
+   - images bord à bord + petits gardes-fous responsive
+   =================================================================== */
 
-/* Cacher toute sidebar/colonne auteur si encore injectée par un layout */
-.page.cvpage .sidebar,
-.page.cvpage .sidebar__right,
-.page.cvpage .author__avatar,
-.page.cvpage .author__content,
-.page.cvpage .author__urls-wrapper { display: none !important; }
-
-/* Neutraliser les marges/paddings du conteneur de la page */
-.page.cvpage { padding-left: 0 !important; margin-left: 0 !important; }
-
-/* Étendre le wrapper interne et le contenu */
-.page.cvpage .page__inner-wrap,
-.page.cvpage .page__content {
-  max-width: none !important;
-  width: 100% !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Images du CV en bord à bord */
-.page.cvpage .page__content img {
-  display: block;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 auto 1rem !important;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-/* Un peu de respiration sur mobile */
-@media (max-width: 1024px) {
-  .page.cvpage .page__inner-wrap,
-  .page.cvpage .page__content {
-    padding-left: .5rem !important;
-    padding-right: .5rem !important;
-  }
-}
-
-/* En dernier recours, si un wrapper global garde une largeur/offset */
-.page.cvpage .page__container,
-.page.cvpage .initial-content {
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* #################### Page single #################### */
-
-body.layout--single .page.cvpage .sidebar,
-body.layout--single .page.cvpage .sidebar__right,
-body.layout--single .page.cvpage .author__avatar,
-body.layout--single .page.cvpage .author__content,
-body.layout--single .page.cvpage .author__urls-wrapper {
+/* 0) Sécurité : si le profil auteur est encore injecté quelque part, on le masque ici */
+body.cvpage .page__sidebar,
+body.cvpage .sidebar,
+body.cvpage .sidebar__right,
+body.cvpage .author__avatar,
+body.cvpage .author__content,
+body.cvpage .author__urls-wrapper {
   display: none !important;
 }
 
-/* 2) On écrase toute réserve/marge/padding du conteneur principal */
-body.layout--single .page.cvpage,
-body.layout--single .page.cvpage .page__inner-wrap,
-body.layout--single .page.cvpage .page__content {
+/* 1) Étendre les wrappers principaux à 100% */
+body.cvpage #main,
+body.cvpage .page__inner-wrap,
+body.cvpage .page__content {
   max-width: none !important;
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
-/* 3) Images du CV en vraie pleine largeur */
-body.layout--single .page.cvpage .page__content img {
+/* 2) Écraser la règle du thème qui réserve 200px pour le TOC à >= 64em */
+@media (min-width: 64em) {
+  body.cvpage .page {
+    float: none !important;
+    width: 100% !important;
+    /* Le thème met habituellement padding-inline-end: 200px; -> on annule */
+    padding-inline-end: 0 !important;
+  }
+}
+
+/* 3) Images du CV et visuels : bord à bord, sans ombre ni arrondi
+      (mets une classe .soft-shadow si tu veux des ombres ponctuelles) */
+body.cvpage .page__content img {
   display: block;
   width: 100% !important;
   max-width: none !important;
+  height: auto;
   margin: 0 auto 1rem !important;
-  box-shadow: none;
   border-radius: 0;
+  box-shadow: none;
 }
 
-/* 4) Légère respiration sur mobile */
+/* Option : une classe pour ajouter une ombre douce sur une image précise
+   Utilisation: ![alt](/path.jpg){: .soft-shadow } */
+body.cvpage .page__content img.soft-shadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, .15);
+  border-radius: 6px;
+}
+
+/* 4) Confort mobile : un léger padding latéral < 1024px */
 @media (max-width: 1024px) {
-  body.layout--single .page.cvpage .page__inner-wrap,
-  body.layout--single .page.cvpage .page__content {
+  body.cvpage .page__inner-wrap,
+  body.cvpage .page__content {
     padding-left: .5rem !important;
     padding-right: .5rem !important;
   }
+}
+
+/* 5) Dernier filet de sécurité : si un wrapper global impose encore une largeur */
+body.cvpage .initial-content,
+body.cvpage .page__container {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }

@@ -2,7 +2,7 @@
 layout: single
 permalink: /profile/
 author_profile: false
-toc: true 
+toc: false 
 classes: ["wide", "cvpage"]
 ---
 
