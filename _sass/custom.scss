@@ -23,9 +23,10 @@ body.cvpage .page__inner-wrap,
 body.cvpage .page__content {
   max-width: none !important;
   width: 100% !important;
-  margin: 2rem !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
+
 /* 2) Écraser la règle du thème qui réserve 200px pour le TOC à >= 64em */
 @media (min-width: 64em) {
   body.cvpage .page {
@@ -72,4 +73,3 @@ body.cvpage .page__container {
   margin: 0 !important;
   padding: 0 !important;
 }
-
