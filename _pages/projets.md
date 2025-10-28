@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Projets"
 permalink: /projects/
 ---
 
+## Outils BioInformatiques développés
