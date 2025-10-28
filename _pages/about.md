@@ -1,6 +1,7 @@
 ---
 layout: single
 permalink: /about/
+author_profile: false
 classes: wide
 ---
 
@@ -8,7 +9,7 @@ Dans cette section sont présent mon CV ainsi que mes expériences détaillée a
 
 ## CV
 
-[Download my CV](/assets/docs/CV_academique.pdf)
+[📄 Download my CV in PDF](/assets/docs/CV_academique.pdf)
 
 ![CV](/assets/images/CV_academique_1.jpg){: .cv}
 ![CV](/assets/images/CV_academique_2.jpg){: .cv}
