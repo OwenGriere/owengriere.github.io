@@ -26,12 +26,15 @@ body.cvpage .page__content {
 
 body.cvpage .page__content img {
   display: block;
-  width: 100% !important;
+  flex: 1 1 100%;
+  width: auto !important;
   max-width: 100% !important;
   height: auto;
   margin: 0 auto 1rem !important;
   border-radius: 0;
   box-shadow: none;
+  object-fit: contain;
+  box-sizing: border-box;
 }
 
 body.cvpage .page__content img.soft-shadow {
@@ -39,11 +42,12 @@ body.cvpage .page__content img.soft-shadow {
   border-radius: 6px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   body.cvpage .page__inner-wrap,
   body.cvpage .page__content {
     padding-left: .1rem !important;
     padding-right: .1rem !important;
+    overflow-x: hidden;
   }
 }
 
