@@ -10,6 +10,8 @@ body.cvpage .author__urls-wrapper {
 body.cvpage #main,
 body.cvpage .page__inner-wrap,
 body.cvpage .page__content {
+  display: flex;
+  flex-wrap: wrap;
   max-width: none !important;
   width: 100% !important;
   margin: 1rem !important;
