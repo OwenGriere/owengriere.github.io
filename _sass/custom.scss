@@ -12,11 +12,14 @@ body.cvpage .page__inner-wrap,
 body.cvpage .page__content {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
   max-width: none !important;
   width: 100% !important;
-  margin: 1rem !important;
-  padding: 0 !important;
-  overflow-x: hidden;
+  margin: 0 auto !important;
+  padding: 0 1rem !important;
+  overflow-x: clip !important;
+  box-sizing: border-box;
 }
 
 @media (min-width: 64em) {
