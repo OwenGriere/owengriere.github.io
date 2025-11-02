@@ -43,9 +43,45 @@ body.cvpage .page__content img {
   box-sizing: border-box;
 }
 
+body.cvpage .page__content table {
+  display: block;
+  flex: 1 1 45%;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto;
+  margin: 1rem !important;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 body.cvpage .page__content img.soft-shadow {
   box-shadow: 0 0 12px rgba(0, 0, 0, .15);
   border-radius: 6px;
+}
+
+body.cvpage .page__content table.soft-shadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, .15);
+  border-radius: 6px;
+}
+
+body.cvpage .page__content table td,
+body.cvpage .page__content table th {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  body.cvpage .page__content table {
+    flex: 1 1 100%;
+    max-width: 100% !important;
+    margin: 0.5rem 0 !important;
+  }
 }
 
 @media (max-width: 1024px) {
