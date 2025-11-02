@@ -10,10 +10,6 @@ body.cvpage .author__urls-wrapper {
 body.cvpage #main,
 body.cvpage .page__inner-wrap,
 body.cvpage .page__content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
   max-width: none !important;
   width: 100% !important;
   margin: 2rem !important;
@@ -32,8 +28,6 @@ body.cvpage .page__content img {
   display: block;
   width: 100% !important;
   max-width: 100% !important;
-  flex: 1 1 45%;
-  object-fit: contain;
   height: auto;
   margin: 0 auto 1rem !important;
   border-radius: 0;
@@ -50,9 +44,6 @@ body.cvpage .page__content img.soft-shadow {
   body.cvpage .page__content {
     padding-left: .5rem !important;
     padding-right: .5rem !important;
-  }
-  body.cvpage .page__content img {
-    flex: 1 1 100%;
   }
 }
 
