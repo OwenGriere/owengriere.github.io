@@ -18,5 +18,4 @@ This is where my tools are currently being developed.
 | <div align="center"><b>SyNetBuilder</b></div> | <div align="center"><b>PDAC Modeling</b></div> | <div align="center"><b>MOSNA GUI</b></div> | <div align="center"><b>AI Model</b></div> |
 | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> |
 
-
 ## My Projects
