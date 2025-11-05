@@ -8,10 +8,22 @@ body.cvpage .author__urls-wrapper { display: none !important; }
 
 body {
   background-color: #f8fafc;
-  background-image: url("/assets/images/background/background.png");
+  background-image: url("/assets/images/background/background-2.png");
   background-repeat: repeat;   
   background-attachment: fixed;
   background-size: cover;
+}
+
+/* ——— Ajuste la hauteur du header sur tout le site ——— */
+.page__hero,
+.page__hero--overlay {
+  max-height: 250px;     /* valeur à adapter : 200–400px selon ton image */
+  overflow: hidden;
+}
+
+.page__hero-image {
+  object-fit: cover;
+  height: 100% !important;
 }
 
 /* ——— Wrappers ——— */
