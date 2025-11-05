@@ -1,26 +1,26 @@
+/* ——— Sidebar & auteur off ——— */
 body.cvpage .page__sidebar,
 body.cvpage .sidebar,
 body.cvpage .sidebar__right,
 body.cvpage .author__avatar,
 body.cvpage .author__content,
-body.cvpage .author__urls-wrapper {
-  display: none !important;
-}
+body.cvpage .author__urls-wrapper { display: none !important; }
+
+/* ——— Wrappers ——— */
+body.cvpage { overflow-x: hidden; } /* coupe tout scroll horizontal de la page */
 
 body.cvpage #main,
 body.cvpage .page__inner-wrap,
 body.cvpage .page__content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
   max-width: none !important;
   width: 100% !important;
   margin: 0 auto !important;
-  padding: 0 1rem !important;
-  overflow-x: clip !important;
+  padding: 0 1rem !important;   /* petite marge interne */
   box-sizing: border-box;
+  overflow-x: hidden;            /* robuste (évite clip partiel) */
 }
 
+/* Neutralise la réserve TOC >= 64em */
 @media (min-width: 64em) {
   body.cvpage .page {
     float: none !important;
@@ -29,44 +29,40 @@ body.cvpage .page__content {
   }
 }
 
+/* ——— Grille fluide sur le contenu ——— */
+body.cvpage .page__content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;                    /* remplace les margins enfants */
+}
+
+/* Éléments flex : la clé anti-débordement */
+body.cvpage .page__content > * {
+  min-width: 0;                 /* permet la réduction correcte en flex */
+  box-sizing: border-box;
+}
+
+/* Images : deux colonnes sur large, une colonne sur mobile */
 body.cvpage .page__content img {
   display: block;
-  flex: 1 1 45%;
-  justify-content: center;
-  width: auto !important;
-  max-width: 100% !important;
+  flex: 1 1 calc(50% - 1rem);  /* ~ 2 colonnes avec le gap */
+  max-width: 100%;
   height: auto;
-  margin: 1rem !important;
+  margin: 0;                    /* pas de marge, on a gap */
   border-radius: 0;
   box-shadow: none;
   object-fit: contain;
-  box-sizing: border-box;
 }
 
+/* Tables : même logique que les images */
 body.cvpage .page__content table {
   display: block;
-  flex: 1 1 45%;
-  width: auto !important;
-  max-width: 100% !important;
-  height: auto;
-  margin: 1rem !important;
+  flex: 1 1 calc(50% - 1rem);
+  max-width: 100%;
+  margin: 0;
   border-collapse: collapse;
-  box-sizing: border-box;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  object-fit: contain;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-body.cvpage .page__content img.soft-shadow {
-  box-shadow: 0 0 12px rgba(0, 0, 0, .15);
-  border-radius: 6px;
-}
-
-body.cvpage .page__content table.soft-shadow {
-  box-shadow: 0 0 12px rgba(0, 0, 0, .15);
-  border-radius: 6px;
 }
 
 body.cvpage .page__content table td,
@@ -76,50 +72,27 @@ body.cvpage .page__content table th {
   padding: 0.5rem;
 }
 
-@media (max-width: 1024px) {
-  body.cvpage .page__content table {
-    flex: 1 1 100%;
-    max-width: 100% !important;
-    margin: 0.5rem 0 !important;
-  }
+/* Ombre optionnelle ciblée */
+body.cvpage .page__content img.soft-shadow,
+body.cvpage .page__content table.soft-shadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, .15);
+  border-radius: 6px;
 }
 
+/* ——— Mobile ——— */
 @media (max-width: 1024px) {
+  body.cvpage .page__content img,
+  body.cvpage .page__content table {
+    flex: 1 1 100%;             /* 1 colonne */
+  }
   body.cvpage .page__inner-wrap,
   body.cvpage .page__content {
-    padding-left: .1rem !important;
-    padding-right: .1rem !important;
-    overflow-x: hidden;
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
   }
 }
 
-body.cvpage .initial-content,
-body.cvpage .page__container {
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-
-
-
-
-/* === A) Bloquer l'overflow horizontal sur /profile/ === */
-body.cvpage {
-  overflow-x: hidden; /* empêche la page de scroller horizontalement */
-}
-body.cvpage #main,
-body.cvpage .page__inner-wrap,
-body.cvpage .page__content {
-  overflow-x: clip; /* cache juste ce qui dépasse à l'intérieur */
-  box-sizing: border-box;
-}
-
-/* === B) Coupables fréquents === */
-
-/* 1) Images / vidéos / iframes / svg : ne jamais dépasser le conteneur */
-body.cvpage .page__content img,
+/* ——— Sécurité pour médias/iframes/code/longs liens ——— */
 body.cvpage .page__content video,
 body.cvpage .page__content iframe,
 body.cvpage .page__content svg {
@@ -129,39 +102,19 @@ body.cvpage .page__content svg {
   height: auto;
 }
 
-/* 2) Figures : pas de marge qui pousse hors cadre */
-body.cvpage .page__content figure {
-  margin: 0;
-}
+body.cvpage .page__content figure { margin: 0; }
 
-/* 3) Blocs de code : autoriser le scroll interne plutôt que pousser la page */
 body.cvpage .page__content pre,
 body.cvpage .page__content code,
 body.cvpage .page__content .highlighter-rouge pre {
   max-width: 100%;
-  overflow-x: auto;     /* scroll interne si trop long */
-  white-space: pre;     /* conserve le formatage */
-}
-
-/* 4) Tables larges : scroll interne si besoin */
-body.cvpage .page__content table {
-  display: block;
-  max-width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  white-space: pre;
 }
 
-/* 5) Liens / mots très longs : permettre la casse */
 body.cvpage .page__content a,
 body.cvpage .page__content p,
 body.cvpage .page__content li {
-  overflow-wrap: anywhere;  /* casse les mots/URL si trop longs */
+  overflow-wrap: anywhere;
   word-break: break-word;
-}
-
-/* 6) Sécuriser les "full width" accidentels (ex: 100vw) */
-body.cvpage .page__content [style*="100vw"],
-body.cvpage .page__content [class*="full"] {
-  max-width: 100% !important;
-  width: 100% !important;
 }
