@@ -7,6 +7,7 @@ show_title: false
 classes: ["wide", "cvpage"]
 ---
 
+This section contains my resume and detailed experience so that you can better understand the core of my projects.
 
 ## CV - [📄 Download my CV in PDF](/assets/docs/CV_academique.pdf)
 
