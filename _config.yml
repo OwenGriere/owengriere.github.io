@@ -35,7 +35,7 @@ author:
       url: "https://www.linkedin.com/in/owen-griere-11189b1b0/"
 
 # ---- Navigation ----
-# Voir _data/navigation.yml
+
 navbar:
   title: "Owen GRIERE"
 
@@ -67,6 +67,3 @@ include:
   - _pages
   - _data
   - _sass
-  
-# ---- Analytics (optionnel) ----
-# google_analytics: G-XXXXXXXXXX
