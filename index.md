@@ -1,6 +1,5 @@
 ---
 layout: home
-title: "Bienvenue"
 author_profile: true
 header:
   overlay_image: /assets/images/banners/banner.png
