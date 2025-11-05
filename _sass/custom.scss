@@ -7,7 +7,7 @@ body.cvpage .author__content,
 body.cvpage .author__urls-wrapper { display: none !important; }
 
 /* ——— Wrappers ——— */
-body.cvpage { overflow-x: hidden; } /* coupe tout scroll horizontal de la page */
+body.cvpage { overflow-x: hidden; }
 
 body.cvpage #main,
 body.cvpage .page__inner-wrap,
@@ -15,12 +15,12 @@ body.cvpage .page__content {
   max-width: none !important;
   width: 100% !important;
   margin: 0 auto !important;
-  padding: 0 1rem !important;   /* petite marge interne */
+  padding: 0 1rem !important;   
   box-sizing: border-box;
-  overflow-x: hidden;            /* robuste (évite clip partiel) */
+  overflow-x: hidden;            
 }
 
-/* Neutralise la réserve TOC >= 64em */
+
 @media (min-width: 64em) {
   body.cvpage .page {
     float: none !important;
@@ -29,32 +29,30 @@ body.cvpage .page__content {
   }
 }
 
-/* ——— Grille fluide sur le contenu ——— */
+/*
 body.cvpage .page__content {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;                    /* remplace les margins enfants */
-}
+  gap: 1rem;
+}*/
 
-/* Éléments flex : la clé anti-débordement */
+
 body.cvpage .page__content > * {
-  min-width: 0;                 /* permet la réduction correcte en flex */
+  min-width: 0;                
   box-sizing: border-box;
 }
 
-/* Images : deux colonnes sur large, une colonne sur mobile */
 body.cvpage .page__content img {
   display: block;
-  flex: 1 1 calc(50% - 1rem);  /* ~ 2 colonnes avec le gap */
+  flex: 1 1 calc(50% - 1rem);  
   max-width: 100%;
   height: auto;
-  margin: 0;                    /* pas de marge, on a gap */
+  margin: 0;                    
   border-radius: 0;
   box-shadow: none;
   object-fit: contain;
 }
 
-/* Tables : même logique que les images */
 body.cvpage .page__content table {
   display: block;
   flex: 1 1 calc(50% - 1rem);
@@ -72,7 +70,6 @@ body.cvpage .page__content table th {
   padding: 0.5rem;
 }
 
-/* Ombre optionnelle ciblée */
 body.cvpage .page__content img.soft-shadow,
 body.cvpage .page__content table.soft-shadow {
   box-shadow: 0 0 12px rgba(0, 0, 0, .15);
@@ -83,7 +80,7 @@ body.cvpage .page__content table.soft-shadow {
 @media (max-width: 1024px) {
   body.cvpage .page__content img,
   body.cvpage .page__content table {
-    flex: 1 1 100%;             /* 1 colonne */
+    flex: 1 1 100%;           
   }
   body.cvpage .page__inner-wrap,
   body.cvpage .page__content {
