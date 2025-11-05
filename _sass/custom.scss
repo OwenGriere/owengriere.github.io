@@ -100,3 +100,68 @@ body.cvpage .page__container {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+
+
+
+
+/* === A) Bloquer l'overflow horizontal sur /profile/ === */
+body.cvpage {
+  overflow-x: hidden; /* empêche la page de scroller horizontalement */
+}
+body.cvpage #main,
+body.cvpage .page__inner-wrap,
+body.cvpage .page__content {
+  overflow-x: clip; /* cache juste ce qui dépasse à l'intérieur */
+  box-sizing: border-box;
+}
+
+/* === B) Coupables fréquents === */
+
+/* 1) Images / vidéos / iframes / svg : ne jamais dépasser le conteneur */
+body.cvpage .page__content img,
+body.cvpage .page__content video,
+body.cvpage .page__content iframe,
+body.cvpage .page__content svg {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+/* 2) Figures : pas de marge qui pousse hors cadre */
+body.cvpage .page__content figure {
+  margin: 0;
+}
+
+/* 3) Blocs de code : autoriser le scroll interne plutôt que pousser la page */
+body.cvpage .page__content pre,
+body.cvpage .page__content code,
+body.cvpage .page__content .highlighter-rouge pre {
+  max-width: 100%;
+  overflow-x: auto;     /* scroll interne si trop long */
+  white-space: pre;     /* conserve le formatage */
+}
+
+/* 4) Tables larges : scroll interne si besoin */
+body.cvpage .page__content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 5) Liens / mots très longs : permettre la casse */
+body.cvpage .page__content a,
+body.cvpage .page__content p,
+body.cvpage .page__content li {
+  overflow-wrap: anywhere;  /* casse les mots/URL si trop longs */
+  word-break: break-word;
+}
+
+/* 6) Sécuriser les "full width" accidentels (ex: 100vw) */
+body.cvpage .page__content [style*="100vw"],
+body.cvpage .page__content [class*="full"] {
+  max-width: 100% !important;
+  width: 100% !important;
+}
