@@ -107,6 +107,19 @@ body.cvpage .cvgrid > table {
   box-sizing: border-box;
 }
 
+.page__content table td,
+.page__content table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.page__content table td img {
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  max-width: 100%;
+}
+
 @media (max-width: 1024px) {
   body.cvpage .cvgrid > img,
   body.cvpage .cvgrid > table {
