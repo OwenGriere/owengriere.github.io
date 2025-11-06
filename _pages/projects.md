@@ -19,3 +19,13 @@ This is where my tools are currently being developed.
 | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) |
 
 ## My Projects
+
+### Mosna GUI
+
+A pour objectif de rendre l'utilisation du package MOSNA pour la détection de niches au sein de réseaux tissulaires biologiques plus ergonomique a l'aide d'une interface graphique. Celle-ci permet la modification des paramètres d'inputs de MOSNA ainsi que de Tysserand pour calculer à partir de données spatiales trancriptomiques/protéomiques des réseaux tissulaires et d'en extraire des données statistiques intrinsèques à ces mêmes réseaux.
+
+### PDAC Modeling
+
+
+
+### SyNetBuilder
