@@ -155,21 +155,27 @@ body.cvpage .page__content table.soft-shadow {
 
 @media (max-width: 64em) {
   .greedy-nav { 
-    background: #ffffff !important; /* fond clair pour le menu replié */
-    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
   .greedy-nav .visible-links a,
   .greedy-nav .hidden-links a,
   .greedy-nav .greedy-nav__toggle {
-    color: #0f172a !important;       /* texte sombre sur mobile */
+    color: #000000 !important;  
   }
   .greedy-nav .hidden-links {
-    background: #ffffff !important;   /* fond du dropdown */
+    background: #ffffff !important;
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(0,0,0,.12);
   }
   .greedy-nav .hidden-links a:hover {
     background: rgba(15,23,42,0.06);
+  }
+  .greedy-nav__toggle {
+    border: none !important;
+    background: transparent !important;
+    color: #ffffff !important;
   }
 }
 
