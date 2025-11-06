@@ -140,6 +140,58 @@ body.cvpage .page__content table.soft-shadow {
   }
 }
 
+@media (max-width: 64em) {
+  .greedy-nav { 
+    background: #ffffff !important; /* fond clair pour le menu replié */
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  }
+  .greedy-nav .visible-links a,
+  .greedy-nav .hidden-links a,
+  .greedy-nav .greedy-nav__toggle {
+    color: #0f172a !important;       /* texte sombre sur mobile */
+  }
+  .greedy-nav .hidden-links {
+    background: #ffffff !important;   /* fond du dropdown */
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  }
+  .greedy-nav .hidden-links a:hover {
+    background: rgba(15,23,42,0.06);
+  }
+}
+
+/* Images en pile verticale, largeur 100% sur mobile étroit */
+@media (max-width: 640px) {
+  body.cvpage .cvgrid { 
+    flex-direction: column; 
+    gap: 0.75rem;
+  }
+  body.cvpage .cvgrid > * { 
+    flex: 1 1 100% !important; 
+    max-width: 100% !important;
+  }
+  body.cvpage .page__content img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Tableaux limités à 2 colonnes sur téléphone :
+   masque toute colonne au-delà de la 2e */
+@media (max-width: 640px) {
+  body.cvpage table thead th:nth-child(n+3),
+  body.cvpage table tbody td:nth-child(n+3) {
+    display: none;
+  }
+  /* Améliore la lisibilité des 2 colonnes restantes */
+  body.cvpage table {
+    table-layout: fixed;
+    width: 100%;
+    word-break: break-word;
+  }
+}
+
 /* ——— Sécurité pour médias/iframes/code/longs liens ——— */
 body.cvpage .page__content video,
 body.cvpage .page__content iframe,

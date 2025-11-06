@@ -19,3 +19,12 @@ This is where my tools are currently being developed.
 | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> | <div align="center">![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)</div> |
 
 ## My Projects
+
+| [![SyNetBuilder](/assets/images/logo_SyNetBuilder.png){: .align-center }](
+  https://github.com/OwenGriere/SyNetBuilder) | [![PDAC_modeling](/assets/images/logo_PDAC_Modeling.png){: .align-center }](
+  https://github.com/OwenGriere/PDAC_Modeling) | [![MOSNA_GUI](/assets/images/logo_Mosna_GUI.png){: .align-center }](
+  https://github.com/OwenGriere/MOSNA_GUI) | [![AI_Model](/assets/images/logo_AI_model.png){: .align-center }](
+  https://github.com/OwenGriere/Model_Training) |
+|---|---|---|---|
+| **SyNetBuilder** | **PDAC Modeling** | **MOSNA GUI** | **AI Model** |
+| ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white){: .align-center } | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white){: .align-center } | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white){: .align-center } | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white){: .align-center } |
