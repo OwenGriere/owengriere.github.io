@@ -9,7 +9,7 @@ classes: ["wide", "cvpage"]
 
 All project are explained here
 
-## Internship - CRCT - Inserm - Toulouse
+## **PDAC TME modeling** (Internship - CRCT - Inserm - Toulouse)
 
 I completed this internship at the **Toulouse Cancer Research Center (CRCT)**, as part of the **NetB(IO)² – Network Biology for Immuno-Oncology** team, led by **Vera Pancaldi**. This team studies the interactions between tumor and immune cells to better understand cancer resistance to treatment and propose approaches for reprogramming the tumor microenvironment (TME). My project, funded by **Janssen**, focused on **pancreatic ductal adenocarcinoma (PDAC)**, a particularly aggressive and difficult-to-treat cancer. The goal was to use multi-agent modeling and spatial data from patients to analyze and simulate the evolution of the TME in this cancer.
 
@@ -21,7 +21,7 @@ Finally, I began work on **generating synthetic tissue networks** from statistic
 
 This internship allowed me to combine skills in **biology, mathematical modeling, scientific programming, and spatial analysis**, while participating in a real translational research project. I was able to gain a comprehensive overview of modern approaches to **integrative bioinformatics**, from numerical simulation to biological interpretation, in a stimulating and multidisciplinary scientific environment.
 
-## Internship - Institut du Thorax - Inserm - Nantes
+## **MORFEE analyses** (Internship - Institut du Thorax - Inserm - Nantes)
 
 This internship, which I completed at the **Thorax Institute (Inserm – Nantes)** under the supervision of **Antoine Rimbert**, was in the field of genomics research applied to hereditary cardiovascular diseases. My main objective was to study the impact of non-coding genetic variants located in the **5'UTR regions** of key genes involved in **familial dyslipidemia**, including LDLR, APOB, PCSK9, and APOE. These regions, often overlooked in conventional analyses, play an essential role in regulating protein translation. I therefore sought to identify rare mutations that could alter this process and cause familial forms of hypercholesterolemia.
 To do this, I set up a comprehensive analysis chain based on two bioinformatics tools: ANNOVAR, for annotating genetic variants in VCF/BCF format, and MORFEE, for detecting and interpreting mutations in 5'UTR regions. At the same time, I developed an automated pipeline with **Nextflow** to efficiently process large volumes of data from local cohorts and the UK Biobank database, representing more than 200,000 individuals. This approach enabled me to detect several rare potentially pathogenic variants, assess their statistical significance, and extend the analysis to the entire human genome.

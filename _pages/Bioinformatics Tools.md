@@ -20,7 +20,6 @@ This is where my tools are currently being developed.
 | [![MORFEE](/assets/images/Logo_MORFEE.png)](https://github.com/OwenGriere/MORFEEusing_tool) | | | |
 | **MORFEE Wrapper** <br> *A Nextflow tools with MORFEE to analyse VCF larges datasets* | | | |
 | ![Nextflow](https://img.shields.io/badge/Nextflow-16A085?logo=nextflow&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | | | |
-## My Projects
 
 ### Mosna GUI
 
