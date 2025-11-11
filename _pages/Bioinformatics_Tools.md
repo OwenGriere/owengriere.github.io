@@ -1,6 +1,6 @@
 ---
 layout: single
-permalink: /Bioinformatics Tools/
+permalink: /Bioinformatics_Tools/
 author_profile: false
 toc: false 
 show_title: false
@@ -16,10 +16,10 @@ This is where my tools are currently being developed.
 | [![SyNetBuilder](/assets/images/logo_SyNetBuilder.png)](https://github.com/OwenGriere/SyNetBuilder) | [![PDAC_modeling](/assets/images/logo_PDAC_Modeling.png)](https://github.com/OwenGriere/PDAC_Modeling) | [![MOSNA_GUI](/assets/images/logo_Mosna_GUI.png)](https://github.com/OwenGriere/MOSNA_GUI) | [![AI_Model](/assets/images/logo_AI_model.png)](https://github.com/OwenGriere/Model_Training) |
 |-------------------------|--------------------------------|--------------------------------------|--------------------------------------|
 | **SyNetBuilder** <br> *Tool for reconstructing synthetic networks from assortativity data*| **PDAC Modeling** <br> *Pancreatic Ductal Adenocarcinoma Cancer modeling with an agent-based model PhysiCell* | **MOSNA GUI** <br> *Graphical interface wrapping Tysserand and MOSNA to simplify their use* | **AI Model** <br> *Various IA models* |
-| ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![C++](https://img.shields.io/badge/C%2B%2B-00599C?logo=cplusplus&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) |
+| ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![C++](https://img.shields.io/badge/C%2B%2B-00599C?logo=cplusplus&logoColor=white)![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) |
 | [![MORFEE](/assets/images/Logo_MORFEE.png)](https://github.com/OwenGriere/MORFEEusing_tool) | | | |
 | **MORFEE Wrapper** <br> *A Nextflow tools with MORFEE to analyse VCF larges datasets* | | | |
-| ![Nextflow](https://img.shields.io/badge/Nextflow-16A085?logo=nextflow&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | | | |
+| ![Nextflow](https://img.shields.io/badge/Nextflow-16A085?logo=nextflow&logoColor=white)![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | | | |
 
 ### Mosna GUI
 
