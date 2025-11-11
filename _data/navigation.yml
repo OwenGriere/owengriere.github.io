@@ -3,5 +3,7 @@ main:
     url: /profile/
   - title: "Projects"
     url: /projects/
+  - title: "Bioinformatics Tools"
+    url: /Bioinformatics Tools/
   - title: "Publications"
     url: /publications/
