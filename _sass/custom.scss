@@ -5,7 +5,6 @@ body.cvpage .sidebar__right,
 body.cvpage .author__avatar,
 body.cvpage .author__content,
 body.cvpage .author__urls-wrapper { display: none !important; }
-
 body {
   background-color: #f8fafc;
   background-image: url("/assets/images/background/background-2.png");
@@ -14,7 +13,6 @@ body {
   background-size: cover;
 }
 
-
 /* ——— Barre de navigation globale (menu principal) ——— */
 
 .greedy-nav {
@@ -22,7 +20,6 @@ body {
   box-shadow: none !important;          
   border: none !important;                           
 }
-
 .greedy-nav a,
 .greedy-nav a:visited,
 .greedy-nav__toggle {
@@ -31,20 +28,17 @@ body {
   color: #ffffff !important;             
   text-transform: none;                   
 }
-
 .greedy-nav .visible-links li a {
   background: transparent !important;
   border-radius: 0 !important;
   padding: 0.75rem 1.25rem;
 }
-
 .greedy-nav .visible-links li a:hover {
   color: #aee2ff !important;              
   background: rgba(255, 255, 255, 0.1);   
   border-radius: 6px;
   transition: all 0.2s ease;
 }
-
 .masthead {
   position: sticky;
   top: 0;
@@ -58,7 +52,6 @@ body {
   max-height: 15px;
   overflow: hidden;
 }
-
 .page__hero-image {
   object-fit: cover;
   height: 100% !important;
@@ -66,7 +59,6 @@ body {
 
 /* ——— Wrappers ——— */
 body.cvpage { overflow-x: hidden; }
-
 body.cvpage #main,
 body.cvpage .page__inner-wrap,
 body.cvpage .page__content {
@@ -78,26 +70,25 @@ body.cvpage .page__content {
   overflow-x: hidden;            
 }
 
-
 @media (min-width: 64em) {
   body.cvpage .page {
     float: none !important;
     width: 100% !important;
     padding-inline-end: 0 !important;
   }
+  .greedy-nav .visible-links li a {
+    font-size: 1rem !important;
+    padding: 0.5rem 0.9rem;
+  }
 }
-
 body.cvpage .page__content {
   display: block;
 }
-
-
 body.cvpage .cvgrid {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
-
 body.cvpage .cvgrid > img,
 body.cvpage .cvgrid > table {
   flex: 1 1 calc(50% - 1rem);
@@ -106,13 +97,11 @@ body.cvpage .cvgrid > table {
   margin: 0;
   box-sizing: border-box;
 }
-
 .page__content table td,
 .page__content table th {
   text-align: center;
   vertical-align: middle;
 }
-
 .page__content table td img {
   display: block;
   margin: 0 auto;
@@ -126,14 +115,12 @@ body.cvpage .cvgrid > table {
     flex: 1 1 100%; 
   }
 }
-
 body.cvpage .page__content table td,
 body.cvpage .page__content table th {
   word-break: break-word;
   overflow-wrap: break-word;
   padding: 0.5rem;
 }
-
 body.cvpage .page__content img.soft-shadow,
 body.cvpage .page__content table.soft-shadow {
   box-shadow: 0 0 12px rgba(0, 0, 0, .15);
@@ -160,6 +147,10 @@ body.cvpage .page__content table.soft-shadow {
     box-shadow: none !important;
   }
   .greedy-nav .visible-links a,
+  .greedy-nav .visible-links li a {
+    font-size: 1rem !important;
+    padding: 0.5rem 0.9rem;
+  }
   .greedy-nav .hidden-links a,
   .greedy-nav .greedy-nav__toggle {
     color: #000000 !important;  
@@ -188,9 +179,7 @@ body.cvpage .page__content svg {
   width: 100%;
   height: auto;
 }
-
 body.cvpage .page__content figure { margin: 0; }
-
 body.cvpage .page__content pre,
 body.cvpage .page__content code,
 body.cvpage .page__content .highlighter-rouge pre {
@@ -198,7 +187,6 @@ body.cvpage .page__content .highlighter-rouge pre {
   overflow-x: auto;
   white-space: pre;
 }
-
 body.cvpage .page__content a,
 body.cvpage .page__content p,
 body.cvpage .page__content li {
