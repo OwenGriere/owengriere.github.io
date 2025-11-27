@@ -2,32 +2,31 @@ highlights:
   - image_path: /assets/images/logo_profile.png
     alt: "Profile"
     title: "Profile"
-    excerpt: "Résumé, formation et expériences pour comprendre mon parcours scientifique."
+    excerpt: "Résumé de mon parcours scientifique et professionnel."
     url: "/profile/"
-    btn_label: "Voir le profil"
+    btn_label: "Voir"
     btn_class: "btn--primary"
 
-  - image_path: /assets/images/logo_projects.avif
+  - image_path: /assets/images/logo_projects.jpg
     alt: "Projects"
     title: "Projects"
-    excerpt: "Internships, side projects et travaux de recherche en biologie, IA et modélisation."
+    excerpt: "Mes projets : modélisation, bioinformatique, analyses spatiales, IA."
     url: "/projects/"
-    btn_label: "Découvrir les projets"
+    btn_label: "Explorer"
     btn_class: "btn--primary"
 
   - image_path: /assets/images/logo_tools.png
     alt: "Bioinformatics Tools"
-    title: "Bioinformatics Tools"
-    excerpt: "Outils bioinformatiques (Nextflow, Python, MOSNA, MORFEE…) que je développe ou maintiens."
+    title: "Tools"
+    excerpt: "Outils bio-informatiques et pipelines que j’ai développés."
     url: "/Bioinformatics_Tools/"
-    btn_label: "Voir les outils"
+    btn_label: "Voir"
     btn_class: "btn--primary"
 
   - image_path: /assets/images/logo_publications.jpg
     alt: "Publications"
     title: "Publications"
-    excerpt: "Articles, preprints et contributions scientifiques auxquels j’ai participé."
+    excerpt: "Articles, rapports, communications scientifiques."
     url: "/publications/"
-    btn_label: "Voir les publications"
+    btn_label: "Lire"
     btn_class: "btn--primary"
-
