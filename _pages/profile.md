@@ -13,4 +13,14 @@ This section contains my resume and detailed experience so that you can better u
 
 ![CV](/assets/images/CV_academique_1.jpg)| ![CV](/assets/images/CV_academique_2.jpg)
 
-## Explanation of the various missions
+## Skills
+
+### Programmation Language
+
+| **Name** | **Level of mastery** |
+|----------|----------------------|
+| **Python** | ⭐⭐⭐⭐⭐ |
+| **Java/C** | ⭐ |
+| **R** | ⭐⭐ | 
+
+### Biology aknowledge
