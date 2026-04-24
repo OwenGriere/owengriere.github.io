@@ -1,9 +1,0 @@
-main:
-  - title: "Profile"
-    url: /profile/
-  - title: "Projects"
-    url: /projects/
-  - title: "Bioinformatics Tools"
-    url: /Bioinformatics_Tools/
-  - title: "Publications"
-    url: /publications/

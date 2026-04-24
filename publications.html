@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Owen GRIERE — Publications</title>
+  <link rel="icon" href="images/banners/banner.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .pub-card{background:var(--bg-card);border:1px solid var(--border-hi);border-radius:18px;padding:2rem;display:flex;flex-direction:column;gap:1rem;box-shadow:0 0 0 1px rgba(56,189,248,.1)}
+    .pub-year-chip{display:inline-block;font-family:var(--font-mono);font-size:.72rem;background:rgba(56,189,248,.1);color:var(--teal);border:1px solid rgba(56,189,248,.2);padding:.2rem .65rem;border-radius:100px;width:fit-content}
+    .pub-title{font-size:1.2rem;line-height:1.35;font-family:var(--font-d);font-weight:700}
+    .pub-title a{color:var(--text)}
+    .pub-title a:hover{color:var(--teal)}
+    .pub-authors{font-size:.87rem;color:var(--muted);line-height:1.6}
+    .pub-meta{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+    .pub-journal{font-size:.88rem;color:var(--teal);font-style:italic}
+    .pub-doi-label{font-family:var(--font-mono);font-size:.74rem;color:var(--muted)}
+    .pub-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+    .pub-actions{display:flex;gap:.75rem;flex-wrap:wrap;padding-top:.3rem}
+  </style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner container">
+    <a href="index.html" class="nav-logo">Owen<span>.</span>GRIERE</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="tools.html">Tools</a><a href="publications.html">Publications</a>
+    </nav>
+    <div class="nav-socials">
+      <a href="https://github.com/OwenGriere" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+      <a href="https://www.linkedin.com/in/owen-griere-11189b1b0/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="mailto:owen.griere@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+    </div>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <span class="label fu">Research Output</span>
+      <h1 class="page-title fu d1">Publications</h1>
+      <p class="page-sub fu d2">Scientific articles, preprints, and communications.</p>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <section>
+    <div class="container" style="padding-block:3rem">
+      <article class="pub-card reveal">
+        <div class="pub-year-chip">2025</div>
+        <h2 class="pub-title">
+          <a href="https://www.biorxiv.org/content/10.1101/2025.09.18.677030v1" target="_blank" rel="noopener">
+            PhysiGym: bridging the gap between the Gymnasium reinforcement learning application interface and the PhysiCell agent-based model software
+          </a>
+        </h2>
+        <p class="pub-authors">Alexandre Bertin, Elmar Bucher, <strong style="color:var(--text)">Owen Griere</strong>, Marcelo Hurtado, Heber Rocha, Randy Heiland, Aneequa Sundus, Paul Macklin, Vincent François-Lavet, Emmanuel Rachelson, Vera Pancaldi</p>
+        <div class="pub-meta">
+          <span class="pub-journal">bioRxiv</span>
+          <span class="pub-doi-label">DOI: 10.1101/2025.09.18.677030</span>
+        </div>
+        <div class="pub-tags">
+          <span class="badge">PhysiCell</span>
+          <span class="badge badge-purple">Reinforcement Learning</span>
+          <span class="badge badge-green">Agent-Based Modeling</span>
+          <span class="badge">Gymnasium</span>
+        </div>
+        <div class="pub-actions">
+          <a href="https://www.biorxiv.org/content/10.1101/2025.09.18.677030v1" class="btn btn-outline" target="_blank" rel="noopener">🔗 Read on bioRxiv</a>
+          <a href="docs/PhysiGym.pdf" class="btn btn-ghost" target="_blank" rel="noopener">📄 Full PDF</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div><div class="footer-name">Owen GRIERE</div><p class="footer-desc">Ingénieur BioInformaticien — Toulouse, FR</p></div>
+    <nav class="footer-links">
+      <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="tools.html">Tools</a><a href="publications.html">Publications</a><a href="https://github.com/OwenGriere" target="_blank" rel="noopener">GitHub</a><a href="mailto:owen.griere@gmail.com">Contact</a>
+    </nav>
+  </div>
+  <div class="container footer-bottom"><p>© <span class="yr"></span> Owen GRIERE</p></div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

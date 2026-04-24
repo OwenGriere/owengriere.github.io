@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Owen GRIERE — BioInformaticien</title>
+  <meta name="description" content="Portfolio d'Owen GRIERE, Ingénieur BioInformaticien à Toulouse."/>
+  <link rel="icon" href="images/banners/banner.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ── Hero ── */
+    .hero{position:relative;overflow:hidden;padding-block:5.5rem}
+    .hero-glow{position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.12),transparent 70%);pointer-events:none}
+    .hero-inner{display:grid;grid-template-columns:1fr 300px;gap:3.5rem;align-items:center}
+    @media(max-width:800px){.hero-inner{grid-template-columns:1fr}.hero-card{display:none}}
+    .hero-chip{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--font-mono);font-size:.73rem;color:var(--green);background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);padding:.25rem .7rem;border-radius:100px;margin-bottom:1.2rem}
+    .chip-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .hero-title{font-size:clamp(3rem,7vw,5.5rem);letter-spacing:-.03em;line-height:1;margin-bottom:.6rem}
+    .hero-accent{color:var(--teal)}
+    .hero-role{font-family:var(--font-mono);font-size:1rem;color:var(--muted);margin-bottom:1.2rem}
+    .mono{color:var(--teal)}
+    .hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.75;max-width:48ch;margin-bottom:2rem}
+    .loc{color:var(--text);font-style:italic}
+    .hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem}
+    .hero-logos{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+    .hero-logos img{height:26px;opacity:.55;filter:brightness(0) invert(1);transition:opacity .2s}
+    .hero-logos img:hover{opacity:1}
+    /* Side card */
+    .hero-card{background:var(--bg-card);border:1px solid var(--border-hi);border-radius:20px;padding:1.6rem}
+    .hc-header{display:flex;gap:.9rem;align-items:center;margin-bottom:1.3rem}
+    .hc-avatar{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--purple));display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:1.1rem;color:#0d1117;flex-shrink:0}
+    .hc-name{font-family:var(--font-d);font-weight:700;font-size:1rem}
+    .hc-title{font-size:.8rem;color:var(--muted)}
+    .hc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.2rem}
+    .hc-stat{background:var(--bg-surface);border-radius:10px;padding:.75rem .5rem;text-align:center}
+    .hc-n{display:block;font-family:var(--font-d);font-size:1.4rem;font-weight:800;color:var(--teal)}
+    .hc-l{font-size:.68rem;color:var(--muted);letter-spacing:.04em}
+    .hc-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+    /* Highlights */
+    .hl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;margin-top:2rem}
+    .hl-card{display:flex;flex-direction:column;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s}
+    .hl-card:hover{border-color:var(--border-hi);transform:translateY(-4px);box-shadow:0 12px 40px rgba(56,189,248,.08);text-decoration:none}
+    .hl-img{height:155px;overflow:hidden;background:var(--bg-surface);display:flex;align-items:center;justify-content:center}
+    .hl-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+    .hl-card:hover .hl-img img{transform:scale(1.05)}
+    .hl-body{padding:1.2rem;flex:1;display:flex;flex-direction:column}
+    .hl-title{font-size:1.05rem;color:var(--text);margin-bottom:.4rem}
+    .hl-excerpt{font-size:.88rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:.9rem}
+    .hl-cta{font-family:var(--font-mono);font-size:.78rem;color:var(--teal)}
+    /* Quick bio */
+    .qb-inner{display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:start}
+    @media(max-width:780px){.qb-inner{grid-template-columns:1fr}}
+    .qb-stack{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+    .stack-title{font-family:var(--font-mono);font-size:.72rem;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.2rem}
+    .stack-row{margin-bottom:.9rem}
+    .stack-name{font-size:.85rem;color:var(--text);margin-bottom:.3rem}
+    .stack-bar-bg{height:4px;background:var(--border);border-radius:100px;overflow:hidden}
+    .stack-bar{height:100%;border-radius:100px}
+    .qb-btns{margin-top:1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
+    .section-title{font-size:clamp(1.6rem,3.5vw,2.5rem);margin-bottom:1.2rem}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <div class="nav-inner container">
+    <a href="index.html" class="nav-logo">Owen<span>.</span>GRIERE</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="profile.html">Profile</a>
+      <a href="projects.html">Projects</a>
+      <a href="tools.html">Tools</a>
+      <a href="publications.html">Publications</a>
+    </nav>
+    <div class="nav-socials">
+      <a href="https://github.com/OwenGriere" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/owen-griere-11189b1b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="mailto:owen.griere@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+    </div>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-inner">
+      <div>
+        <div class="hero-chip fu"><span class="chip-dot"></span>Available for opportunities</div>
+        <h1 class="hero-title fu d1">Owen<br/><span class="hero-accent">GRIERE</span></h1>
+        <p class="hero-role fu d2"><span class="mono">~/</span> Ingénieur BioInformaticien</p>
+        <p class="hero-desc fu d3">Computational biologist specializing in tumor microenvironment modeling, spatial omics, and multi-agent simulations for cancer research. Based in <span class="loc">Toulouse, France</span>.</p>
+        <div class="hero-actions fu d4">
+          <a href="profile.html" class="btn btn-primary">View Profile</a>
+          <a href="projects.html" class="btn btn-outline">Explore Projects</a>
+          <a href="mailto:owen.griere@gmail.com" class="btn btn-ghost">Contact</a>
+        </div>
+        <div class="hero-logos fu d5">
+          <img src="images/banners/crct_logo_new_detoure.png" alt="CRCT"/>
+          <img src="images/banners/logo_inserm.png" alt="Inserm"/>
+          <img src="images/banners/logo_CNRS.jpg" alt="CNRS"/>
+          <img src="images/banners/logo_eidd.png" alt="EIDD"/>
+        </div>
+      </div>
+      <div class="hero-card fu d2">
+        <div class="hc-header">
+          <div class="hc-avatar">OG</div>
+          <div><div class="hc-name">Owen GRIERE</div><div class="hc-title">BioInformaticien</div></div>
+        </div>
+        <div class="hc-stats">
+          <div class="hc-stat"><span class="hc-n">2</span><span class="hc-l">Internships</span></div>
+          <div class="hc-stat"><span class="hc-n">5</span><span class="hc-l">Tools Built</span></div>
+          <div class="hc-stat"><span class="hc-n">1</span><span class="hc-l">Publication</span></div>
+        </div>
+        <div class="hc-tags">
+          <span class="badge">Python</span>
+          <span class="badge badge-green">Nextflow</span>
+          <span class="badge badge-purple">PhysiCell</span>
+          <span class="badge">R</span>
+          <span class="badge badge-green">Spatial omics</span>
+          <span class="badge badge-purple">ML / AI</span>
+        </div>
+        <a href="docs/CV_academique.pdf" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem" target="_blank" rel="noopener">📄 Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HIGHLIGHTS -->
+  <section>
+    <div class="container">
+      <span class="label">Explore</span>
+      <h2 class="section-title">What you'll find here</h2>
+      <div class="hl-grid">
+        <a href="profile.html" class="hl-card reveal">
+          <div class="hl-img"><img src="images/logo_profile.png" alt="Profile"/></div>
+          <div class="hl-body"><h3 class="hl-title">Profile</h3><p class="hl-excerpt">Résumé de mon parcours scientifique et professionnel.</p><span class="hl-cta">Voir →</span></div>
+        </a>
+        <a href="projects.html" class="hl-card reveal" style="transition-delay:.08s">
+          <div class="hl-img"><img src="images/logo_projects.jpg" alt="Projects"/></div>
+          <div class="hl-body"><h3 class="hl-title">Projects</h3><p class="hl-excerpt">Modélisation, bioinformatique, analyses spatiales, IA.</p><span class="hl-cta">Explorer →</span></div>
+        </a>
+        <a href="tools.html" class="hl-card reveal" style="transition-delay:.16s">
+          <div class="hl-img"><img src="images/logo_tools.png" alt="Tools"/></div>
+          <div class="hl-body"><h3 class="hl-title">Tools</h3><p class="hl-excerpt">Outils bio-informatiques et pipelines développés.</p><span class="hl-cta">Voir →</span></div>
+        </a>
+        <a href="publications.html" class="hl-card reveal" style="transition-delay:.24s">
+          <div class="hl-img"><img src="images/logo_publications.jpg" alt="Publications"/></div>
+          <div class="hl-body"><h3 class="hl-title">Publications</h3><p class="hl-excerpt">Articles, rapports, communications scientifiques.</p><span class="hl-cta">Lire →</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- QUICK BIO -->
+  <section>
+    <div class="container qb-inner">
+      <div>
+        <span class="label">About</span>
+        <h2 class="section-title">Computational biology<br/>meets data science</h2>
+        <p class="prose">
+          <strong>Engineer in Bioinformatics</strong> with hands-on experience in tumor microenvironment
+          modeling at the <strong>CRCT (Inserm, Toulouse)</strong> and genomics research at the
+          <strong>Institut du Thorax (Inserm, Nantes)</strong>.
+        </p>
+        <p class="prose" style="margin-top:.9rem">
+          My work spans multi-agent modeling with PhysiCell, spatial network analysis (Tysserand, MOSNA),
+          machine learning pipelines, and variant annotation workflows with Nextflow — always bridging
+          computational rigor with biological insight.
+        </p>
+        <div class="qb-btns">
+          <a href="projects.html" class="btn btn-outline">See projects →</a>
+          <a href="tools.html" class="btn btn-ghost">View tools →</a>
+        </div>
+      </div>
+      <div class="qb-stack reveal">
+        <div class="stack-title">Tech Stack</div>
+        <div class="stack-row"><div class="stack-name">Python</div><div class="stack-bar-bg"><div class="stack-bar" style="width:100%;background:var(--teal)"></div></div></div>
+        <div class="stack-row"><div class="stack-name">Nextflow</div><div class="stack-bar-bg"><div class="stack-bar" style="width:60%;background:var(--green)"></div></div></div>
+        <div class="stack-row"><div class="stack-name">C++ (PhysiCell)</div><div class="stack-bar-bg"><div class="stack-bar" style="width:60%;background:var(--teal)"></div></div></div>
+        <div class="stack-row"><div class="stack-name">R</div><div class="stack-bar-bg"><div class="stack-bar" style="width:40%;background:var(--purple)"></div></div></div>
+        <div class="stack-row"><div class="stack-name">Java / C</div><div class="stack-bar-bg"><div class="stack-bar" style="width:20%;background:var(--muted)"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div><div class="footer-name">Owen GRIERE</div><p class="footer-desc">Ingénieur BioInformaticien — Toulouse, FR</p></div>
+    <nav class="footer-links">
+      <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a>
+      <a href="tools.html">Tools</a><a href="publications.html">Publications</a>
+      <a href="https://github.com/OwenGriere" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:owen.griere@gmail.com">Contact</a>
+    </nav>
+  </div>
+  <div class="container footer-bottom"><p>© <span class="yr"></span> Owen GRIERE</p></div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

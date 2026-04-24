@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Owen GRIERE — Bioinformatics Tools</title>
+  <link rel="icon" href="images/banners/banner.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;padding-block:3rem}
+    .tool-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.4rem;display:flex;flex-direction:column;gap:.7rem;transition:border-color .2s,transform .2s,box-shadow .2s}
+    .tool-card:hover{border-color:var(--border-hi);transform:translateY(-3px);box-shadow:0 8px 28px rgba(56,189,248,.07)}
+    .tc-header{display:flex;justify-content:space-between;align-items:center}
+    .tc-logo-wrap{width:52px;height:52px;border-radius:10px;background:var(--bg-surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .tc-logo-wrap img{width:44px;height:44px;object-fit:contain}
+    .tc-gh{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);color:var(--muted);transition:all .15s;text-decoration:none}
+    .tc-gh:hover{border-color:var(--border-hi);color:var(--teal)}
+    .tc-gh svg{width:15px;height:15px;fill:currentColor}
+    .tc-name{font-family:var(--font-d);font-size:1.05rem;font-weight:700;color:var(--text)}
+    .tc-desc{font-size:.87rem;color:var(--muted);line-height:1.65;flex:1}
+    .tc-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+    .tc-link{font-family:var(--font-mono);font-size:.75rem;color:var(--teal)}
+    .tc-link:hover{text-decoration:underline}
+    .spotlight-inner{display:grid;grid-template-columns:1fr 240px;gap:3rem;align-items:center;margin-top:1.5rem}
+    @media(max-width:680px){.spotlight-inner{grid-template-columns:1fr}.spotlight-logo{display:none}}
+    .spotlight-logo img{border-radius:16px;border:1px solid var(--border)}
+    .section-title{font-size:clamp(1.6rem,3.5vw,2.5rem);margin-bottom:1.2rem}
+  </style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner container">
+    <a href="index.html" class="nav-logo">Owen<span>.</span>GRIERE</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="tools.html">Tools</a><a href="publications.html">Publications</a>
+    </nav>
+    <div class="nav-socials">
+      <a href="https://github.com/OwenGriere" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+      <a href="https://www.linkedin.com/in/owen-griere-11189b1b0/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="mailto:owen.griere@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+    </div>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <span class="label fu">Open Source</span>
+      <h1 class="page-title fu d1">Bioinformatics Tools</h1>
+      <p class="page-sub fu d2">Tools and pipelines developed during research projects — all available on GitHub.</p>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <section>
+    <div class="container">
+      <div class="tools-grid">
+        <article class="tool-card reveal">
+          <div class="tc-header">
+            <div class="tc-logo-wrap"><img src="images/logo_SyNetBuilder.png" alt="SyNetBuilder"/></div>
+            <a href="https://github.com/OwenGriere/SyNetBuilder" class="tc-gh" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+          </div>
+          <div class="tc-name">SyNetBuilder</div>
+          <p class="tc-desc">Tool for reconstructing synthetic tissue networks from assortativity and spatial statistics data.</p>
+          <div class="tc-tags"><span class="badge">Python</span></div>
+          <a href="https://github.com/OwenGriere/SyNetBuilder" class="tc-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="tool-card reveal" style="transition-delay:.07s">
+          <div class="tc-header">
+            <div class="tc-logo-wrap"><img src="images/logo_PDAC_Modeling.png" alt="PDAC Modeling"/></div>
+            <a href="https://github.com/OwenGriere/PDAC_Modeling" class="tc-gh" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+          </div>
+          <div class="tc-name">PDAC Modeling</div>
+          <p class="tc-desc">Pancreatic Ductal Adenocarcinoma cancer modeling using the PhysiCell agent-based model framework.</p>
+          <div class="tc-tags"><span class="badge badge-purple">C++</span><span class="badge">Python</span></div>
+          <a href="https://github.com/OwenGriere/PDAC_Modeling" class="tc-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="tool-card reveal" style="transition-delay:.14s">
+          <div class="tc-header">
+            <div class="tc-logo-wrap"><img src="images/logo_Mosna_GUI.png" alt="MOSNA GUI"/></div>
+            <a href="https://github.com/OwenGriere/MOSNA_GUI" class="tc-gh" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+          </div>
+          <div class="tc-name">MOSNA GUI</div>
+          <p class="tc-desc">Graphical interface wrapping Tysserand and MOSNA, simplifying spatial transcriptomic/proteomic network analysis.</p>
+          <div class="tc-tags"><span class="badge">Python</span></div>
+          <a href="https://github.com/OwenGriere/MOSNA_GUI" class="tc-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="tool-card reveal" style="transition-delay:.21s">
+          <div class="tc-header">
+            <div class="tc-logo-wrap"><img src="images/logo_AI_model.png" alt="AI Model"/></div>
+            <a href="https://github.com/OwenGriere/Model_Training" class="tc-gh" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+          </div>
+          <div class="tc-name">AI Model</div>
+          <p class="tc-desc">Various AI models: training pipelines, reinforcement learning experiments, and biological data classifiers.</p>
+          <div class="tc-tags"><span class="badge badge-green">Python</span></div>
+          <a href="https://github.com/OwenGriere/Model_Training" class="tc-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="tool-card reveal" style="transition-delay:.28s">
+          <div class="tc-header">
+            <div class="tc-logo-wrap"><img src="images/Logo_MORFEE.png" alt="MORFEE Wrapper"/></div>
+            <a href="https://github.com/OwenGriere/MORFEEusing_tool" class="tc-gh" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+          </div>
+          <div class="tc-name">MORFEE Wrapper</div>
+          <p class="tc-desc">Nextflow pipeline wrapping MORFEE to analyze large VCF datasets for 5'UTR variant detection at scale.</p>
+          <div class="tc-tags"><span class="badge badge-green">Nextflow</span><span class="badge">Python</span></div>
+          <a href="https://github.com/OwenGriere/MORFEEusing_tool" class="tc-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="container">
+      <span class="label reveal">Spotlight</span>
+      <h2 class="section-title reveal">MOSNA GUI</h2>
+      <div class="spotlight-inner">
+        <div class="reveal">
+          <p class="prose">MOSNA GUI aims to make the MOSNA package more ergonomic for the detection of niches within biological tissue networks via a graphical interface. It allows modification of input parameters for both MOSNA and Tysserand to compute tissue networks from spatial transcriptomic/proteomic data and extract intrinsic statistical properties.</p>
+          <p class="prose" style="margin-top:.9rem">The interface handles the full workflow: from raw spatial coordinates to cell network construction, niche detection, assortativity computation, and cross-patient structural comparison.</p>
+          <a href="https://github.com/OwenGriere/MOSNA_GUI" class="btn btn-outline" style="margin-top:1.4rem;display:inline-flex" target="_blank" rel="noopener">Open on GitHub →</a>
+        </div>
+        <div class="spotlight-logo reveal"><img src="images/logo_Mosna_GUI.png" alt="MOSNA GUI"/></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div><div class="footer-name">Owen GRIERE</div><p class="footer-desc">Ingénieur BioInformaticien — Toulouse, FR</p></div>
+    <nav class="footer-links">
+      <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="tools.html">Tools</a><a href="publications.html">Publications</a><a href="https://github.com/OwenGriere" target="_blank" rel="noopener">GitHub</a><a href="mailto:owen.griere@gmail.com">Contact</a>
+    </nav>
+  </div>
+  <div class="container footer-bottom"><p>© <span class="yr"></span> Owen GRIERE</p></div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
