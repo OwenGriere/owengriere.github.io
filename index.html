@@ -2,62 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Owen GRIERE — BioInformaticien</title>
-  <meta name="description" content="Portfolio d'Owen GRIERE, Ingénieur BioInformaticien à Toulouse."/>
+  <title>Owen Griere — Bioinformatics Engineer</title>
+  <meta name="description" content="Owen Griere, Bioinformatics Engineer based in Toulouse. Research in computational biology, tumor modeling and genomics."/>
   <link rel="icon" href="images/banners/banner.png"/>
   <link rel="stylesheet" href="css/style.css"/>
   <style>
     /* ── Hero ── */
-    .hero{position:relative;overflow:hidden;padding-block:5.5rem}
-    .hero-glow{position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.12),transparent 70%);pointer-events:none}
-    .hero-inner{display:grid;grid-template-columns:1fr 300px;gap:3.5rem;align-items:center}
-    @media(max-width:800px){.hero-inner{grid-template-columns:1fr}.hero-card{display:none}}
-    .hero-chip{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--font-mono);font-size:.73rem;color:var(--green);background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);padding:.25rem .7rem;border-radius:100px;margin-bottom:1.2rem}
-    .chip-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-    .hero-title{font-size:clamp(3rem,7vw,5.5rem);letter-spacing:-.03em;line-height:1;margin-bottom:.6rem}
-    .hero-accent{color:var(--teal)}
-    .hero-role{font-family:var(--font-mono);font-size:1rem;color:var(--muted);margin-bottom:1.2rem}
-    .mono{color:var(--teal)}
-    .hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.75;max-width:48ch;margin-bottom:2rem}
-    .loc{color:var(--text);font-style:italic}
-    .hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem}
-    .hero-logos{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
-    .hero-logos img{height:26px;opacity:.55;filter:brightness(0) invert(1);transition:opacity .2s}
-    .hero-logos img:hover{opacity:1}
+    .hero { padding-block: 6rem 5rem; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 55% 45% at 85% 35%, rgba(45,90,61,.07), transparent); pointer-events:none; }
+    [data-theme="dark"] .hero::before { background:radial-gradient(ellipse 55% 45% at 85% 35%, rgba(90,158,111,.09), transparent); }
+    .hero-inner { display:grid; grid-template-columns:1fr 330px; gap:4.5rem; align-items:center; position:relative; }
+    @media(max-width:820px){ .hero-inner{grid-template-columns:1fr} .hero-card{display:none} }
+    .hero-eyebrow { font-family:var(--font-mono); font-size:.7rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:1.4rem; }
+    .hero-title { font-size:clamp(3.2rem,7vw,5.8rem); font-weight:300; letter-spacing:-.02em; line-height:1.05; margin-bottom:.6rem; }
+    .hero-title em { font-style:italic; color:var(--accent); }
+    .hero-role { font-size:1.08rem; color:var(--muted); margin-bottom:1.5rem; font-weight:300; }
+    .hero-desc { font-size:.97rem; color:var(--muted); line-height:1.82; max-width:46ch; margin-bottom:2.2rem; font-weight:300; }
+    .hero-actions { display:flex; gap:.7rem; flex-wrap:wrap; margin-bottom:2.8rem; }
+    .hero-orgs { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+    .hero-orgs img { height:22px; opacity:.4; transition:opacity .2s; filter:grayscale(1); }
+    [data-theme="dark"] .hero-orgs img { filter:grayscale(1) brightness(3); opacity:.35; }
+    .hero-orgs img:hover { opacity:.8; }
     /* Side card */
-    .hero-card{background:var(--bg-card);border:1px solid var(--border-hi);border-radius:20px;padding:1.6rem}
-    .hc-header{display:flex;gap:.9rem;align-items:center;margin-bottom:1.3rem}
-    .hc-avatar{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--purple));display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:1.1rem;color:#0d1117;flex-shrink:0}
-    .hc-name{font-family:var(--font-d);font-weight:700;font-size:1rem}
-    .hc-title{font-size:.8rem;color:var(--muted)}
-    .hc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.2rem}
-    .hc-stat{background:var(--bg-surface);border-radius:10px;padding:.75rem .5rem;text-align:center}
-    .hc-n{display:block;font-family:var(--font-d);font-size:1.4rem;font-weight:800;color:var(--teal)}
-    .hc-l{font-size:.68rem;color:var(--muted);letter-spacing:.04em}
-    .hc-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+    .hero-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.8rem; box-shadow:var(--shadow); }
+    .hc-top { display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
+    .hc-monogram { width:52px; height:52px; border-radius:10px; border:1.5px solid var(--border-hi); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:600; font-size:1.3rem; color:var(--accent); flex-shrink:0; }
+    .hc-name { font-family:var(--font-d); font-weight:600; font-size:1.05rem; margin-bottom:.2rem; }
+    .hc-sub { font-size:.78rem; color:var(--muted); font-weight:300; }
+    .hc-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; margin-bottom:1.4rem; }
+    .hc-stat { text-align:center; padding:.9rem .4rem; background:var(--bg-card-alt); border-radius:8px; }
+    .hc-n { display:block; font-family:var(--font-d); font-size:1.65rem; font-weight:600; color:var(--accent); line-height:1; }
+    .hc-l { font-size:.63rem; color:var(--muted); letter-spacing:.04em; margin-top:.25rem; display:block; }
+    .hc-skills { display:flex; flex-wrap:wrap; gap:.38rem; margin-bottom:1.4rem; }
+    .hc-loc { font-size:.78rem; color:var(--muted); font-weight:300; display:flex; align-items:center; gap:.4rem; margin-bottom:1.2rem; }
+    .hc-loc::before { content:'◎'; font-size:.65rem; color:var(--accent); }
     /* Highlights */
-    .hl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;margin-top:2rem}
-    .hl-card{display:flex;flex-direction:column;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s}
-    .hl-card:hover{border-color:var(--border-hi);transform:translateY(-4px);box-shadow:0 12px 40px rgba(56,189,248,.08);text-decoration:none}
-    .hl-img{height:155px;overflow:hidden;background:var(--bg-surface);display:flex;align-items:center;justify-content:center}
-    .hl-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
-    .hl-card:hover .hl-img img{transform:scale(1.05)}
-    .hl-body{padding:1.2rem;flex:1;display:flex;flex-direction:column}
-    .hl-title{font-size:1.05rem;color:var(--text);margin-bottom:.4rem}
-    .hl-excerpt{font-size:.88rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:.9rem}
-    .hl-cta{font-family:var(--font-mono);font-size:.78rem;color:var(--teal)}
-    /* Quick bio */
-    .qb-inner{display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:start}
-    @media(max-width:780px){.qb-inner{grid-template-columns:1fr}}
-    .qb-stack{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
-    .stack-title{font-family:var(--font-mono);font-size:.72rem;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.2rem}
-    .stack-row{margin-bottom:.9rem}
-    .stack-name{font-size:.85rem;color:var(--text);margin-bottom:.3rem}
-    .stack-bar-bg{height:4px;background:var(--border);border-radius:100px;overflow:hidden}
-    .stack-bar{height:100%;border-radius:100px}
-    .qb-btns{margin-top:1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
-    .section-title{font-size:clamp(1.6rem,3.5vw,2.5rem);margin-bottom:1.2rem}
+    .hl-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(225px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:2.5rem; }
+    .hl-card { background:var(--bg-card); text-decoration:none; padding:1.7rem; display:flex; flex-direction:column; gap:.55rem; transition:background .18s; }
+    .hl-card:hover { background:var(--bg-card-alt); text-decoration:none; }
+    .hl-img { width:44px; height:44px; border-radius:7px; overflow:hidden; background:var(--bg-card-alt); border:1px solid var(--border); flex-shrink:0; }
+    .hl-img img { width:100%; height:100%; object-fit:cover; }
+    .hl-title { font-family:var(--font-d); font-size:1.1rem; font-weight:600; color:var(--text); }
+    .hl-excerpt { font-size:.83rem; color:var(--muted); line-height:1.6; font-weight:300; flex:1; }
+    .hl-arrow { font-family:var(--font-mono); font-size:.72rem; color:var(--accent); }
+    /* About */
+    .qb-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+    @media(max-width:720px){ .qb-inner{grid-template-columns:1fr} }
+    .qb-stack { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.7rem; box-shadow:var(--shadow); }
+    .stack-title { font-family:var(--font-mono); font-size:.67rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:1.2rem; display:flex; align-items:center; gap:.6rem; }
+    .stack-title::after { content:''; flex:1; height:1px; background:var(--border); }
+    .stack-row { margin-bottom:1rem; }
+    .stack-name { font-size:.85rem; color:var(--text-2); margin-bottom:.38rem; display:flex; justify-content:space-between; }
+    .stack-name span { font-family:var(--font-mono); font-size:.67rem; color:var(--muted); }
+    .stack-bar-bg { height:3px; background:var(--border); border-radius:100px; overflow:hidden; }
+    .stack-bar { height:100%; border-radius:100px; background:var(--accent); }
+    .qb-btns { margin-top:2rem; display:flex; gap:.7rem; flex-wrap:wrap; }
   </style>
 </head>
 <body>
@@ -65,46 +64,43 @@
 <!-- NAV -->
 <header class="site-nav">
   <div class="nav-inner container">
-    <a href="index.html" class="nav-logo">Owen<span>.</span>GRIERE</a>
+    <a href="index.html" class="nav-home active">Home</a>
     <nav class="nav-links">
-      <a href="index.html">Home</a>
       <a href="profile.html">Profile</a>
       <a href="projects.html">Projects</a>
       <a href="tools.html">Tools</a>
       <a href="publications.html">Publications</a>
     </nav>
-    <div class="nav-socials">
-      <a href="https://github.com/OwenGriere" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/owen-griere-11189b1b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="mailto:owen.griere@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
+    <div class="nav-right">
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <div class="nav-socials">
+        <a href="https://github.com/OwenGriere" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
+        <a href="https://www.linkedin.com/in/owen-griere-11189b1b0/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="mailto:owen.griere@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+      </div>
     </div>
     <button class="nav-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <main>
-
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-glow"></div>
     <div class="container hero-inner">
       <div>
-        <div class="hero-chip fu"><span class="chip-dot"></span>Available for opportunities</div>
-        <h1 class="hero-title fu d1">Owen<br/><span class="hero-accent">GRIERE</span></h1>
-        <p class="hero-role fu d2"><span class="mono">~/</span> Ingénieur BioInformaticien</p>
-        <p class="hero-desc fu d3">Computational biologist specializing in tumor microenvironment modeling, spatial omics, and multi-agent simulations for cancer research. Based in <span class="loc">Toulouse, France</span>.</p>
+        <p class="hero-eyebrow fu">Bioinformatics Engineer &nbsp;·&nbsp; Toulouse, France</p>
+        <h1 class="hero-title fu d1">Owen<br/><em>Griere</em></h1>
+        <p class="hero-role fu d2">Computational biology &amp; biomedical research</p>
+        <p class="hero-desc fu d3">Bridging biology and computation — modeling tumor ecosystems, analyzing spatial genomic data, and building tools that make complex science more accessible.</p>
         <div class="hero-actions fu d4">
           <a href="profile.html" class="btn btn-primary">View Profile</a>
-          <a href="projects.html" class="btn btn-outline">Explore Projects</a>
-          <a href="mailto:owen.griere@gmail.com" class="btn btn-ghost">Contact</a>
+          <a href="projects.html" class="btn btn-outline">Research Projects</a>
+          <a href="mailto:owen.griere@gmail.com" class="btn btn-ghost">Get in touch</a>
         </div>
-        <div class="hero-logos fu d5">
+        <div class="hero-orgs fu d5">
           <img src="images/banners/crct_logo_new_detoure.png" alt="CRCT"/>
           <img src="images/banners/logo_inserm.png" alt="Inserm"/>
           <img src="images/banners/logo_CNRS.jpg" alt="CNRS"/>
@@ -112,24 +108,25 @@
         </div>
       </div>
       <div class="hero-card fu d2">
-        <div class="hc-header">
-          <div class="hc-avatar">OG</div>
-          <div><div class="hc-name">Owen GRIERE</div><div class="hc-title">BioInformaticien</div></div>
+        <div class="hc-top">
+          <div class="hc-monogram">OG</div>
+          <div><div class="hc-name">Owen Griere</div><div class="hc-sub">Bioinformatics Engineer</div></div>
         </div>
+        <div class="hc-loc">Toulouse, France</div>
         <div class="hc-stats">
           <div class="hc-stat"><span class="hc-n">2</span><span class="hc-l">Internships</span></div>
-          <div class="hc-stat"><span class="hc-n">5</span><span class="hc-l">Tools Built</span></div>
+          <div class="hc-stat"><span class="hc-n">5</span><span class="hc-l">Tools</span></div>
           <div class="hc-stat"><span class="hc-n">1</span><span class="hc-l">Publication</span></div>
         </div>
-        <div class="hc-tags">
+        <div class="hc-skills">
           <span class="badge">Python</span>
           <span class="badge badge-green">Nextflow</span>
-          <span class="badge badge-purple">PhysiCell</span>
+          <span class="badge badge-warm">Spatial omics</span>
           <span class="badge">R</span>
-          <span class="badge badge-green">Spatial omics</span>
-          <span class="badge badge-purple">ML / AI</span>
+          <span class="badge badge-green">Modeling</span>
+          <span class="badge badge-warm">Machine learning</span>
         </div>
-        <a href="docs/CV_academique.pdf" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem" target="_blank" rel="noopener">📄 Download CV</a>
+        <a href="docs/CV_academique.pdf" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank" rel="noopener">Download CV</a>
       </div>
     </div>
   </section>
@@ -137,26 +134,34 @@
   <div class="divider"></div>
 
   <!-- HIGHLIGHTS -->
-  <section>
+  <section style="padding-block:4rem">
     <div class="container">
       <span class="label">Explore</span>
-      <h2 class="section-title">What you'll find here</h2>
+      <h2 class="section-title">Areas of work</h2>
       <div class="hl-grid">
-        <a href="profile.html" class="hl-card reveal">
+        <a href="profile.html" class="hl-card">
           <div class="hl-img"><img src="images/logo_profile.png" alt="Profile"/></div>
-          <div class="hl-body"><h3 class="hl-title">Profile</h3><p class="hl-excerpt">Résumé de mon parcours scientifique et professionnel.</p><span class="hl-cta">Voir →</span></div>
+          <h3 class="hl-title">Profile</h3>
+          <p class="hl-excerpt">Academic background, skills, and professional experience.</p>
+          <span class="hl-arrow">View &rarr;</span>
         </a>
-        <a href="projects.html" class="hl-card reveal" style="transition-delay:.08s">
+        <a href="projects.html" class="hl-card">
           <div class="hl-img"><img src="images/logo_projects.jpg" alt="Projects"/></div>
-          <div class="hl-body"><h3 class="hl-title">Projects</h3><p class="hl-excerpt">Modélisation, bioinformatique, analyses spatiales, IA.</p><span class="hl-cta">Explorer →</span></div>
+          <h3 class="hl-title">Projects</h3>
+          <p class="hl-excerpt">Research work in cancer modeling and genomic analysis.</p>
+          <span class="hl-arrow">Explore &rarr;</span>
         </a>
-        <a href="tools.html" class="hl-card reveal" style="transition-delay:.16s">
+        <a href="tools.html" class="hl-card">
           <div class="hl-img"><img src="images/logo_tools.png" alt="Tools"/></div>
-          <div class="hl-body"><h3 class="hl-title">Tools</h3><p class="hl-excerpt">Outils bio-informatiques et pipelines développés.</p><span class="hl-cta">Voir →</span></div>
+          <h3 class="hl-title">Tools</h3>
+          <p class="hl-excerpt">Open-source software and analysis pipelines.</p>
+          <span class="hl-arrow">View &rarr;</span>
         </a>
-        <a href="publications.html" class="hl-card reveal" style="transition-delay:.24s">
+        <a href="publications.html" class="hl-card">
           <div class="hl-img"><img src="images/logo_publications.jpg" alt="Publications"/></div>
-          <div class="hl-body"><h3 class="hl-title">Publications</h3><p class="hl-excerpt">Articles, rapports, communications scientifiques.</p><span class="hl-cta">Lire →</span></div>
+          <h3 class="hl-title">Publications</h3>
+          <p class="hl-excerpt">Scientific articles and communications.</p>
+          <span class="hl-arrow">Read &rarr;</span>
         </a>
       </div>
     </div>
@@ -164,44 +169,35 @@
 
   <div class="divider"></div>
 
-  <!-- QUICK BIO -->
+  <!-- ABOUT -->
   <section>
     <div class="container qb-inner">
       <div>
-        <span class="label">About</span>
-        <h2 class="section-title">Computational biology<br/>meets data science</h2>
-        <p class="prose">
-          <strong>Engineer in Bioinformatics</strong> with hands-on experience in tumor microenvironment
-          modeling at the <strong>CRCT (Inserm, Toulouse)</strong> and genomics research at the
-          <strong>Institut du Thorax (Inserm, Nantes)</strong>.
-        </p>
-        <p class="prose" style="margin-top:.9rem">
-          My work spans multi-agent modeling with PhysiCell, spatial network analysis (Tysserand, MOSNA),
-          machine learning pipelines, and variant annotation workflows with Nextflow — always bridging
-          computational rigor with biological insight.
-        </p>
-        <div class="qb-btns">
-          <a href="projects.html" class="btn btn-outline">See projects →</a>
-          <a href="tools.html" class="btn btn-ghost">View tools →</a>
+        <span class="label reveal">Background</span>
+        <h2 class="section-title reveal">Research at the intersection<br/>of biology and computation</h2>
+        <p class="prose reveal">I completed two research internships — one at the <strong>Toulouse Cancer Research Center (CRCT, Inserm)</strong> focused on pancreatic cancer microenvironment modeling, and one at the <strong>Institut du Thorax (Inserm, Nantes)</strong> working on cardiovascular genomics.</p>
+        <p class="prose reveal" style="margin-top:.9rem">My work encompasses tumor microenvironment simulation, spatial tissue analysis, large-scale variant annotation, and machine learning — always grounded in translational research goals.</p>
+        <div class="qb-btns reveal">
+          <a href="projects.html" class="btn btn-outline">Research projects</a>
+          <a href="tools.html" class="btn btn-ghost">Open-source tools</a>
         </div>
       </div>
       <div class="qb-stack reveal">
-        <div class="stack-title">Tech Stack</div>
-        <div class="stack-row"><div class="stack-name">Python</div><div class="stack-bar-bg"><div class="stack-bar" style="width:100%;background:var(--teal)"></div></div></div>
-        <div class="stack-row"><div class="stack-name">Nextflow</div><div class="stack-bar-bg"><div class="stack-bar" style="width:60%;background:var(--green)"></div></div></div>
-        <div class="stack-row"><div class="stack-name">C++ (PhysiCell)</div><div class="stack-bar-bg"><div class="stack-bar" style="width:60%;background:var(--teal)"></div></div></div>
-        <div class="stack-row"><div class="stack-name">R</div><div class="stack-bar-bg"><div class="stack-bar" style="width:40%;background:var(--purple)"></div></div></div>
-        <div class="stack-row"><div class="stack-name">Java / C</div><div class="stack-bar-bg"><div class="stack-bar" style="width:20%;background:var(--muted)"></div></div></div>
+        <div class="stack-title">Skills</div>
+        <div class="stack-row"><div class="stack-name">Python <span>Advanced</span></div><div class="stack-bar-bg"><div class="stack-bar" style="width:100%"></div></div></div>
+        <div class="stack-row"><div class="stack-name">Nextflow <span>Intermediate</span></div><div class="stack-bar-bg"><div class="stack-bar" style="width:60%"></div></div></div>
+        <div class="stack-row"><div class="stack-name">C++ / PhysiCell <span>Intermediate</span></div><div class="stack-bar-bg"><div class="stack-bar" style="width:60%"></div></div></div>
+        <div class="stack-row"><div class="stack-name">R <span>Basic</span></div><div class="stack-bar-bg"><div class="stack-bar" style="width:40%"></div></div></div>
+        <div class="stack-row"><div class="stack-name">Java / C <span>Notions</span></div><div class="stack-bar-bg"><div class="stack-bar" style="width:20%"></div></div></div>
       </div>
     </div>
   </section>
-
 </main>
 
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div><div class="footer-name">Owen GRIERE</div><p class="footer-desc">Ingénieur BioInformaticien — Toulouse, FR</p></div>
+    <div><div class="footer-name">Owen Griere</div><p class="footer-desc">Bioinformatics Engineer, Toulouse.</p></div>
     <nav class="footer-links">
       <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a>
       <a href="tools.html">Tools</a><a href="publications.html">Publications</a>
@@ -209,7 +205,7 @@
       <a href="mailto:owen.griere@gmail.com">Contact</a>
     </nav>
   </div>
-  <div class="container footer-bottom"><p>© <span class="yr"></span> Owen GRIERE</p></div>
+  <div class="container footer-bottom"><p>&copy; <span class="yr"></span> Owen Griere</p></div>
 </footer>
 
 <script src="js/main.js"></script>
