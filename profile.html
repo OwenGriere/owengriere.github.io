@@ -5,38 +5,128 @@
   <title>Owen Griere — Profile</title>
   <link rel="icon" href="images/banners/banner.png"/>
   <link rel="stylesheet" href="css/style.css"/>
-<style>
-  .cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
-  @media(max-width:640px){.cv-grid{grid-template-columns:1fr}}
-  .cv-img{border-radius:10px;border:1px solid var(--border);box-shadow:var(--shadow-lg)}
-  .skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2rem}
-  @media(max-width:700px){.skills-layout{grid-template-columns:1fr}}
-  .skill-group{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;box-shadow:var(--shadow)}
-  .sg-title{font-family:var(--font-mono);font-size:.66rem;font-weight:500;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem}
-  .sg-title::after{content:'';flex:1;height:1px;background:var(--border)}
-  .skill-row{display:grid;grid-template-columns:120px 1fr;gap:1rem;align-items:center;margin-bottom:.75rem}
-  .sk-name{font-size:.87rem;color:var(--text-2);font-weight:400}
-  .sk-bar-bg{height:3px;background:var(--border);border-radius:100px;overflow:hidden}
-  .sk-bar{height:100%;border-radius:100px;background:var(--accent)}
-  .sk-note{font-size:.75rem;color:var(--muted);margin-top:.15rem;font-weight:300}
-  .domain-chips{display:flex;flex-wrap:wrap;gap:.4rem}
-</style>
+  <script>(function(){const s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');})()</script>
+  <style>
+    /* ── Skills section (kept from original) ── */
+    .skills-layout { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; margin-top:2rem; }
+    @media(max-width:700px){ .skills-layout { grid-template-columns:1fr; } }
+    .skill-group { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.6rem; box-shadow:var(--shadow); }
+    .sg-title { font-family:var(--font-mono); font-size:.66rem; font-weight:500; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:1.1rem; display:flex; align-items:center; gap:.6rem; }
+    .sg-title::after { content:''; flex:1; height:1px; background:var(--border); }
+    .skill-row { display:grid; grid-template-columns:120px 1fr; gap:1rem; align-items:center; margin-bottom:.75rem; }
+    .sk-name { font-size:.87rem; color:var(--text-2); font-weight:400; }
+    .sk-bar-bg { height:3px; background:var(--border); border-radius:100px; overflow:hidden; }
+    .sk-bar { height:100%; border-radius:100px; background:var(--accent); }
+    .sk-note { font-size:.75rem; color:var(--muted); margin-top:.15rem; font-weight:300; }
+    .domain-chips { display:flex; flex-wrap:wrap; gap:.4rem; }
+
+    /* ── CV shared styles ── */
+    .cv-block {
+      background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+      overflow:hidden; box-shadow:var(--shadow);
+    }
+    .cv-block-header {
+      padding:1.4rem 2rem; border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+    }
+    .cv-block-title { font-family:var(--font-d); font-size:1.15rem; font-weight:500; font-style:italic; }
+    .cv-block-badge { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:.25rem .65rem; }
+    .cv-body { padding:2rem; }
+
+    /* ── CV row layout ── */
+    .cv-row {
+      display:grid; grid-template-columns:120px 1fr; gap:1.5rem;
+      padding-block:1.8rem; border-bottom:1px solid var(--border);
+    }
+    .cv-row:last-child { border-bottom:none; padding-bottom:0; }
+    @media(max-width:640px){ .cv-row { grid-template-columns:1fr; gap:.5rem; } }
+
+    .cv-section-label {
+      font-family:var(--font-mono); font-size:.65rem; color:var(--muted);
+      letter-spacing:.1em; text-transform:uppercase; padding-top:.25rem; line-height:1.5;
+    }
+
+    /* ── CV entry ── */
+    .cv-entry { margin-bottom:1.8rem; }
+    .cv-entry:last-child { margin-bottom:0; }
+    .cv-entry-title {
+      font-family:var(--font-b); font-size:.88rem; font-weight:600;
+      color:var(--text); letter-spacing:.01em; text-transform:uppercase;
+      margin-bottom:.2rem;
+    }
+    .cv-entry-sub {
+      font-family:var(--font-mono); font-size:.72rem; color:var(--accent);
+      margin-bottom:.65rem; letter-spacing:.02em;
+    }
+    .cv-entry-body {
+      font-size:.84rem; color:var(--muted); line-height:1.78; font-weight:300;
+    }
+    .cv-entry-body em { font-style:italic; color:var(--text-2); }
+    .cv-entry-body strong { font-weight:500; color:var(--text-2); }
+    .cv-entry-body p { margin-bottom:.6rem; }
+    .cv-entry-body p:last-child { margin-bottom:0; }
+    .cv-entry-body ul { padding-left:1.1rem; margin-top:.35rem; }
+    .cv-entry-body ul li { margin-bottom:.35rem; }
+
+    /* ── Info header for academic CV ── */
+    .cv-info-header {
+      background:var(--bg-card-alt); border-bottom:1px solid var(--border);
+      padding:1.4rem 2rem; display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:1rem;
+    }
+    .cv-info-name { font-family:var(--font-d); font-size:1.4rem; font-weight:400; }
+    .cv-info-name em { font-style:italic; color:var(--accent); }
+    .cv-info-details { font-family:var(--font-mono); font-size:.72rem; color:var(--muted); text-align:right; line-height:1.8; }
+    .cv-info-details a { color:var(--muted); }
+    .cv-info-details a:hover { color:var(--accent); }
+    @media(max-width:600px){ .cv-info-details { text-align:left; } }
+
+    /* ── Coming soon for pro CV ── */
+    .cv-coming-soon {
+      padding:4rem 2rem; text-align:center;
+      border-top:1px solid var(--border);
+    }
+    .cs-icon {
+      width:52px; height:52px; border-radius:14px; background:var(--bg-card-alt);
+      border:1px dashed var(--border-hi); display:inline-flex; align-items:center;
+      justify-content:center; font-size:1.3rem; margin-bottom:1.2rem;
+    }
+    .cs-title { font-family:var(--font-d); font-size:1.1rem; font-weight:400; font-style:italic; margin-bottom:.4rem; color:var(--muted); }
+    .cs-sub { font-size:.82rem; color:var(--muted); font-family:var(--font-mono); letter-spacing:.04em; }
+
+    /* ── References ── */
+    .ref-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.75rem; }
+    .ref-card {
+      background:var(--bg-card-alt); border:1px solid var(--border); border-radius:10px;
+      padding:1rem 1.1rem;
+    }
+    .ref-name { font-size:.85rem; font-weight:500; color:var(--text); margin-bottom:.15rem; }
+    .ref-role { font-size:.75rem; color:var(--muted); font-weight:300; margin-bottom:.4rem; line-height:1.4; }
+    .ref-email { font-family:var(--font-mono); font-size:.7rem; color:var(--accent); }
+    .ref-email a { color:inherit; }
+    .ref-email a:hover { text-decoration:underline; }
+  </style>
 </head>
 <body>
+
+<!-- NAV -->
 <header class="site-nav">
   <div class="nav-inner container">
     <a href="index.html" class="nav-home">Home</a>
     <nav class="nav-links">
-      <a href="profile.html">Profile</a>
+      <a href="profile.html" class="active">Profile</a>
       <a href="projects.html">Projects</a>
       <a href="tools.html">Tools</a>
       <a href="publications.html">Publications</a>
-      <a href="labbook.html" class="nav-labbook" id="nav-labbook-link"><svg class="lock-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Lab Book</a>
+      <a href="labbook.html" class="nav-labbook" id="nav-labbook-link">
+        <svg class="lock-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Lab Book
+      </a>
     </nav>
     <div class="nav-right">
       <button class="theme-toggle" aria-label="Toggle theme">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-sun"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
       <div class="nav-socials">
         <a href="https://github.com/OwenGriere" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
@@ -47,28 +137,233 @@
     <button class="nav-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
+
 <main>
+  <!-- PAGE HERO -->
   <section class="page-hero">
     <div class="container">
       <span class="label fu">Profile</span>
       <h1 class="page-title fu d1">Background &amp; Skills</h1>
       <p class="page-sub fu d2">Academic path, technical expertise, and professional experience.</p>
-      <div style="margin-top:1.5rem" class="fu d3">
+      <div style="margin-top:1.5rem; display:flex; gap:.7rem; flex-wrap:wrap;" class="fu d3">
         <a href="docs/CV_academique.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download CV (PDF)</a>
       </div>
     </div>
   </section>
+
   <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       PROFESSIONAL CV  (empty for now)
+  ══════════════════════════════════════════ -->
   <section>
     <div class="container">
       <span class="label reveal">Curriculum Vitae</span>
-      <div class="cv-grid reveal">
-        <img src="images/CV_academique_1.jpg" alt="CV — page 1" class="cv-img"/>
-        <img src="images/CV_academique_2.jpg" alt="CV — page 2" class="cv-img"/>
+      <h2 class="section-title reveal">Professional CV</h2>
+      <div class="cv-block reveal">
+        <div class="cv-block-header">
+          <span class="cv-block-title">Owen Griere</span>
+          <span class="cv-block-badge">Professional</span>
+        </div>
+        <div class="cv-coming-soon">
+          <div class="cs-icon">◌</div>
+          <div class="cs-title">Coming soon</div>
+          <p class="cs-sub">Professional CV will be added here</p>
+        </div>
       </div>
     </div>
   </section>
+
   <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       ACADEMIC CV
+  ══════════════════════════════════════════ -->
+  <section>
+    <div class="container">
+      <span class="label reveal">Curriculum Vitae</span>
+      <h2 class="section-title reveal">Academic CV</h2>
+
+      <div class="cv-block reveal">
+
+        <!-- Identity header -->
+        <div class="cv-info-header">
+          <div class="cv-info-name">Owen <em>Griere</em> &nbsp;·&nbsp; born 06/03/1999</div>
+          <div class="cv-info-details">
+            74 chemins des clotasses, 31400, Toulouse<br/>
+            +33651477290<br/>
+            <a href="https://github.com/OwenGriere" target="_blank" rel="noopener">github.com/OwenGriere</a><br/>
+            <a href="mailto:owen.griere@gmail.com">owen.griere@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="cv-body">
+
+          <!-- ── EDUCATION ── -->
+          <div class="cv-row">
+            <div class="cv-section-label">Education</div>
+            <div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">Master degree Erasmus programme — Genetics and Bioinformatics</div>
+                <div class="cv-entry-sub">09/2024 – 02/2025 &nbsp;·&nbsp; Università degli studi di Milano</div>
+                <div class="cv-entry-body">
+                  <p>I was lucky enough to attend, as part of an Erasmus program, courses in <em>Neurogenomics and brain disease modelling, Functional biology, Developmental biology, Genetics, Cellular and molecular biology</em> and <em>Bioinformatics</em>.</p>
+                  <p>These courses allowed me to acquire greater knowledge in molecular and cellular biology, which is an essential framework for a bioinformatician.</p>
+                </div>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">Engineering School — Bioinformatics</div>
+                <div class="cv-entry-sub">Sept. 2021 – Jun. 2025 &nbsp;·&nbsp; EIDD, University of Paris-Cité</div>
+                <div class="cv-entry-body">
+                  <p>My training at EIDD Paris gave me the biological framework necessary for any bioinformatician through courses such as <em>Molecular and cellular biology, Biochemistry</em> and <em>Biophysics</em>. Computer training includes <em>Biostatistics</em>, <em>Machine learning</em> with Python, and <em>Algorithmic</em> with C and Java.</p>
+                  <ul>
+                    <li>Group project: C++ algorithm to list biochemical interactions during protein folding — pipeline takes a PDB file as input and outputs a table of probable biochemical interactions and their type.</li>
+                    <li>Individual project: machine learning (dimensionality reduction and clustering) on brain cancer MRI images from Kaggle to identify cancer types by morphology.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">Engineering School — Mechanics and Energy</div>
+                <div class="cv-entry-sub">09/2019 – 06/2020 &nbsp;·&nbsp; INSA Hauts-de-France</div>
+                <div class="cv-entry-body">
+                  <p>Studied <em>Mechanics, Fluid Mechanics</em> and <em>Design</em>, acquiring bases in solid mechanics and the mathematical equations that govern them. Attended introductions to <em>General Thermodynamics</em> and <em>Energetics</em>.</p>
+                </div>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">CPGE — MPSI / PSI &nbsp;<span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:.82rem;color:var(--muted)">(Maths Physics Industrial Science)</span></div>
+                <div class="cv-entry-sub">09/2017 – 06/2019 &nbsp;·&nbsp; High School of Saint-Germain-en-Laye</div>
+                <div class="cv-entry-body">
+                  <p>Preparatory class MPSI then PSI — solid foundation in scientific reasoning through mathematics, physics, solid mechanics, thermal diffusion, particle diffusion, thermodynamics, thermochemistry and linear algebra.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── RESEARCH EXPERIENCE ── -->
+          <div class="cv-row">
+            <div class="cv-section-label">Research Experience</div>
+            <div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">Bioinformatics Intern — CRCT, Inserm, Toulouse</div>
+                <div class="cv-entry-sub">02/2025 – 08/2025</div>
+                <div class="cv-entry-body">
+                  <p>Objective: integrate PDAC spatial data into a PhysiCell model. Modelled a first version of a tumor microenvironment model (TME) using PhysiCell (agent-based), simulating biological phenomena such as EMT, hypoxia and immunosuppression.</p>
+                  <p>Analysed immunofluorescence data and Imaging Mass Cytometry via Tysserand and MOSNA — two Python packages specialized in the generation of spatial networks from biological tissue data and their statistical analysis.</p>
+                </div>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">Bioinformatics Intern — Institut du Thorax, Inserm, Nantes</div>
+                <div class="cv-entry-sub">05/2024 – 08/2024</div>
+                <div class="cv-entry-body">
+                  <p>Studied genetic variants in the 5'UTR region as a cause of familial dyslipidaemia through mutation analysis of the LDLR, APOB, APOE, PCSK9 genes — responsible for cholesterol regulation and LDL. Annotated variants with the MORFEE pipeline (R, David-Alexandre Trégouët, Inserm Bordeaux).</p>
+                  <p>Set up MORFEE on the BiRD computing cluster in Nantes; developed a Python and Nextflow pipeline encapsulating MORFEE, enabling analysis of VCF/BCF files of any size for any gene in the human genome. Parallelized on 32 threads, treating mutations from more than 200,000 UKBioBank patients across 20,000+ genes.</p>
+                  <p>Conducted statistical tests to verify result significance; generated Manhattan and Forest plots explaining the potential impact of isolated variants on LDL-C rates at birth.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── COMMUNICATIONS ── -->
+          <div class="cv-row">
+            <div class="cv-section-label">Communications</div>
+            <div>
+              <div class="cv-entry">
+                <div class="cv-entry-body">
+                  <p>O. Griere, M. Bernard and V. Pancaldi. <em>Using PhysiCell modelling to simulate the PDAC tumor microenvironment response to therapies based on patients' spatial omics data.</em></p>
+                  <p><strong>Poster presentation</strong> at JOBIM (French bioinformatics conference) 2025, Bordeaux 8–11th July 2025.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── OTHER WORK EXPERIENCE ── -->
+          <div class="cv-row">
+            <div class="cv-section-label">Other Work</div>
+            <div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">CDI Vendeur Polyvalent — Les Saisonniers, Paris</div>
+                <div class="cv-entry-sub">02/2023 – 08/2023 &nbsp;·&nbsp; Part-time</div>
+                <div class="cv-entry-body">
+                  <p>Restocking the store, checkout, customer reception.</p>
+                </div>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-title">Educational Territory Manager Intern — Égalité des Chances, Villiers-le-Bel</div>
+                <div class="cv-entry-sub">06/2020 – 08/2020</div>
+                <div class="cv-entry-body">
+                  <p>Creation of partnerships with the municipal administration and development of free workshops for young people in the priority neighbourhoods of Villiers-le-Bel.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── SKILLS ── -->
+          <div class="cv-row">
+            <div class="cv-section-label">Skills</div>
+            <div>
+              <div class="cv-entry">
+                <div class="cv-entry-body">
+                  <div class="domain-chips">
+                    <span class="badge">Python</span>
+                    <span class="badge badge-green">Machine Learning</span>
+                    <span class="badge">Linux / Bash</span>
+                    <span class="badge">Biostatistics</span>
+                    <span class="badge">Mechanics</span>
+                    <span class="badge badge-green">Nextflow</span>
+                    <span class="badge badge-warm">PhysiCell / C++</span>
+                    <span class="badge">R</span>
+                    <span class="badge">Spatial omics</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── REFERENCES ── -->
+          <div class="cv-row">
+            <div class="cv-section-label">References</div>
+            <div>
+              <div class="ref-grid">
+                <div class="ref-card">
+                  <div class="ref-name">Vera Pancaldi</div>
+                  <div class="ref-role">Permanent Researcher, CRCT, Inserm</div>
+                  <div class="ref-email"><a href="mailto:vera.pancaldi@inserm.fr">vera.pancaldi@inserm.fr</a></div>
+                </div>
+                <div class="ref-card">
+                  <div class="ref-name">Antoine Rimbert</div>
+                  <div class="ref-role">Permanent Researcher, Institut du Thorax, Inserm</div>
+                  <div class="ref-email"><a href="mailto:antoine.rimbert@univ-nantes.fr">antoine.rimbert@univ-nantes.fr</a></div>
+                </div>
+                <div class="ref-card">
+                  <div class="ref-name">Anne Vanet</div>
+                  <div class="ref-role">Principal Professor, EIDD, University Paris-Cité</div>
+                  <div class="ref-email"><a href="mailto:anne.vanet@u-paris.fr">anne.vanet@u-paris.fr</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /cv-body -->
+      </div><!-- /cv-block -->
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       TECHNICAL SKILLS
+  ══════════════════════════════════════════ -->
   <section>
     <div class="container">
       <span class="label reveal">Expertise</span>
@@ -78,37 +373,60 @@
           <div class="sg-title">Programming</div>
           <div class="skill-row"><span class="sk-name">Python</span><div><div class="sk-bar-bg"><div class="sk-bar" style="width:100%"></div></div><div class="sk-note">Analysis, modeling, pipelines, interfaces</div></div></div>
           <div class="skill-row"><span class="sk-name">Nextflow</span><div><div class="sk-bar-bg"><div class="sk-bar" style="width:60%"></div></div><div class="sk-note">Workflow automation, large-scale data</div></div></div>
-          <div class="skill-row"><span class="sk-name">C++</span><div><div class="sk-bar-bg"><div class="sk-bar" style="width:20%"></div></div><div class="sk-note">simulation</div></div></div>
+          <div class="skill-row"><span class="sk-name">C++</span><div><div class="sk-bar-bg"><div class="sk-bar" style="width:20%"></div></div><div class="sk-note">PhysiCell simulations</div></div></div>
           <div class="skill-row"><span class="sk-name">R</span><div><div class="sk-bar-bg"><div class="sk-bar" style="width:40%"></div></div><div class="sk-note">Statistical analysis</div></div></div>
           <div class="skill-row"><span class="sk-name">Java / C</span><div><div class="sk-bar-bg"><div class="sk-bar" style="width:20%"></div></div><div class="sk-note">Foundational knowledge</div></div></div>
         </div>
         <div class="skill-group reveal">
           <div class="sg-title">Research domains</div>
           <div class="domain-chips" style="margin-bottom:1.2rem">
-            <span class="badge">Spatial omics</span><span class="badge">mIF / IMC imaging</span><span class="badge">Variant annotation</span><span class="badge">5'UTR analysis</span><span class="badge">Tumor microenvironment</span><span class="badge">Network biology</span><span class="badge badge-green">Multi-omics</span><span class="badge badge-warm">Machine learning</span><span class="badge badge-warm">Reinforcement learning</span><span class="badge">UK Biobank</span>
+            <span class="badge">Spatial omics</span>
+            <span class="badge">mIF / IMC imaging</span>
+            <span class="badge">Variant annotation</span>
+            <span class="badge">5'UTR analysis</span>
+            <span class="badge">Tumor microenvironment</span>
+            <span class="badge">Network biology</span>
+            <span class="badge badge-green">Multi-omics</span>
+            <span class="badge badge-warm">Machine learning</span>
+            <span class="badge badge-warm">Reinforcement learning</span>
+            <span class="badge">UK Biobank</span>
           </div>
           <div class="sg-title">Tools &amp; Frameworks</div>
           <div class="domain-chips">
-            <span class="badge">PhysiCell</span><span class="badge">Tysserand</span><span class="badge">MOSNA</span><span class="badge">ANNOVAR</span><span class="badge">MORFEE</span><span class="badge badge-green">PyTorch</span><span class="badge badge-green">scikit-learn</span><span class="badge badge-green">pandas</span><span class="badge badge-warm">Gymnasium</span>
+            <span class="badge">PhysiCell</span>
+            <span class="badge">Tysserand</span>
+            <span class="badge">MOSNA</span>
+            <span class="badge">ANNOVAR</span>
+            <span class="badge">MORFEE</span>
+            <span class="badge badge-green">PyTorch</span>
+            <span class="badge badge-green">scikit-learn</span>
+            <span class="badge badge-green">pandas</span>
+            <span class="badge badge-warm">Gymnasium</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 </main>
+
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="container footer-inner">
     <div><div class="footer-name">Owen Griere</div><p class="footer-desc">Bioinformatics Engineer, Toulouse.</p></div>
     <nav class="footer-links">
-      <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a>
-      <a href="tools.html">Tools</a><a href="publications.html">Publications</a>
-      <a href="labbook.html" class="nav-labbook" id="nav-labbook-link"><svg class="lock-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Lab Book</a>
+      <a href="index.html">Home</a>
+      <a href="profile.html">Profile</a>
+      <a href="projects.html">Projects</a>
+      <a href="tools.html">Tools</a>
+      <a href="publications.html">Publications</a>
+      <a href="labbook.html">Lab Book</a>
       <a href="https://github.com/OwenGriere" target="_blank" rel="noopener">GitHub</a>
       <a href="mailto:owen.griere@gmail.com">Contact</a>
     </nav>
   </div>
   <div class="container footer-bottom"><p>&copy; <span class="yr"></span> Owen Griere</p></div>
 </footer>
+
 <script src="js/main.js"></script>
 </body>
 </html>
