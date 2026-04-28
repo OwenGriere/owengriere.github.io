@@ -8,54 +8,65 @@
   <link rel="stylesheet" href="css/style.css"/>
   <script>(function(){const s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');})()</script>
   <style>
-    .lb-hero { padding-block:4.5rem 3.5rem; }
+    .lb-hero { padding-block:4.5rem 3rem; }
     .lb-eyebrow { font-family:var(--font-mono); font-size:.68rem; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; margin-bottom:1.2rem; }
-    .lb-title { font-size:clamp(2.4rem,5vw,4rem); font-weight:400; letter-spacing:-.02em; margin-bottom:.5rem; font-style:italic; }
-    .lb-title em { font-style:normal; color:var(--accent); }
+    .lb-hero-title { font-size:clamp(2.4rem,5vw,4rem); font-weight:400; letter-spacing:-.02em; margin-bottom:.5rem; font-style:italic; }
+    .lb-hero-title em { font-style:normal; color:var(--accent); }
     .lb-sub { color:var(--muted); font-size:.95rem; max-width:52ch; line-height:1.8; }
-    .pwd-note {
-      background:var(--accent-dim); border:1px solid rgba(45,90,61,.18); border-radius:10px;
-      padding:1rem 1.4rem; font-size:.82rem; color:var(--accent);
-      margin-bottom:2.5rem; display:flex; align-items:flex-start; gap:.8rem;
-    }
-    [data-theme="dark"] .pwd-note { border-color:rgba(90,158,111,.2); }
-    .pwd-note-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
-    /* Download password modal */
-    .dl-overlay {
-      display:none; position:fixed; inset:0; z-index:600;
-      background:rgba(0,0,0,.5); backdrop-filter:blur(5px);
-      align-items:center; justify-content:center;
-    }
-    .dl-overlay.open { display:flex; }
-    .dl-box {
-      background:var(--bg-card); border:1px solid var(--border-hi);
-      border-radius:16px; padding:2.4rem; width:min(420px,92vw);
-      box-shadow:var(--shadow-lg); animation:fadeUp .3s cubic-bezier(.22,1,.36,1) both;
-    }
-    .dl-title { font-family:var(--font-d); font-size:1.3rem; font-weight:500; font-style:italic; margin-bottom:.3rem; }
-    .dl-sub   { font-size:.83rem; color:var(--muted); margin-bottom:1.5rem; line-height:1.6; }
-    .dl-row   { display:flex; gap:.6rem; }
-    .dl-input {
-      flex:1; padding:.62rem 1rem; border:1.5px solid var(--border);
-      border-radius:var(--radius); background:var(--bg); color:var(--text);
-      font-family:var(--font-mono); font-size:.85rem; outline:none;
-      transition:border-color .2s;
-    }
-    .dl-input:focus { border-color:var(--accent); }
-    .dl-error { font-size:.78rem; color:#b94040; min-height:1.2em; margin-top:.5rem; }
-    .dl-footer { display:flex; justify-content:flex-end; margin-top:1rem; }
-    .dl-cancel { font-size:.78rem; color:var(--muted); background:none; border:none; cursor:pointer; font-family:var(--font-b); padding:.3rem .6rem; border-radius:6px; }
-    .dl-cancel:hover { color:var(--text); background:var(--bg-card-alt); }
-    .no-doc { font-family:var(--font-mono); font-size:.72rem; color:var(--muted); padding:.42rem 0; }
+
+    /* Session bar */
     .unlock-bar {
       display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
       background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
-      padding:.9rem 1.4rem; margin-bottom:2.5rem;
+      padding:.9rem 1.4rem; margin-bottom:3rem;
     }
     .unlock-status { font-family:var(--font-mono); font-size:.72rem; color:var(--accent); display:flex; align-items:center; gap:.5rem; }
     .unlock-status::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; }
     .lock-out-btn { font-family:var(--font-mono); font-size:.7rem; color:var(--muted); background:none; border:1px solid var(--border); border-radius:6px; padding:.3rem .7rem; cursor:pointer; transition:all .15s; }
     .lock-out-btn:hover { border-color:var(--border-hi); color:var(--text); }
+
+    /* Section headers */
+    .section-block { margin-bottom:4.5rem; }
+    .sec-label { font-family:var(--font-mono); font-size:.67rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem; display:inline-flex; align-items:center; gap:.6rem; }
+    .sec-label::after { content:''; display:block; width:2rem; height:1px; background:var(--border-hi); }
+    .sec-title { font-family:var(--font-d); font-size:clamp(1.4rem,3vw,2rem); font-weight:400; margin-bottom:.5rem; }
+    .sec-desc { font-size:.88rem; color:var(--muted); max-width:60ch; line-height:1.75; margin-bottom:2rem; }
+
+    /* Category divider */
+    .cat-header { display:flex; align-items:center; gap:1rem; margin-bottom:1rem; margin-top:2.5rem; font-family:var(--font-mono); font-size:.65rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    .cat-header::after { content:''; flex:1; height:1px; background:var(--border); }
+
+    /* Subsection */
+    .subsec { margin-bottom:1.5rem; }
+    .subsec-header { display:flex; align-items:center; gap:.8rem; margin-bottom:.9rem; padding-bottom:.75rem; border-bottom:1px solid var(--border); }
+    .subsec-icon { width:34px; height:34px; border-radius:8px; background:var(--accent-dim); border:1px solid rgba(45,90,61,.15); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:.7rem; color:var(--accent); flex-shrink:0; font-weight:500; }
+    [data-theme="dark"] .subsec-icon { border-color:rgba(90,158,111,.2); }
+    .subsec-name { font-family:var(--font-d); font-size:1.02rem; font-weight:500; font-style:italic; }
+    .subsec-tag { font-family:var(--font-mono); font-size:.62rem; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-left:auto; }
+
+    /* Cards */
+    .lb-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 1.8rem; margin-bottom:.65rem; display:grid; grid-template-columns:1fr auto; gap:1.2rem; align-items:start; transition:box-shadow .2s, border-color .2s; }
+    .lb-card:hover { border-color:var(--border-hi); box-shadow:var(--shadow); }
+    .lb-meta { font-family:var(--font-mono); font-size:.65rem; color:var(--muted); margin-bottom:.4rem; letter-spacing:.06em; }
+    .lb-title { font-family:var(--font-d); font-size:1.1rem; font-weight:500; margin-bottom:.45rem; color:var(--text); }
+    .lb-desc { font-size:.83rem; color:var(--muted); line-height:1.7; margin-bottom:.75rem; }
+    .lb-tags { display:flex; flex-wrap:wrap; gap:.35rem; }
+    .lb-actions { display:flex; flex-direction:column; gap:.45rem; align-items:flex-end; flex-shrink:0; padding-top:.15rem; }
+    @media(max-width:600px){ .lb-card{grid-template-columns:1fr;} .lb-actions{flex-direction:row;flex-wrap:wrap;} }
+
+    /* Buttons */
+    .btn-sm { display:inline-flex; align-items:center; gap:.4rem; padding:.4rem .95rem; border-radius:8px; font-family:var(--font-b); font-weight:500; font-size:.77rem; transition:all .2s; text-decoration:none; cursor:pointer; white-space:nowrap; border:none; }
+    .btn-sm-primary { background:var(--accent); color:#fff; }
+    .btn-sm-primary:hover { opacity:.88; transform:translateY(-1px); text-decoration:none; }
+    .btn-sm-ghost { border:1.5px solid var(--border); color:var(--muted); background:transparent; }
+    .btn-sm-ghost:hover { border-color:var(--border-hi); color:var(--text-2); text-decoration:none; }
+
+    /* Incoming */
+    .incoming { display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.68rem; color:var(--muted); border:1px dashed var(--border-hi); border-radius:7px; padding:.35rem .75rem; white-space:nowrap; letter-spacing:.03em; }
+    .incoming::before { content:'◌'; font-size:.75rem; color:var(--border-hi); }
+
+    /* Big separator */
+    .big-divider { width:100%; height:1px; background:var(--border); margin-block:4rem; }
   </style>
 </head>
 <body>
@@ -90,168 +101,198 @@
 </header>
 
 <main>
-  <!-- HERO -->
   <section class="lb-hero">
     <div class="container">
       <p class="lb-eyebrow fu">Owen Griere &nbsp;/&nbsp; Private</p>
-      <h1 class="lb-title fu d1"><em>Lab</em> Book</h1>
-      <p class="lb-sub fu d2">Research reports, internship documents, monthly diaries and coursework. Documents are password-protected — click Download and enter the passphrase.</p>
+      <h1 class="lb-hero-title fu d1"><em>Lab</em> Book</h1>
+      <p class="lb-sub fu d2">Research notes, project reports, internship documents and monthly diaries. You are authenticated for this session.</p>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <section style="padding-top:2.5rem">
+  <section style="padding-top:2.5rem; padding-bottom:5rem;">
     <div class="container">
 
-      <!-- Unlock status bar -->
+      <!-- Session bar -->
       <div class="unlock-bar reveal">
         <span class="unlock-status">Session unlocked</span>
         <button class="lock-out-btn" id="lock-out-btn">Lock &amp; exit</button>
       </div>
 
-      <!-- Info bar -->
-      <div class="lb-info-bar reveal">
-        <span><span class="dot"></span>9 entries</span>
-        <span>◎ Protected downloads</span>
-        <span>⬡ PDF &amp; source archives</span>
-      </div>
 
-      <!-- Password hint -->
-      <div class="pwd-note reveal">
-        <span class="pwd-note-icon">🔒</span>
-        <span>Each document requires the download passphrase. Contact me at <a href="mailto:owen.griere@gmail.com" style="color:inherit;font-weight:500;text-decoration:underline">owen.griere@gmail.com</a> to request access.</span>
-      </div>
+      <!-- ════════════════════════════
+           PROJECTS
+      ════════════════════════════ -->
+      <div class="section-block">
+        <span class="sec-label reveal">Research</span>
+        <h2 class="sec-title reveal">Projects</h2>
+        <p class="sec-desc reveal">Ongoing and past research projects organized by domain. Documents will be made available as they are finalized.</p>
 
-      <!-- ── INTERNSHIPS ── -->
-      <div class="lb-cat-header reveal">Internships</div>
+        <!-- Spatial Omics -->
+        <div class="cat-header reveal">Spatial Omics</div>
 
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2025</div>
-          <div class="lb-title" style="font-size:1.15rem">Stage M2 — Internship Report</div>
-          <p class="lb-desc">Master's internship report at CRCT (Inserm, Toulouse). Research on the pancreatic cancer tumor microenvironment using spatial omics and computational modeling.</p>
-          <div class="lb-tags">
-            <span class="badge badge-warm">Internship</span>
-            <span class="badge badge-green">Spatial omics</span>
-            <span class="badge">CRCT</span>
+        <div class="subsec reveal">
+          <div class="subsec-header">
+            <div class="subsec-icon">Tc</div>
+            <div class="subsec-name">Transcan</div>
+            <span class="subsec-tag">Spatial omics</span>
+          </div>
+          <div class="lb-card">
+            <div>
+              <div class="lb-meta">2025 — ongoing</div>
+              <div class="lb-title">Transcan Project</div>
+              <p class="lb-desc">Transnational cancer research initiative. Spatial transcriptomics and multi-omics integration for tumor microenvironment characterization across cohorts.</p>
+              <div class="lb-tags"><span class="badge badge-green">Spatial omics</span><span class="badge">TME</span><span class="badge">Multi-omics</span></div>
+            </div>
+            <div class="lb-actions"><span class="incoming">incoming</span></div>
           </div>
         </div>
-        <div class="lb-actions">
-          <button class="btn-sm btn-sm-primary" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Stage_M2.pdf">↓ Download PDF</button>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Stage_M2_projet.zip">◎ Source</button>
-        </div>
-      </div>
 
-      <!-- ── MONTHLY DIARIES ── -->
-      <div class="lb-cat-header reveal">Monthly Diaries</div>
-
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">February 2026</div>
-          <div class="lb-title" style="font-size:1.15rem">Monthly Diary — February 2026</div>
-          <p class="lb-desc">Research diary for February 2026. Progress notes, UMAP analyses, marker exploration, and weekly updates from the lab.</p>
-          <div class="lb-tags">
-            <span class="badge badge-green">Diary</span>
-            <span class="badge">UMAP</span>
-            <span class="badge">Single-cell</span>
+        <div class="subsec reveal">
+          <div class="subsec-header">
+            <div class="subsec-icon">IMC</div>
+            <div class="subsec-name">PDAC IMC — Toby Lawrence</div>
+            <span class="subsec-tag">Spatial omics</span>
+          </div>
+          <div class="lb-card">
+            <div>
+              <div class="lb-meta">2025 — ongoing</div>
+              <div class="lb-title">PDAC IMC Analysis</div>
+              <p class="lb-desc">Imaging Mass Cytometry analysis of pancreatic ductal adenocarcinoma samples from the Lawrence lab. High-dimensional spatial phenotyping of immune and stromal cell populations.</p>
+              <div class="lb-tags"><span class="badge badge-warm">IMC</span><span class="badge badge-green">PDAC</span><span class="badge">Spatial omics</span></div>
+            </div>
+            <div class="lb-actions"><span class="incoming">incoming</span></div>
           </div>
         </div>
-        <div class="lb-actions">
-          <button class="btn-sm btn-sm-primary" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Monthly_Diary_February.pdf">↓ Download PDF</button>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Monthly_Diary_February.zip">◎ Source</button>
-        </div>
-      </div>
 
-      <!-- ── COURSEWORK ── -->
-      <div class="lb-cat-header reveal">Coursework</div>
-
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2024</div>
-          <div class="lb-title" style="font-size:1.15rem">ACC Project</div>
-          <p class="lb-desc">Academic coursework project. Source archive available.</p>
-          <div class="lb-tags"><span class="badge">Coursework</span></div>
-        </div>
-        <div class="lb-actions">
-          <span class="no-doc">No PDF</span>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/ACC_projet.zip">◎ Source</button>
-        </div>
-      </div>
-
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2024</div>
-          <div class="lb-title" style="font-size:1.15rem">Metagenomic Project</div>
-          <p class="lb-desc">Metagenomic analysis report. Taxonomic profiling and functional annotation of microbial communities.</p>
-          <div class="lb-tags">
-            <span class="badge badge-green">Metagenomics</span>
-            <span class="badge">Coursework</span>
+        <div class="subsec reveal">
+          <div class="subsec-header">
+            <div class="subsec-icon">IF</div>
+            <div class="subsec-name">HighPlexIF</div>
+            <span class="subsec-tag">Spatial omics</span>
+          </div>
+          <div class="lb-card">
+            <div>
+              <div class="lb-meta">2025 — ongoing</div>
+              <div class="lb-title">High-Plex Immunofluorescence</div>
+              <p class="lb-desc">High-plex immunofluorescence imaging pipeline for multiplexed protein detection in tumor tissue sections. Analysis and visualization workflows.</p>
+              <div class="lb-tags"><span class="badge badge-green">Immunofluorescence</span><span class="badge">High-plex</span><span class="badge">Imaging</span></div>
+            </div>
+            <div class="lb-actions"><span class="incoming">incoming</span></div>
           </div>
         </div>
-        <div class="lb-actions">
-          <span class="no-doc">No PDF</span>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Metagenomic_report_projet.zip">◎ Source</button>
-        </div>
-      </div>
 
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2024</div>
-          <div class="lb-title" style="font-size:1.15rem">Subcellular Localization</div>
-          <p class="lb-desc">Machine learning–based prediction of subcellular protein localization using sequence features.</p>
-          <div class="lb-tags">
-            <span class="badge badge-green">ML</span>
-            <span class="badge">Coursework</span>
+        <div class="subsec reveal">
+          <div class="subsec-header">
+            <div class="subsec-icon">SN</div>
+            <div class="subsec-name">SyNetBuilder</div>
+            <span class="subsec-tag">Spatial omics</span>
+          </div>
+          <div class="lb-card">
+            <div>
+              <div class="lb-meta">2024–2025</div>
+              <div class="lb-title">SyNetBuilder</div>
+              <p class="lb-desc">Tool for building and visualizing interaction network graphs from spatial transcriptomics data. Enables cell–cell communication analysis at tissue scale.</p>
+              <div class="lb-tags"><span class="badge badge-green">Network</span><span class="badge">Spatial omics</span><span class="badge">Python</span></div>
+            </div>
+            <div class="lb-actions"><span class="incoming">incoming</span></div>
           </div>
         </div>
-        <div class="lb-actions">
-          <span class="no-doc">No PDF</span>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Subcellular_Localizaton_projet.zip">◎ Source</button>
-        </div>
-      </div>
 
-      <!-- ── PRACTICALS ── -->
-      <div class="lb-cat-header reveal">Practicals</div>
+        <!-- Modeling -->
+        <div class="cat-header reveal">Modeling</div>
 
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2024</div>
-          <div class="lb-title" style="font-size:1.15rem">TP Haddock</div>
-          <p class="lb-desc">Protein–protein docking practical using the HADDOCK platform.</p>
-          <div class="lb-tags"><span class="badge">Structural biology</span><span class="badge">Docking</span></div>
+        <div class="subsec reveal">
+          <div class="subsec-header">
+            <div class="subsec-icon">PC</div>
+            <div class="subsec-name">PDAC Modeling with PhysiCell</div>
+            <span class="subsec-tag">Agent-based modeling</span>
+          </div>
+          <div class="lb-card">
+            <div>
+              <div class="lb-meta">2024–2025</div>
+              <div class="lb-title">PDAC Tumor Microenvironment Modeling</div>
+              <p class="lb-desc">Agent-based modeling of the pancreatic cancer tumor microenvironment using PhysiCell. Simulates cellular dynamics, immune infiltration, and stromal interactions in 3D tissue.</p>
+              <div class="lb-tags"><span class="badge badge-warm">PhysiCell</span><span class="badge badge-green">PDAC</span><span class="badge">C++</span><span class="badge">Agent-based</span></div>
+            </div>
+            <div class="lb-actions"><span class="incoming">incoming</span></div>
+          </div>
         </div>
-        <div class="lb-actions">
-          <span class="no-doc">No PDF</span>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/TP_Haddock_projet.zip">◎ Source</button>
-        </div>
-      </div>
 
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2024</div>
-          <div class="lb-title" style="font-size:1.15rem">TP MDCG</div>
-          <p class="lb-desc">Molecular dynamics and computational genomics practical work.</p>
-          <div class="lb-tags"><span class="badge">MD</span><span class="badge">Genomics</span></div>
-        </div>
-        <div class="lb-actions">
-          <span class="no-doc">No PDF</span>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/TP_MDCG_projet.zip">◎ Source</button>
-        </div>
-      </div>
+      </div><!-- /projects -->
 
-      <div class="lb-card reveal">
-        <div>
-          <div class="lb-meta">2024</div>
-          <div class="lb-title" style="font-size:1.15rem">TP MMC</div>
-          <p class="lb-desc">Molecular modeling and chemistry practical sessions.</p>
-          <div class="lb-tags"><span class="badge">Modeling</span></div>
+      <div class="big-divider"></div>
+
+      <!-- ════════════════════════════
+           INTERNSHIPS
+      ════════════════════════════ -->
+      <div class="section-block">
+        <span class="sec-label reveal">Academic</span>
+        <h2 class="sec-title reveal">Internships</h2>
+        <p class="sec-desc reveal">Master's internship reports, monthly diaries, and coursework documents.</p>
+
+        <div class="lb-card reveal">
+          <div>
+            <div class="lb-meta">2025 — CRCT, Inserm, Toulouse</div>
+            <div class="lb-title">Stage M2 — Internship Report</div>
+            <p class="lb-desc">Master's internship at the Cancer Research Center of Toulouse (CRCT, Inserm). Research on the pancreatic cancer tumor microenvironment using spatial omics and computational modeling.</p>
+            <div class="lb-tags"><span class="badge badge-warm">M2 Internship</span><span class="badge badge-green">Spatial omics</span><span class="badge">CRCT</span><span class="badge">PDAC</span></div>
+          </div>
+          <div class="lb-actions">
+            <button class="btn-sm btn-sm-primary" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Stage_M2.pdf">↓ Download PDF</button>
+            <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Stage_M2_projet.zip">◎ Source</button>
+          </div>
         </div>
-        <div class="lb-actions">
-          <span class="no-doc">No PDF</span>
-          <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/TP_MMC_projet.zip">◎ Source</button>
+
+        <div class="cat-header reveal" style="margin-top:2.5rem">Monthly Diaries</div>
+
+        <div class="lb-card reveal">
+          <div>
+            <div class="lb-meta">February 2026</div>
+            <div class="lb-title">Monthly Diary — February 2026</div>
+            <p class="lb-desc">Research diary for February 2026. Progress notes, UMAP analyses, marker exploration, and weekly updates from the lab.</p>
+            <div class="lb-tags"><span class="badge badge-green">Diary</span><span class="badge">UMAP</span><span class="badge">Single-cell</span></div>
+          </div>
+          <div class="lb-actions">
+            <button class="btn-sm btn-sm-primary" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Monthly_Diary_February.pdf">↓ Download PDF</button>
+            <button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Monthly_Diary_February.zip">◎ Source</button>
+          </div>
         </div>
-      </div>
+
+        <div class="cat-header reveal" style="margin-top:2.5rem">Coursework &amp; Practicals</div>
+
+        <div class="lb-card reveal">
+          <div><div class="lb-meta">2024</div><div class="lb-title">ACC Project</div><p class="lb-desc">Academic coursework project. Source archive available.</p><div class="lb-tags"><span class="badge">Coursework</span></div></div>
+          <div class="lb-actions"><button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/ACC_projet.zip">◎ Source</button></div>
+        </div>
+
+        <div class="lb-card reveal">
+          <div><div class="lb-meta">2024</div><div class="lb-title">Metagenomic Project</div><p class="lb-desc">Metagenomic analysis report. Taxonomic profiling and functional annotation of microbial communities.</p><div class="lb-tags"><span class="badge badge-green">Metagenomics</span><span class="badge">Coursework</span></div></div>
+          <div class="lb-actions"><button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Metagenomic_report_projet.zip">◎ Source</button></div>
+        </div>
+
+        <div class="lb-card reveal">
+          <div><div class="lb-meta">2024</div><div class="lb-title">Subcellular Localization</div><p class="lb-desc">ML-based prediction of subcellular protein localization using sequence features.</p><div class="lb-tags"><span class="badge badge-green">ML</span><span class="badge">Coursework</span></div></div>
+          <div class="lb-actions"><button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/Subcellular_Localizaton_projet.zip">◎ Source</button></div>
+        </div>
+
+        <div class="lb-card reveal">
+          <div><div class="lb-meta">2024</div><div class="lb-title">TP Haddock</div><p class="lb-desc">Protein–protein docking practical using the HADDOCK platform.</p><div class="lb-tags"><span class="badge">Structural biology</span><span class="badge">Docking</span></div></div>
+          <div class="lb-actions"><button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/TP_Haddock_projet.zip">◎ Source</button></div>
+        </div>
+
+        <div class="lb-card reveal">
+          <div><div class="lb-meta">2024</div><div class="lb-title">TP MDCG</div><p class="lb-desc">Molecular dynamics and computational genomics practical work.</p><div class="lb-tags"><span class="badge">MD</span><span class="badge">Genomics</span></div></div>
+          <div class="lb-actions"><button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/TP_MDCG_projet.zip">◎ Source</button></div>
+        </div>
+
+        <div class="lb-card reveal">
+          <div><div class="lb-meta">2024</div><div class="lb-title">TP MMC</div><p class="lb-desc">Molecular modeling and chemistry practical sessions.</p><div class="lb-tags"><span class="badge">Modeling</span></div></div>
+          <div class="lb-actions"><button class="btn-sm btn-sm-ghost" data-dl-url="https://owengriere.github.io/lab-book.io/docs/TP_MMC_projet.zip">◎ Source</button></div>
+        </div>
+
+      </div><!-- /internships -->
 
     </div>
   </section>
@@ -263,8 +304,7 @@
     <div><div class="footer-name">Owen Griere</div><p class="footer-desc">Bioinformatics Engineer, Toulouse.</p></div>
     <nav class="footer-links">
       <a href="index.html">Home</a><a href="profile.html">Profile</a><a href="projects.html">Projects</a>
-      <a href="tools.html">Tools</a><a href="publications.html">Publications</a>
-      <a href="labbook.html">Lab Book</a>
+      <a href="tools.html">Tools</a><a href="publications.html">Publications</a><a href="labbook.html">Lab Book</a>
       <a href="https://github.com/OwenGriere" target="_blank" rel="noopener">GitHub</a>
       <a href="mailto:owen.griere@gmail.com">Contact</a>
     </nav>
@@ -272,60 +312,21 @@
   <div class="container footer-bottom"><p>&copy; <span class="yr"></span> Owen Griere</p></div>
 </footer>
 
-<!-- Download password modal -->
-<div class="dl-overlay" id="dl-overlay" role="dialog" aria-modal="true">
-  <div class="dl-box">
-    <div class="dl-title">Protected document</div>
-    <p class="dl-sub">Enter the download passphrase to proceed.</p>
-    <div class="dl-row">
-      <input class="dl-input" id="dl-input" type="password" placeholder="Passphrase…" autocomplete="off"/>
-      <button class="btn btn-primary" id="dl-submit">Download</button>
-    </div>
-    <p class="dl-error" id="dl-error"></p>
-    <div class="dl-footer"><button class="dl-cancel" id="dl-cancel">Cancel</button></div>
-  </div>
-</div>
-
 <script src="js/main.js"></script>
 <script>
 (function(){
-  const DL_PASSWORD = 'labbook2024'; // ← same as gate password
-  const dlOverlay = document.getElementById('dl-overlay');
-  const dlInput   = document.getElementById('dl-input');
-  const dlError   = document.getElementById('dl-error');
-  const dlSubmit  = document.getElementById('dl-submit');
-  const dlCancel  = document.getElementById('dl-cancel');
-  let pendingUrl  = '';
-
+  // Direct download — no per-doc password, gate already authenticated the session
   document.querySelectorAll('[data-dl-url]').forEach(btn => {
     btn.addEventListener('click', () => {
-      pendingUrl = btn.dataset.dlUrl;
-      dlError.textContent = '';
-      dlInput.value = '';
-      dlOverlay.classList.add('open');
-      setTimeout(() => dlInput.focus(), 60);
+      const url = btn.dataset.dlUrl;
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = url.split('/').pop();
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
     });
   });
 
-  function tryDownload() {
-    if (dlInput.value === DL_PASSWORD) {
-      dlOverlay.classList.remove('open');
-      const a = document.createElement('a');
-      a.href = pendingUrl;
-      a.download = pendingUrl.split('/').pop();
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    } else {
-      dlError.textContent = 'Incorrect passphrase. Try again.';
-      dlInput.select();
-    }
-  }
-
-  dlSubmit.addEventListener('click', tryDownload);
-  dlInput.addEventListener('keydown', e => { if(e.key==='Enter') tryDownload(); });
-  dlCancel.addEventListener('click', () => dlOverlay.classList.remove('open'));
-  dlOverlay.addEventListener('click', e => { if(e.target===dlOverlay) dlOverlay.classList.remove('open'); });
-
-  // Lock out button
+  // Lock & exit
   document.getElementById('lock-out-btn')?.addEventListener('click', () => {
     sessionStorage.removeItem('labbook_unlocked');
     window.location.href = 'index.html';
