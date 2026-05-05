@@ -72,6 +72,34 @@
 
     /* Big separator */
     .big-divider { width:100%; height:1px; background:var(--border); margin-block:4rem; }
+
+    /* ── Access request box ── */
+    .access-box {
+      border:1.5px dashed var(--border-hi); border-radius:14px;
+      padding:1.6rem 1.8rem 1.5rem; margin-bottom:3rem;
+      background:var(--bg-card);
+    }
+    .access-box-header { display:flex; align-items:center; gap:.75rem; margin-bottom:.4rem; }
+    .access-icon {
+      width:34px; height:34px; border-radius:8px; background:var(--accent-dim);
+      border:1px solid rgba(45,90,61,.15); display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    [data-theme="dark"] .access-icon { border-color:rgba(90,158,111,.2); }
+    .access-icon svg { width:15px; height:15px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .access-title { font-family:var(--font-d); font-size:.98rem; font-weight:500; font-style:italic; color:var(--text); }
+    .access-sub { font-size:.81rem; color:var(--muted); margin-bottom:1.1rem; line-height:1.6; padding-left:46px; }
+    .access-row { display:flex; gap:.6rem; padding-left:46px; }
+    .access-input {
+      flex:1; padding:.58rem 1rem; border:1.5px solid var(--border);
+      border-radius:var(--radius); background:var(--bg); color:var(--text);
+      font-family:var(--font-b); font-size:.83rem; outline:none;
+      transition:border-color .2s; min-width:0;
+    }
+    .access-input:focus { border-color:var(--accent); }
+    .access-input::placeholder { color:var(--muted); }
+    .access-error { font-size:.74rem; color:#b94040; min-height:1.1em; margin-top:.4rem; padding-left:46px; }
+    .access-confirm { display:none; align-items:center; gap:.5rem; padding-left:46px; font-size:.8rem; color:var(--accent); font-family:var(--font-mono); margin-top:.55rem; }
+    .access-confirm::before { content:'✓'; font-weight:700; }
   </style>
 </head>
 <body>
@@ -123,6 +151,25 @@
       <div class="unlock-bar reveal">
         <span class="unlock-status">Session unlocked</span>
         <button class="lock-out-btn" id="lock-out-btn">Lock &amp; exit</button>
+      </div>
+
+      <!-- Access request box -->
+      <div class="access-box reveal">
+        <div class="access-box-header">
+          <div class="access-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="access-title">Request document access</div>
+        </div>
+        <p class="access-sub">Enter your Gmail address — this will open a pre-filled email so Owen can grant you access to all documents via Google Drive.</p>
+        <div id="access-request-form">
+          <div class="access-row">
+            <input class="access-input" id="access-email" type="email" placeholder="your@gmail.com" autocomplete="email"/>
+            <button class="btn btn-primary" id="access-send" style="padding:.58rem 1.2rem;font-size:.83rem;">Send request</button>
+          </div>
+          <p class="access-error" id="access-error"></p>
+        </div>
+        <div class="access-confirm" id="access-confirm">Request sent — Owen will grant you access shortly.</div>
       </div>
 
 
@@ -286,18 +333,53 @@
 <script src="js/main.js"></script>
 <script>
 (function(){
-  // Direct download — no per-doc password, gate already authenticated the session
+  const FOLDER_URL = 'https://drive.google.com/drive/folders/17xtIxRd1toQgGAJd-05KmEVb4Y0B5z2D';
+
+  // ── Download buttons — open Drive file directly
+  // If user has access → Drive downloads. If not → Drive shows "Request access" page.
   document.querySelectorAll('[data-dl-url]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const url = btn.dataset.dlUrl;
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = url.split('/').pop();
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      window.open(btn.dataset.dlUrl, '_blank', 'noopener');
     });
   });
 
-  // Lock & exit
+  // ── Access request form ──────────────────────────────────────────
+  const formEl  = document.getElementById('access-request-form');
+  const input   = document.getElementById('access-email');
+  const sendBtn = document.getElementById('access-send');
+  const confirm = document.getElementById('access-confirm');
+  const errEl   = document.getElementById('access-error');
+
+  sendBtn?.addEventListener('click', () => {
+    const email = input?.value.trim();
+    if (errEl) errEl.textContent = '';
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (errEl) errEl.textContent = 'Please enter a valid email address.';
+      return;
+    }
+
+    const subject = encodeURIComponent('Lab Book — Access request');
+    const body    = encodeURIComponent(
+`Hi Owen,
+
+I would like to request access to the Lab Book documents.
+
+My Google account email: ${email}
+
+Thank you.`
+    );
+    window.location.href = `mailto:owen.griere@gmail.com?subject=${subject}&body=${body}`;
+
+    if (formEl && confirm) {
+      formEl.style.display  = 'none';
+      confirm.style.display = 'flex';
+    }
+  });
+
+  input?.addEventListener('keydown', e => { if (e.key === 'Enter') sendBtn?.click(); });
+
+  // ── Lock & exit
   document.getElementById('lock-out-btn')?.addEventListener('click', () => {
     sessionStorage.removeItem('labbook_unlocked');
     window.location.href = 'index.html';
