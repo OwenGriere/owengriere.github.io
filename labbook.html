@@ -75,7 +75,8 @@
 
     /* ── Access request box ── */
     .access-box {
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.2rem;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:1.2rem;
       border:1.5px dashed var(--border-hi); border-radius:14px;
       padding:1.4rem 1.8rem; margin-bottom:3rem; background:var(--bg-card);
     }
@@ -83,8 +84,8 @@
     .access-icon { width:36px; height:36px; border-radius:9px; background:var(--accent-dim); border:1px solid rgba(45,90,61,.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     [data-theme="dark"] .access-icon { border-color:rgba(90,158,111,.2); }
     .access-icon svg { width:16px; height:16px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    .access-text-title { font-family:var(--font-d); font-size:.97rem; font-weight:500; font-style:italic; color:var(--text); margin-bottom:.1rem; }
-    .access-text-sub { font-size:.78rem; color:var(--muted); line-height:1.5; }
+    .access-text-title { font-family:var(--font-d); font-size:.97rem; font-weight:500; font-style:italic; color:var(--text); margin-bottom:.15rem; }
+    .access-text-sub { font-size:.78rem; color:var(--muted); line-height:1.5; max-width:46ch; }
   </style>
 </head>
 <body>
@@ -142,14 +143,18 @@
       <div class="access-box reveal">
         <div class="access-left">
           <div class="access-icon">
-            <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <div>
             <div class="access-text-title">Need access to a document?</div>
-            <div class="access-text-sub">Click the button to open the shared Drive folder and request access directly — Owen will be notified automatically.</div>
+            <div class="access-text-sub">Opens Gmail with a pre-filled request — just add your email in the body and send. Owen will grant you access via Google Drive.</div>
           </div>
         </div>
-        <a href="https://drive.google.com/drive/folders/17xtIxRd1toQgGAJd-05KmEVb4Y0B5z2D" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:.82rem;padding:.5rem 1.1rem;white-space:nowrap;">Request access via Drive →</a>
+        <a href="mailto:owen.griere@gmail.com?subject=Lab%20Book%20%E2%80%94%20Access%20request&body=Hi%20Owen%2C%0A%0AI%20would%20like%20to%20request%20access%20to%20the%20Lab%20Book%20documents.%0A%0AMy%20Google%20account%20email%3A%20%5Byour%40gmail.com%5D%0A%0AThank%20you."
+           class="btn btn-outline"
+           style="font-size:.82rem;padding:.5rem 1.1rem;white-space:nowrap;">
+          Request access →
+        </a>
       </div>
 
 
@@ -313,8 +318,8 @@
 <script src="js/main.js"></script>
 <script>
 (function(){
-  // Download buttons — open Drive link in new tab.
-  // If user has access → Drive serves the file. If not → Drive shows "Request access" page.
+  // Download buttons — open Drive file in new tab
+  // Drive handles access: if granted → file, if not → Drive's own "Request access" page
   document.querySelectorAll('[data-dl-url]').forEach(btn => {
     btn.addEventListener('click', () => {
       window.open(btn.dataset.dlUrl, '_blank', 'noopener');
