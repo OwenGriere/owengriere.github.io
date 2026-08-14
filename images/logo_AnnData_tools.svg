@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Miniature du schema anndata, aux couleurs du SVG officiel -->
+  <rect width="64" height="64" rx="12" fill="#fbfbfd"/>
+  <!-- var -->
+  <rect x="24" y="7" width="24" height="9" fill="#2c96c0" stroke="#010101" stroke-width="0.8"/>
+  <!-- obsp (pile) -->
+  <rect x="4" y="24" width="13" height="33" fill="#c04a48" stroke="#010101" stroke-width="0.8"/>
+  <rect x="5.5" y="22.5" width="13" height="33" fill="#f15c5a" stroke="#010101" stroke-width="0.8"/>
+  <!-- X + layers (pile) -->
+  <rect x="22.5" y="24" width="24" height="33" fill="#3c8b53" stroke="#010101" stroke-width="0.8"/>
+  <rect x="24" y="22.5" width="24" height="33" fill="#4fba6f" stroke="#010101" stroke-width="0.8"/>
+  <!-- obs -->
+  <rect x="52" y="22.5" width="8" height="33" fill="#efc41c" stroke="#010101" stroke-width="0.8"/>
+  <!-- lignes des noms d'axes -->
+  <rect x="24" y="19" width="24" height="1.6" fill="#2c96c0"/>
+  <rect x="5.5" y="19" width="13" height="1.6" fill="#efc41c"/>
+</svg>
