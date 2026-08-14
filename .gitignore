@@ -1,9 +1,5 @@
-_includes/
-_layouts/
-
-staticman.yml
-package-lock.json
-package.json
-Rakefile
-Gemfile.lock
-minimal-mistakes-jekyll.gemspec
+.DS_Store
+Thumbs.db
+*~
+.vscode/
+.idea/

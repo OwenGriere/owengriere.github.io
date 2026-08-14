@@ -1,7 +1,5 @@
-User-agent: Googlebot
+User-agent: *
 Allow: /
-
-User-agent: Bingbot
-Allow: /
+Disallow: /labbook.html
 
 Sitemap: https://owengriere.github.io/sitemap.xml

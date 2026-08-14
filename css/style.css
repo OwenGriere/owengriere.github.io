@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Les polices Google sont chargées via <link rel="preconnect"> + <link rel="stylesheet">
+   dans le <head> de chaque page : un @import ici sérialiserait les requêtes. */
 
 /* ─── Light mode (default) ─── */
 :root {
@@ -236,40 +237,5 @@ section { padding-block:5rem; }
 .gate-cancel { display:block; margin-top:1rem; font-size:.78rem; color:var(--muted); background:none; border:none; cursor:pointer; font-family:var(--font-b); width:100%; }
 .gate-cancel:hover { color:var(--text); }
 
-/* ─── Lab Book page ─── */
-.lb-cat-header {
-  display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; margin-top:3rem;
-  font-family:var(--font-mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
-}
-.lb-cat-header::after { content:''; flex:1; height:1px; background:var(--border); }
-.lb-card {
-  background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
-  padding:1.6rem 1.8rem; margin-bottom:.75rem;
-  display:grid; grid-template-columns:1fr auto; gap:1.2rem; align-items:start;
-  transition:box-shadow .2s, border-color .2s;
-}
-.lb-card:hover { border-color:var(--border-hi); box-shadow:var(--shadow); }
-.lb-meta { font-family:var(--font-mono); font-size:.66rem; color:var(--muted); margin-bottom:.5rem; letter-spacing:.06em; }
-.lb-title { font-family:var(--font-d); font-size:1.15rem; font-weight:500; margin-bottom:.5rem; color:var(--text); }
-.lb-desc { font-size:.84rem; color:var(--muted); line-height:1.7; margin-bottom:.85rem; }
-.lb-tags { display:flex; flex-wrap:wrap; gap:.35rem; }
-.lb-actions { display:flex; flex-direction:column; gap:.5rem; align-items:flex-end; flex-shrink:0; }
-@media(max-width:600px){ .lb-card{grid-template-columns:1fr;} .lb-actions{flex-direction:row;flex-wrap:wrap;} }
-.btn-sm {
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:.42rem 1rem; border-radius:8px;
-  font-family:var(--font-b); font-weight:500; font-size:.78rem;
-  transition:all .2s; text-decoration:none; cursor:pointer; white-space:nowrap; border:none;
-}
-.btn-sm-primary { background:var(--accent); color:#fff; }
-.btn-sm-primary:hover { opacity:.88; transform:translateY(-1px); text-decoration:none; }
-.btn-sm-outline { border:1.5px solid var(--border-hi); color:var(--text-2); background:transparent; }
-.btn-sm-outline:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); text-decoration:none; }
-.btn-sm-ghost { border:1.5px solid var(--border); color:var(--muted); background:transparent; }
-.btn-sm-ghost:hover { border-color:var(--border-hi); color:var(--text-2); text-decoration:none; }
-.lb-info-bar {
-  background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
-  padding:.9rem 1.4rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;
-  margin-bottom:3rem; font-size:.78rem; color:var(--muted); font-family:var(--font-mono);
-}
-.lb-info-bar .dot { width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; margin-right:.35rem; }
+/* Les styles propres à la page Lab Book (.lb-*, .btn-sm*) vivent dans le <style>
+   de labbook.html, seule page qui les utilise. */

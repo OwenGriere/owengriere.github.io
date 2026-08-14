@@ -62,16 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateNavIcon() {
-    const link = document.getElementById('nav-labbook-link');
-    if (!link) return;
-    const svg = link.querySelector('svg');
-    if (svg) {
-      if (isUnlocked()) {
-        svg.outerHTML = OPEN_LOCK_SVG;
-      } else {
-        svg.outerHTML = CLOSED_LOCK_SVG;
-      }
-    }
+    // Plusieurs liens Lab Book par page (nav + footer) : on les traite tous.
+    document.querySelectorAll('.js-labbook-link').forEach(link => {
+      const svg = link.querySelector('svg');
+      if (svg) svg.outerHTML = isUnlocked() ? OPEN_LOCK_SVG : CLOSED_LOCK_SVG;
+    });
   }
 
   // Inject gate modal into DOM
@@ -97,12 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('gate-submit');
   const cancelBtn = document.getElementById('gate-cancel');
 
+  let lastFocused = null;
+
   function openGate() {
+    lastFocused = document.activeElement;
     errEl.textContent = '';
     input.value = '';
     overlay.classList.add('open');
     setTimeout(() => input.focus(), 60);
   }
+
+  function closeGate() {
+    overlay.classList.remove('open');
+    lastFocused?.focus();
+  }
+
+  // Piège de focus : Tab reste dans la modale tant qu'elle est ouverte.
+  overlay.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeGate(); return; }
+    if (e.key !== 'Tab') return;
+    const focusables = [input, submitBtn, cancelBtn];
+    const first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   function tryUnlock() {
     if (input.value === PASSWORD) {
@@ -118,21 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   submitBtn.addEventListener('click', tryUnlock);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
-  cancelBtn.addEventListener('click', () => overlay.classList.remove('open'));
-  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  cancelBtn.addEventListener('click', closeGate);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeGate(); });
 
   // Intercept nav click
   document.addEventListener('DOMContentLoaded', () => {
     updateNavIcon();
-    const navLink = document.getElementById('nav-labbook-link');
-    if (navLink) {
-      navLink.addEventListener('click', e => {
+    document.querySelectorAll('.js-labbook-link').forEach(link => {
+      link.addEventListener('click', e => {
         if (!isUnlocked()) {
           e.preventDefault();
           openGate();
         }
       });
-    }
+    });
     // If currently on labbook.html and not unlocked, redirect
     if (window.location.pathname.endsWith('labbook.html') && !isUnlocked()) {
       window.location.href = 'index.html';
