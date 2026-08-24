@@ -59,6 +59,12 @@ h1,h2,h3,h4 { font-family:var(--font-d); font-weight:600; line-height:1.15; colo
 
 /* Layout */
 .container { width:100%; max-width:var(--max-w); margin-inline:auto; padding-inline:2rem; }
+
+/* Pages de contenu large (Projects, Tools, Publications, Lab Book) : grilles de
+   cartes et réseau des outils gagnent à respirer, là où l'accueil et le profil
+   restent en colonne étroite. Portée par <body class="page-wide"> pour que la
+   nav et le pied de page suivent la même largeur que le contenu. */
+body.page-wide { --max-w: 1280px; }
 .divider { width:100%; height:1px; background:var(--border); }
 section { padding-block:5rem; }
 

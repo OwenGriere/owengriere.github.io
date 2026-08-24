@@ -77,6 +77,24 @@ Quatre points qui ne se devinent pas à la lecture :
   écrit `e.isHull && …` renvoie `undefined` sur un nœud ordinaire, ce qui
   allumait toutes les arêtes au survol. D'où les `!!` explicites.
 
+## Largeur des pages
+
+Deux gabarits. L'accueil et le profil restent en colonne étroite
+(`--max-w: 1040px`). Projects, Tools, Publications et Lab Book portent
+`<body class="page-wide">`, qui passe `--max-w` à `1280px` : ces pages sont
+faites de grilles de cartes et du réseau des outils, qui gagnent à respirer.
+La classe est posée sur `<body>` — et non sur `<main>` — pour que la nav et le
+pied de page suivent la même largeur que le contenu sur ces pages.
+
+Élargir le conteneur allonge les lignes de texte : les paragraphes qui
+occupaient toute la largeur ont reçu un `max-width` en `ch`. Sans cela on
+dépassait 150 caractères par ligne sur Projects.
+
+Piège rencontré sur le cadre du réseau : avec `aspect-ratio`, un `min-height`
+fait **grandir la largeur** de la boîte pour tenir le ratio (340 × 1.5 = 510 px),
+ce qui débordait horizontalement sur mobile. D'où le `max-width:100%` sur
+`.tn-canvas`.
+
 Les styles spécifiques à une page vivent dans son `<style>` ; tout ce qui est
 partagé (nav, footer, boutons, badges, modale) est dans `css/style.css`.
 

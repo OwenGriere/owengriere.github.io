@@ -59,7 +59,8 @@
   .tg-count{font-family:var(--font-mono);font-size:.67rem;color:var(--muted);letter-spacing:.08em}
   .tg-desc{font-size:.88rem;color:var(--muted);line-height:1.7;font-weight:300;max-width:62ch}
   .tool-group .tools-grid{margin-top:1.5rem}
-  .spotlight-grid{display:grid;grid-template-columns:1fr 220px;gap:3rem;align-items:center;margin-top:1.5rem}
+  .spotlight-grid{display:grid;grid-template-columns:1fr 260px;gap:3rem;align-items:center;margin-top:1.5rem}
+  .spotlight-grid .prose{max-width:74ch}
   @media(max-width:640px){.spotlight-grid{grid-template-columns:1fr}.spl-img{display:none}}
   .spl-img img{border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow)}
 
@@ -72,11 +73,14 @@
   .tn-g-mosna{--g:var(--g-mosna)} .tn-g-seg{--g:var(--g-seg)} .tn-g-model{--g:var(--g-model)}
   .tn-g-data{--g:var(--g-data)} .tn-g-dep{--g:var(--g-dep)} .tn-g-data-obj{--g:var(--g-input)}
 
-  .tn-main{display:grid;grid-template-columns:1fr 265px;gap:1.4rem;align-items:stretch}
-  @media(max-width:860px){.tn-main{grid-template-columns:1fr}}
+  .tn-main{display:grid;grid-template-columns:1fr 300px;gap:1.4rem;align-items:stretch}
+  @media(max-width:980px){.tn-main{grid-template-columns:1fr}}
 
+  /* max-width est indispensable ici : avec aspect-ratio, un min-height fait
+     GRANDIR la largeur pour tenir le ratio (340 x 1.5 = 510 px), ce qui
+     débordait horizontalement de la fenêtre sur mobile. */
   .tn-canvas{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;
-             box-shadow:var(--shadow);overflow:hidden;aspect-ratio:3/2;min-height:340px}
+             box-shadow:var(--shadow);overflow:hidden;aspect-ratio:3/2;min-height:340px;max-width:100%}
   .tn-svg{display:block;width:100%;height:100%;transform:scale(.975);transition:transform .6s cubic-bezier(.22,1,.36,1)}
   /* Apparition : la disposition est déjà calculée, on ne fait que la révéler. */
   .tn-hulls,.tn-edges,.tn-nodes{opacity:0;transition:opacity .55s ease .08s}
@@ -379,7 +383,7 @@
   </script>
 
 </head>
-<body>
+<body class="page-wide">
 <header class="site-nav">
   <div class="nav-inner container">
     <a href="index.html" class="nav-home">Home</a>
