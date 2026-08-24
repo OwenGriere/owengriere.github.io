@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /labbook.html
 
 Sitemap: https://owengriere.github.io/sitemap.xml
