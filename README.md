@@ -42,21 +42,40 @@ publiquement l'existence de la page et, surtout, empêche les robots de lire le
 ## Graphe des outils
 
 `js/network.js` dessine le réseau de la page Tools : simulation force-dirigée
-maison en SVG, sans dépendance. Le modèle (nœuds, arêtes, familles) est en haut
-du fichier — c'est le seul endroit à modifier pour ajouter un outil.
+maison en SVG, sans dépendance. Le modèle (`NODES`, `HULLS`, `EDGES`) est en
+haut du fichier — c'est le seul endroit à modifier pour ajouter un outil ; tout
+le reste s'en déduit.
 
-Deux points qui ne se devinent pas à la lecture :
+Structure représentée : `Spatial omics` → `CytoSeg` / `PDACSeg` → `SingleCell`,
+puis trois branches à partir de cette table de cellules — la suite MOSNA,
+`AnnData Tools` → `Scanpy / Squidpy`, et la modélisation. La génomique
+(`VCF` → `MORFEE Wrapper`) est une branche à part.
+
+Un **super-nœud** (`HULLS`) est un cercle tracé autour d'une famille. Il n'est
+pas simulé : centre et rayon sont dérivés des membres à chaque pas. Une arête
+peut le prendre pour extrémité — elle s'attache alors au bord du cercle, et la
+force est répartie sur les membres.
+
+Quatre points qui ne se devinent pas à la lecture :
 
 - La disposition est **résolue en une passe synchrone** (`settle()`) plutôt
   qu'au fil des images. Une simulation animée dépend du nombre d'images
   réellement rendues et donnait des compositions inégales selon la machine, ou
   si l'onglet passait à l'arrière-plan. L'animation ne sert plus qu'à
   l'apparition, et elle est en CSS.
-- Le graphe **n'est pas connexe** : la branche génomique (VCF → MORFEE) ne
-  partage aucune brique avec la branche spatiale. Les composantes sont donc
-  disposées séparément puis rangées côte à côte, à échelle commune. Traitées
-  ensemble, la répulsion les éloignait sans limite et le recadrage tassait la
-  composante principale dans un coin.
+- Le graphe **n'est pas connexe** : la branche génomique ne partage aucune
+  brique avec la branche spatiale. Les composantes sont donc disposées
+  séparément puis rangées côte à côte, à échelle commune. Traitées ensemble, la
+  répulsion les éloignait sans limite et le recadrage tassait la composante
+  principale dans un coin.
+- **Appartenir à un super-nœud compte comme un lien** dans le calcul des
+  composantes. Sinon un filtre coupant les arêtes internes scinderait le
+  groupe, dont les morceaux seraient empaquetés dans des zones disjointes du
+  cadre — et le cercle censé les entourer se déchirerait.
+- Le second argument de `classList.toggle()` doit être un **vrai booléen** :
+  avec `undefined`, il bascule la classe au lieu de la forcer. Un prédicat
+  écrit `e.isHull && …` renvoie `undefined` sur un nœud ordinaire, ce qui
+  allumait toutes les arêtes au survol. D'où les `!!` explicites.
 
 Les styles spécifiques à une page vivent dans son `<style>` ; tout ce qui est
 partagé (nav, footer, boutons, badges, modale) est dans `css/style.css`.

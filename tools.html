@@ -70,7 +70,7 @@
       --tn-edge:var(--border-hi);margin-top:2.5rem}
   [data-theme="dark"] .tn{--g-model:#9d8cd0;--g-data:#5fa5c9;--g-dep:#9a9287;--g-input:#8a8177;--tn-edge:#7d746a}
   .tn-g-mosna{--g:var(--g-mosna)} .tn-g-seg{--g:var(--g-seg)} .tn-g-model{--g:var(--g-model)}
-  .tn-g-data{--g:var(--g-data)} .tn-g-dep{--g:var(--g-dep)} .tn-g-input{--g:var(--g-input)}
+  .tn-g-data{--g:var(--g-data)} .tn-g-dep{--g:var(--g-dep)} .tn-g-data-obj{--g:var(--g-input)}
 
   .tn-main{display:grid;grid-template-columns:1fr 265px;gap:1.4rem;align-items:stretch}
   @media(max-width:860px){.tn-main{grid-template-columns:1fr}}
@@ -79,16 +79,27 @@
              box-shadow:var(--shadow);overflow:hidden;aspect-ratio:3/2;min-height:340px}
   .tn-svg{display:block;width:100%;height:100%;transform:scale(.975);transition:transform .6s cubic-bezier(.22,1,.36,1)}
   /* Apparition : la disposition est déjà calculée, on ne fait que la révéler. */
-  .tn-edges,.tn-nodes{opacity:0;transition:opacity .55s ease .08s}
+  .tn-hulls,.tn-edges,.tn-nodes{opacity:0;transition:opacity .55s ease .08s}
   .tn-in .tn-svg{transform:none}
-  .tn-in .tn-edges,.tn-in .tn-nodes{opacity:1}
+  .tn-in .tn-hulls,.tn-in .tn-edges,.tn-in .tn-nodes{opacity:1}
   @media(prefers-reduced-motion:reduce){
-    .tn-svg,.tn-edges,.tn-nodes{transition:none;transform:none;opacity:1}
+    .tn-svg,.tn-hulls,.tn-edges,.tn-nodes{transition:none;transform:none;opacity:1}
   }
 
   .tn-edge{stroke:var(--tn-edge);stroke-width:1.2;opacity:.62;transition:opacity .18s,stroke .18s,stroke-width .18s}
   .tn-edge-uses{stroke-dasharray:4 4}
-  .tn-edge-kin{stroke-dasharray:1 4;stroke-linecap:round;opacity:.45}
+  .tn-edge-info{stroke-dasharray:2 4.5;stroke-linecap:round;opacity:.75;stroke-width:1.5}
+
+  /* Super-nœud : un cercle tracé autour d'une famille d'outils. Purement
+     visuel — il ne doit jamais intercepter le survol des nœuds qu'il entoure. */
+  .tn-hull{pointer-events:none}
+  .tn-hull-ring{fill:var(--g);fill-opacity:.045;stroke:var(--g);stroke-opacity:.42;
+                stroke-width:1.3;stroke-dasharray:7 5;transition:fill-opacity .18s,stroke-opacity .18s}
+  .tn-hull.tn-on .tn-hull-ring{fill-opacity:.09;stroke-opacity:.85;stroke-dasharray:none}
+  .tn-hull-label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+                 fill:var(--g);opacity:.75;text-anchor:middle;
+                 paint-order:stroke;stroke:var(--bg-card);stroke-width:3.5px;stroke-linejoin:round}
+  .tn-focused .tn-hull:not(.tn-on){opacity:.25}
 
   .tn-node{cursor:grab;touch-action:none;transition:opacity .18s}
   .tn-node:focus{outline:none}
@@ -123,6 +134,7 @@
                 color:var(--muted);display:flex;align-items:center;gap:.45rem}
   .tn-p-eyebrow[class*="tn-g-"]::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--g);flex-shrink:0}
   .tn-p-title{font-family:var(--font-d);font-size:1.15rem;font-weight:600;line-height:1.25}
+  .tn-p-part{font-family:var(--font-mono);font-size:.63rem;color:var(--muted);letter-spacing:.04em}
   .tn-p-desc,.tn-p-hint{font-size:.83rem;color:var(--muted);line-height:1.7;font-weight:300}
   .tn-p-tags{display:flex;flex-wrap:wrap;gap:.35rem}
   .tn-p-link{font-family:var(--font-mono);font-size:.72rem;color:var(--accent);margin-top:auto;padding-top:.4rem}
@@ -142,7 +154,8 @@
   .tn-key i{display:inline-block;width:22px;height:0;border-top:1.2px solid var(--border-hi);
             margin-right:.4rem;vertical-align:middle}
   .tn-key i.k-uses{border-top-style:dashed}
-  .tn-key i.k-kin{border-top-style:dotted}
+  .tn-key i.k-info{border-top-style:dotted}
+  .tn-key i.k-hull{border-top-style:dashed;border-top-color:var(--border-hi);opacity:.6}
 </style>
   <!-- Balisage structuré schema.org : profil de recherche, publications et logiciels
        lisibles par Google, Google Scholar et les agrégateurs. -->
@@ -404,12 +417,13 @@
     <div class="container">
       <span class="label reveal">Ecosystem</span>
       <h2 class="section-title reveal">How the tools connect</h2>
-      <p class="prose reveal" style="max-width:64ch">One continuous chain runs through this work: tissue imaging is segmented into cells, cells are structured into an AnnData object, that object becomes a spatial network analysed by the MOSNA suite, and the resulting statistics constrain an agent-based tumor model. The genomics branch follows its own path, from variant calls to annotated 5&prime;UTR mutations.</p>
+      <p class="prose reveal" style="max-width:64ch">Everything on the spatial side converges on one object. Tissue acquisitions are segmented by CytoSeg and PDACSeg into a single-cell table, and that table then feeds three branches: the <strong>MOSNA suite</strong> for spatial network analysis, <strong>AnnData Tools</strong> for Scanpy and Squidpy computations, and the <strong>modeling</strong> group, where measured network statistics constrain an agent-based tumor simulation. The genomics work is a separate branch, from variant calls to annotated 5&prime;UTR mutations.</p>
 
       <div class="tn reveal" id="tool-network">
         <div class="tn-main">
           <div class="tn-canvas">
-            <svg class="tn-svg" role="img" aria-label="Network diagram of the tools developed by Owen Griere, grouped into the MOSNA suite, segmentation, modeling, and data and genomics, with the external libraries and input data they connect to. The same tools are described individually in the list below.">
+            <svg class="tn-svg" role="img" aria-label="Network diagram of the tools developed by Owen Griere. Spatial omics data feeds the CytoSeg and PDACSeg segmentation tools, which produce a single-cell table. That table branches into three: the MOSNA suite for spatial network analysis, AnnData Tools feeding Scanpy and Squidpy, and the modeling group built on PhysiCell. A separate branch annotates UK Biobank variants with the MORFEE wrapper. The same tools are described individually in the list below.">
+              <g class="tn-hulls"></g>
               <g class="tn-edges"></g>
               <g class="tn-nodes"></g>
             </svg>
@@ -422,7 +436,8 @@
         <div class="tn-key">
           <span><i></i>data flow</span>
           <span><i class="k-uses"></i>builds on</span>
-          <span><i class="k-kin"></i>sibling implementation</span>
+          <span><i class="k-info"></i>informs</span>
+          <span><i class="k-hull"></i>tool family</span>
         </div>
       </div>
     </div>

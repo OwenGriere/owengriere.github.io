@@ -1,134 +1,210 @@
 /* ─────────────────────────────────────────────────────────────
-   Réseau des outils — graphe force-directed, SVG, sans dépendance.
+   Réseau des outils — graphe force-dirigé, SVG, sans dépendance.
    Le site est servi tel quel par GitHub Pages : pas de bundler,
-   pas de CDN. Le solveur tient en ~80 lignes, largement suffisant
-   pour la vingtaine de nœuds du graphe.
+   pas de CDN. Le solveur est écrit ici, il n'a qu'une vingtaine
+   de nœuds à placer.
+
+   Pour ajouter un outil, ne toucher que le modèle ci-dessous
+   (NODES / HULLS / EDGES) : tout le reste s'en déduit.
    ───────────────────────────────────────────────────────────── */
 (function () {
   const root = document.getElementById('tool-network');
   if (!root) return;
 
-  const svg     = root.querySelector('.tn-svg');
-  const gEdges  = svg.querySelector('.tn-edges');
-  const gNodes  = svg.querySelector('.tn-nodes');
-  const panel   = root.querySelector('.tn-panel');
-  const legend  = root.querySelector('.tn-legend');
+  const svg    = root.querySelector('.tn-svg');
+  const gHulls = svg.querySelector('.tn-hulls');
+  const gEdges = svg.querySelector('.tn-edges');
+  const gNodes = svg.querySelector('.tn-nodes');
+  const panel  = root.querySelector('.tn-panel');
+  const legend = root.querySelector('.tn-legend');
 
   const GH = 'https://github.com/OwenGriere/';
 
   // ── Modèle ────────────────────────────────────────────────
-  // kind: 'tool'    → outil développé par Owen (nœud plein, cliquable)
-  //       'dep'     → brique externe réutilisée (nœud creux)
-  //       'data'    → donnée d'entrée (nœud carré, en pointillés)
+  // kind: 'tool' → outil développé par Owen (disque plein, cliquable)
+  //       'dep'  → brique externe réutilisée (disque creux)
+  //       'data' → jeu ou objet de données (carré en pointillés)
+  //
+  // lane: position visée sur l'axe horizontal, en fraction de la largeur
+  //       de la composante. C'est ce qui donne au graphe une lecture de
+  //       gauche à droite ; la force reste faible, elle oriente sans figer.
   const NODES = [
-    // Suite MOSNA
-    { id:'mosna-gui',  label:'MOSNA GUI',       group:'mosna', kind:'tool', r:23,
-      desc:'Graphical interface wrapping Tysserand and MOSNA, so wet-lab researchers can build and analyse spatial networks without writing code.',
-      tags:['Python'], url:GH + 'MOSNA_GUI' },
-    { id:'mosna-enh',  label:'MOSNA Enhanced',  group:'mosna', kind:'tool', r:23,
-      desc:'MOSNA and the network-building step rewritten in Rust, with a new graphical interface — same analyses, far larger tissues.',
-      tags:['Rust'], private:true },
-    { id:'mosna-clu',  label:'MOSNA Cluster',   group:'mosna', kind:'tool', r:20,
-      desc:'Job orchestration to run MOSNA on HPC clusters such as Genotoul, for cohort-scale batches.',
-      tags:['Bash','Python'], private:true },
+    // ── Données ──
+    { id:'spatial', label:'Spatial omics', group:'data-obj', kind:'data', r:17, lane:0.02,
+      desc:'Spatial transcriptomic and proteomic acquisitions of tissue sections — cell coordinates plus per-cell marker intensities.' },
+    { id:'singlecell', label:'SingleCell', group:'data-obj', kind:'data', r:19, lane:0.38,
+      desc:'The per-cell table produced by segmentation: coordinates, marker intensities and phenotypes. This is the common input every downstream branch reads from.' },
+    { id:'vcf', label:'VCF / UK Biobank', group:'data-obj', kind:'data', r:17, lane:0.04,
+      desc:'Population-scale variant call sets, including 200,000+ UK Biobank individuals.' },
 
-    // Segmentation
-    { id:'cytoseg',    label:'CytoSeg',         group:'seg',   kind:'tool', r:21,
+    // ── Segmentation ──
+    { id:'cytoseg', label:'CytoSeg', group:'seg', kind:'tool', r:21, lane:0.20,
       desc:'Segmentation by ellipse optimisation, designed to isolate cancer-associated fibroblasts from marker signal.',
       tags:['Python'], private:true },
-    { id:'pdacseg',    label:'PDACSeg',         group:'seg',   kind:'tool', r:21,
+    { id:'pdacseg', label:'PDACSeg', group:'seg', kind:'tool', r:21, lane:0.20,
       desc:'Segmentation pipeline for spatial proteomics of PDAC tissues — from raw acquisition to labelled cells.',
       tags:['Python'], private:true },
 
-    // Modélisation
-    { id:'pdac-model', label:'PDAC Modeling',   group:'model', kind:'tool', r:24,
-      desc:'Agent-based model of the pancreatic tumor microenvironment built on PhysiCell, simulating EMT, hypoxia and immunosuppression.',
-      tags:['C++','Python'], private:true },
-    { id:'synet',      label:'SyNetBuilder',    group:'model', kind:'tool', r:21,
-      desc:'Reconstruction of synthetic cell networks that reproduce measured assortativity — a controlled null model for spatial statistics.',
-      tags:['Python'], private:true },
-
-    // Données & génomique
-    { id:'anndata',    label:'AnnData Tools',   group:'data',  kind:'tool', r:22,
-      desc:'Building and exploring AnnData objects, with Scanpy and Squidpy computations wired in. The common data layer between segmentation and network analysis.',
-      tags:['Python','Rust'], private:true },
-    { id:'morfee',     label:'MORFEE Wrapper',  group:'data',  kind:'tool', r:22,
-      desc:'Nextflow pipeline wrapping MORFEE and ANNOVAR to annotate 5′UTR variants across VCF datasets of any size — up to 200,000 UK Biobank individuals.',
-      tags:['Nextflow','Python','Bash'], private:true },
-
-    // Briques externes
-    { id:'tysserand',  label:'Tysserand',       group:'dep',   kind:'dep', r:15,
+    // ── Suite MOSNA (dans le super-nœud g-mosna) ──
+    { id:'mosna-gui', label:'MOSNA GUI', group:'mosna', kind:'tool', r:23,
+      desc:'Graphical interface wrapping Tysserand and MOSNA, so wet-lab researchers can build and analyse spatial networks without writing code.',
+      tags:['Python'], url:GH + 'MOSNA_GUI' },
+    { id:'mosna-enh', label:'MOSNA Enhanced', group:'mosna', kind:'tool', r:23,
+      desc:'MOSNA and the network-building step rewritten in Rust, with a new graphical interface — same analyses, far larger tissues.',
+      tags:['Rust'], private:true },
+    { id:'mosna-clu', label:'MOSNA Cluster', group:'mosna', kind:'tool', r:20,
+      desc:'Job orchestration to run MOSNA on HPC clusters such as Genotoul, for cohort-scale batches.',
+      tags:['Bash','Python'], private:true },
+    { id:'tysserand', label:'Tysserand', group:'dep', kind:'dep', r:15,
       desc:'Reference Python library for reconstructing spatial networks from cell coordinates.',
       url:'https://github.com/VeraPancaldiLab/tysserand' },
-    { id:'mosna-pkg',  label:'MOSNA',           group:'dep',   kind:'dep', r:15,
+    { id:'mosna-pkg', label:'MOSNA', group:'dep', kind:'dep', r:15,
       desc:'Python package for the statistical analysis of spatial omics networks — niches, assortativity, cross-patient comparison.',
       url:'https://github.com/VeraPancaldiLab/mosna' },
-    { id:'physicell',  label:'PhysiCell',       group:'dep',   kind:'dep', r:15,
-      desc:'Open-source agent-based simulation framework for multicellular systems.',
-      url:'http://physicell.org/' },
-    { id:'scanpy',     label:'Scanpy / Squidpy',group:'dep',   kind:'dep', r:15,
+
+    // ── Objets de données & génomique ──
+    { id:'anndata', label:'AnnData Tools', group:'data', kind:'tool', r:22, lane:0.60,
+      desc:'Building and exploring AnnData objects from the single-cell table, ready for Scanpy and Squidpy computations.',
+      tags:['Python','Rust'], private:true },
+    { id:'scanpy', label:'Scanpy / Squidpy', group:'dep', kind:'dep', r:15, lane:0.84,
       desc:'Single-cell and spatial omics analysis toolkits built on the AnnData format.',
       url:'https://scanpy.readthedocs.io/' },
-    { id:'morfee-r',   label:'MORFEE',          group:'dep',   kind:'dep', r:14,
+    { id:'morfee', label:'MORFEE Wrapper', group:'data', kind:'tool', r:22, lane:0.50,
+      desc:'Nextflow pipeline wrapping MORFEE and ANNOVAR to annotate 5′UTR variants across VCF datasets of any size — up to 200,000 UK Biobank individuals.',
+      tags:['Nextflow','Python','Bash'], private:true },
+    { id:'morfee-r', label:'MORFEE', group:'dep', kind:'dep', r:14, lane:0.92,
       desc:'R package annotating variants that create upstream ORFs in 5′UTR regions (D.-A. Trégouët, Inserm Bordeaux).',
       url:'https://github.com/daltrega/MORFEE' },
 
-    // Données d'entrée
-    { id:'imaging',    label:'mIF / IMC imaging',   group:'input', kind:'data', r:16,
-      desc:'Multiplex immunofluorescence and Imaging Mass Cytometry acquisitions of PDAC tissue sections.' },
-    { id:'spatial',    label:'Spatial omics',       group:'input', kind:'data', r:16,
-      desc:'Spatial transcriptomic and proteomic measurements — cell coordinates plus per-cell expression.' },
-    { id:'vcf',        label:'VCF / UK Biobank',    group:'input', kind:'data', r:16,
-      desc:'Population-scale variant call sets, including 200,000+ UK Biobank individuals.' }
+    // ── Modélisation (dans le super-nœud g-model) ──
+    { id:'pdac-model', label:'PDAC Modeling', group:'model', kind:'tool', r:24,
+      desc:'Agent-based model of the pancreatic tumor microenvironment built on PhysiCell, simulating EMT, hypoxia and immunosuppression.',
+      tags:['C++','Python'], private:true },
+    { id:'synet', label:'SyNetBuilder', group:'model', kind:'tool', r:21,
+      desc:'Reconstruction of synthetic cell networks that reproduce measured assortativity — a controlled null model for spatial statistics.',
+      tags:['Python'], private:true },
+    { id:'physicell', label:'PhysiCell', group:'dep', kind:'dep', r:15,
+      desc:'Open-source agent-based simulation framework for multicellular systems.',
+      url:'http://physicell.org/' }
   ];
 
-  // rel: 'flow'  → la donnée circule d'un nœud vers l'autre
-  //      'uses'  → dépendance logicielle
-  //      'kin'   → variantes d'un même outil
+  // Super-nœuds : un cercle tracé autour d'un groupe de nœuds. Leur position
+  // et leur rayon sont dérivés des membres, ils ne sont pas simulés. Une arête
+  // peut les prendre pour extrémité : elle s'attache alors au bord du cercle.
+  const HULLS = [
+    { id:'g-mosna', label:'MOSNA suite', group:'mosna', lane:0.62,
+      desc:'Tysserand and MOSNA, plus the three tools built around them: a graphical interface, a Rust rewrite, and cluster execution. Together they turn a single-cell table into spatial networks and their statistics.',
+      members:['mosna-gui','mosna-enh','mosna-clu','tysserand','mosna-pkg'] },
+    { id:'g-model', label:'Modeling', group:'model', lane:0.84,
+      desc:'Simulation side of the work: an agent-based PDAC model on top of PhysiCell, and the synthetic-network generator used to produce controlled null models.',
+      members:['pdac-model','synet','physicell'] }
+  ];
+
+  // rel: 'flow'  → la donnée circule d'un nœud vers l'autre (trait plein)
+  //      'uses'  → dépendance logicielle (tirets)
+  //      'info'  → l'un renseigne l'autre sans échange direct (pointillés)
   const EDGES = [
-    ['imaging','cytoseg','flow'], ['imaging','pdacseg','flow'],
-    ['spatial','anndata','flow'],
-    ['cytoseg','anndata','flow'], ['pdacseg','anndata','flow'],
-    ['scanpy','anndata','uses'],
-    ['anndata','mosna-gui','flow'], ['anndata','mosna-enh','flow'], ['anndata','mosna-clu','flow'],
-    ['tysserand','mosna-gui','uses'], ['tysserand','mosna-enh','uses'],
+    // Branche spatiale
+    ['spatial','cytoseg','flow'], ['spatial','pdacseg','flow'],
+    ['cytoseg','singlecell','flow'], ['pdacseg','singlecell','flow'],
+    ['singlecell','g-mosna','flow'],
+    ['singlecell','anndata','flow'], ['anndata','scanpy','flow'],
+    ['singlecell','g-model','flow'],
+    ['g-mosna','synet','info'],
+
+    // Intérieur de la suite MOSNA
+    ['tysserand','mosna-gui','uses'], ['tysserand','mosna-enh','uses'], ['tysserand','mosna-clu','uses'],
     ['mosna-pkg','mosna-gui','uses'], ['mosna-pkg','mosna-enh','uses'], ['mosna-pkg','mosna-clu','uses'],
-    ['mosna-gui','mosna-enh','kin'], ['mosna-enh','mosna-clu','kin'],
-    ['mosna-gui','synet','flow'], ['mosna-enh','pdac-model','flow'],
+
+    // Intérieur de la modélisation
     ['physicell','pdac-model','uses'],
-    ['synet','pdac-model','flow'],
+
+    // Branche génomique
     ['vcf','morfee','flow'], ['morfee-r','morfee','uses']
   ];
 
   const GROUPS = [
-    { id:'mosna', label:'MOSNA suite' },
-    { id:'seg',   label:'Segmentation' },
-    { id:'model', label:'Modeling' },
-    { id:'data',  label:'Data & genomics' },
-    { id:'dep',   label:'Building blocks' },
-    { id:'input', label:'Input data' }
+    { id:'mosna',    label:'MOSNA suite' },
+    { id:'seg',      label:'Segmentation' },
+    { id:'model',    label:'Modeling' },
+    { id:'data',     label:'Data & genomics' },
+    { id:'dep',      label:'Building blocks' },
+    { id:'data-obj', label:'Data' }
   ];
 
-  // ── Mise en page ──────────────────────────────────────────
+  // ── Structures dérivées ───────────────────────────────────
   const W = 900, H = 600;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
   const byId = new Map(NODES.map(n => [n.id, n]));
-  const links = EDGES.map(([s, t, rel]) => ({ source: byId.get(s), target: byId.get(t), rel }));
-
-  // Degré : sert à la fois au tri visuel et au ressort de centrage.
-  NODES.forEach(n => { n.deg = 0; });
-  links.forEach(l => { l.source.deg++; l.target.deg++; });
-
-  const neighbours = new Map(NODES.map(n => [n.id, new Set([n.id])]));
-  links.forEach(l => {
-    neighbours.get(l.source.id).add(l.target.id);
-    neighbours.get(l.target.id).add(l.source.id);
+  HULLS.forEach(h => {
+    h.isHull = true;
+    h.x = W / 2; h.y = H / 2; h.r = 60;
+    h.nodes = h.members.map(id => byId.get(id));
+    h.nodes.forEach(n => { n.hull = h; });
+    byId.set(h.id, h);
   });
 
+  const links = EDGES.map(([s, t, rel]) => ({ a: byId.get(s), b: byId.get(t), rel }));
+
+  // Voisinage, pour la mise en avant au survol et pour les composantes.
+  // Une arête branchée sur un super-nœud relie en réalité chacun de ses membres.
+  const expand = e => e.isHull ? e.nodes : [e];
+  const neighbours = new Map(NODES.map(n => [n.id, new Set([n.id])]));
+  const bond = (a, b) => { neighbours.get(a.id).add(b.id); neighbours.get(b.id).add(a.id); };
+  for (const l of links) {
+    for (const a of expand(l.a)) for (const b of expand(l.b)) bond(a, b);
+  }
+  // Appartenir au même super-nœud est en soi un lien. Sans cela, un filtre
+  // qui coupe les arêtes internes scinderait le groupe en plusieurs
+  // composantes — or elles sont empaquetées dans des zones disjointes du
+  // cadre, ce qui déchirerait le cercle censé les entourer.
+  for (const h of HULLS) {
+    for (let i = 0; i < h.nodes.length; i++)
+      for (let j = i + 1; j < h.nodes.length; j++) bond(h.nodes[i], h.nodes[j]);
+  }
+
+  // Familles masquées via la légende.
+  const hidden = new Set();
+  const visible = n => !hidden.has(n.group);
+  // Nœud en cours de glissement : la simulation et le recadrage le laissent tranquille.
+  let dragging = null;
+
+  // Le graphe n'est pas connexe : la branche génomique (VCF → MORFEE) ne
+  // partage aucune brique avec la branche spatiale. Traitées ensemble, la
+  // répulsion les éloigne sans limite et le recadrage tasse alors la grosse
+  // composante dans un coin. On les dispose donc séparément, puis on les
+  // range côte à côte dans le cadre.
+  let comps = [];
+  function computeComponents() {
+    const seen = new Set();
+    comps = [];
+    for (const start of NODES) {
+      if (seen.has(start.id) || !visible(start)) continue;
+      const queue = [start], group = [];
+      seen.add(start.id);
+      while (queue.length) {
+        const n = queue.pop();
+        group.push(n);
+        for (const id of neighbours.get(n.id)) {
+          const m = byId.get(id);
+          if (seen.has(id) || !visible(m)) continue;
+          seen.add(id); queue.push(m);
+        }
+      }
+      comps.push(group);
+    }
+    comps.sort((a, b) => b.length - a.length);
+    comps.forEach((c, i) => c.forEach(n => { n.comp = i; }));
+  }
+
+  // ── Forces ────────────────────────────────────────────────
+  const LINK_DIST = { flow: 120, uses: 92, info: 215 };
+  const PAD = { x: 78, top: 32, bottom: 46 };
+
   // Encombrement réel d'un nœud : le disque, plus le libellé centré dessous.
-  // La largeur est d'abord estimée d'après le nombre de caractères, puis
-  // remplacée par la mesure exacte du texte une fois le SVG rendu.
+  // Largeur d'abord estimée d'après le nombre de caractères, puis remplacée
+  // par la mesure exacte du texte une fois le SVG rendu.
   NODES.forEach(n => {
     const em = n.kind === 'tool' ? 5.7 : 5.2;
     n.hw = Math.max(n.r, n.label.length * em / 2 + 5);
@@ -143,56 +219,43 @@
     n.vx = 0; n.vy = 0;
   });
 
-  // Familles masquées via la légende (lu par fit()).
-  const hidden = new Set();
-
-  // Le graphe n'est pas connexe : la branche génomique (VCF → MORFEE) ne
-  // partage aucune brique avec la branche spatiale. Traitées ensemble, la
-  // répulsion les éloigne sans limite et le recadrage tasse alors la grosse
-  // composante dans un coin. On les dispose donc séparément, puis on les
-  // range côte à côte dans le cadre.
-  let comps = [];
-  function computeComponents() {
-    const vis = NODES.filter(n => !hidden.has(n.group));
-    const seen = new Set();
-    comps = [];
-    for (const start of vis) {
-      if (seen.has(start.id)) continue;
-      const queue = [start], group = [];
-      seen.add(start.id);
-      while (queue.length) {
-        const n = queue.pop();
-        group.push(n);
-        for (const id of neighbours.get(n.id)) {
-          const m = byId.get(id);
-          if (seen.has(id) || hidden.has(m.group)) continue;
-          seen.add(id); queue.push(m);
-        }
+  // Géométrie des super-nœuds, recalculée à chaque pas : centre au barycentre
+  // des membres visibles, rayon assez grand pour englober leurs libellés.
+  function updateHulls() {
+    for (const h of HULLS) {
+      h.live = h.nodes.filter(visible);
+      // Un cercle autour d'un seul nœud ne veut rien dire : quand un filtre
+      // ne laisse qu'un membre, on efface le groupe plutôt que de l'entourer.
+      h.on = h.live.length > 1;
+      if (!h.on) { h.r = 0; continue; }
+      let cx = 0, cy = 0;
+      for (const m of h.live) { cx += m.x; cy += m.y; }
+      h.x = cx / h.live.length; h.y = cy / h.live.length;
+      // Rayon au plus juste : on ajoute, pour chaque membre, l'extension de sa
+      // boîte dans la direction radiale — et non son plus grand côté, qui
+      // gonflait le cercle d'une demi-largeur de libellé dans toutes les
+      // directions, y compris à la verticale où le texte ne déborde pas.
+      let r = 0;
+      for (const m of h.live) {
+        const dx = m.x - h.x, dy = m.y - h.y;
+        const d = Math.hypot(dx, dy) || 1;
+        r = Math.max(r, d + Math.abs(dx / d) * m.hw + Math.abs(dy / d) * m.hh);
       }
-      comps.push(group);
+      h.r = r + 14;
     }
-    comps.sort((a, b) => b.length - a.length);
-    comps.forEach((c, i) => c.forEach(n => { n.comp = i; }));
   }
-  // Nœud en cours de glissement : la simulation et le recadrage le laissent tranquille.
-  let dragging = null;
 
-  const LINK_DIST = { flow: 120, uses: 100, kin: 84 };
-
-  // Ancrage horizontal par famille : donne au graphe une lecture de gauche
-  // à droite qui suit la chaîne réelle (image → cellules → objet de données
-  // → réseau → modèle). La force est faible : elle oriente la disposition
-  // sans figer les nœuds sur des colonnes.
-  const XPULL = { input: 0.09, seg: 0.28, data: 0.46, mosna: 0.66, model: 0.88 };
-
-  // Marges de cadrage : plus larges à gauche/droite et en bas, car les
-  // libellés sont centrés sous les nœuds et débordent de leur cercle.
-  const PAD = { x: 78, top: 30, bottom: 44 };
+  // Une arête branchée sur un super-nœud pousse ses membres, pas un point fictif.
+  function push(e, fx, fy) {
+    if (!e.isHull) { e.vx += fx; e.vy += fy; return; }
+    const k = e.live.length || 1;
+    for (const m of e.live) { m.vx += fx / k; m.vy += fy / k; }
+  }
+  const alive = e => e.isHull ? e.on : visible(e);
 
   function step(alpha) {
-    // Étendue courante du graphe : l'ancrage par famille s'exprime en
-    // fraction de cette étendue, pas en pixels absolus — sinon il entrerait
-    // en conflit avec le recadrage, qui recentre et redimensionne à chaque image.
+    updateHulls();
+
     // Étendue et barycentre, mesurés par composante : l'ordre des familles
     // n'a de sens qu'à l'intérieur d'une même chaîne.
     const stats = comps.map(c => {
@@ -209,44 +272,62 @@
     for (let i = 0; i < NODES.length; i++) {
       for (let j = i + 1; j < NODES.length; j++) {
         const a = NODES[i], b = NODES[j];
+        // Deux composantes ne se repoussent pas : l'empaquetage leur réserve
+        // déjà des zones disjointes du cadre.
+        if (a.comp !== b.comp || !visible(a) || !visible(b)) continue;
         let dx = b.x - a.x, dy = b.y - a.y;
         let d2 = dx * dx + dy * dy;
         if (d2 < 1) { d2 = 1; dx = Math.random() - .5; dy = Math.random() - .5; }
         const d = Math.sqrt(d2);
-        // Force renforcée sous la distance de contact : ni les disques ni
-        // les libellés qui les suivent ne doivent se chevaucher.
-        // Deux composantes ne se repoussent pas : l'empaquetage leur réserve
-        // déjà des zones disjointes du cadre.
-        if (a.comp !== b.comp || hidden.has(a.group) || hidden.has(b.group)) continue;
+        // Deux membres d'un même super-nœud doivent rester groupés : on
+        // atténue la répulsion entre eux, sinon le cercle enfle démesurément.
+        const same = a.hull && a.hull === b.hull;
         const min = a.r + b.r + 34;
-        const f = (5400 + (d < min ? 11000 : 0)) / d2 * alpha;
+        const f = ((same ? 1500 : 5400) + (d < min ? 11000 : 0)) / d2 * alpha;
         const ux = dx / d, uy = dy / d;
-        // Répulsion volontairement aplatie : le cadre est en 3/2, un
-        // graphe isotrope y laisserait de larges bandes vides sur les côtés.
+        // Répulsion volontairement aplatie : le cadre est en 3/2, un graphe
+        // isotrope y laisserait de larges bandes vides sur les côtés.
         a.vx -= ux * f; a.vy -= uy * f * 0.55;
         b.vx += ux * f; b.vy += uy * f * 0.55;
       }
     }
-    // Ressorts sur les arêtes
+
+    // Ressorts sur les arêtes. Quand une extrémité est un super-nœud, la
+    // longueur au repos part du bord du cercle et non de son centre.
     for (const l of links) {
-      const a = l.source, b = l.target;
+      const a = l.a, b = l.b;
+      if (!alive(a) || !alive(b)) continue;
       const dx = b.x - a.x, dy = b.y - a.y;
       const d = Math.hypot(dx, dy) || 1;
-      const f = (d - LINK_DIST[l.rel]) * 0.05 * alpha;
+      const rest = LINK_DIST[l.rel] + (a.isHull ? a.r : 0) + (b.isHull ? b.r : 0);
+      const f = (d - rest) * 0.05 * alpha;
       const ux = dx / d, uy = dy / d;
-      a.vx += ux * f; a.vy += uy * f;
-      b.vx -= ux * f; b.vy -= uy * f;
+      push(a,  ux * f,  uy * f);
+      push(b, -ux * f, -uy * f);
     }
-    // Intégration
+
+    // Cohésion interne des super-nœuds
+    for (const h of HULLS) {
+      if (!h.on) continue;
+      for (const m of h.live) {
+        m.vx += (h.x - m.x) * 0.055 * alpha;
+        // Cible légèrement décalée vers le bas : garde la bande haute du
+        // cercle libre pour son titre, qui est écrit à l'intérieur.
+        m.vy += (h.y + 10 - m.y) * 0.055 * alpha;
+      }
+    }
+
+    // Ancrage horizontal, cohésion de composante, intégration
     for (const n of NODES) {
-      if (hidden.has(n.group)) continue;
+      if (!visible(n)) continue;
       if (n.fixed) { n.vx = n.vy = 0; continue; }
-      // Les briques externes n'ont pas d'ancre : elles se posent d'elles-mêmes
-      // à côté de l'outil qui les consomme.
       const st = stats[n.comp];
       if (!st) continue;
-      const anchor = XPULL[n.group];
-      if (anchor !== undefined) n.vx += (st.lo + st.w * anchor - n.x) * 0.10 * alpha;
+      // Les membres d'un super-nœud suivent l'ancrage du groupe, pas le leur :
+      // leur agencement interne reste libre.
+      const lane = n.hull ? n.hull.lane : n.lane;
+      const from = n.hull ? n.hull.x : n.x;
+      if (lane !== undefined) n.vx += (st.lo + st.w * lane - from) * 0.10 * alpha;
       // Cohésion vers le barycentre de la composante : évite qu'un nœud
       // périphérique ne parte seul et n'étire toute la boîte englobante.
       n.vx += (st.gx - n.x) * 0.006 * alpha;
@@ -254,17 +335,19 @@
       n.vx *= 0.82; n.vy *= 0.82;
       n.x += n.vx; n.y += n.vy;
     }
+
+    updateHulls();
     separate();
   }
 
   // Correction de position (et non de vitesse) : deux libellés ne doivent
-  // jamais se superposer, même quand les ressorts tirent fort. On dégage
-  // selon l'axe où le recouvrement est le plus faible.
+  // jamais se superposer, et rien d'étranger ne doit entrer dans un cercle
+  // de super-nœud. On dégage selon l'axe où le recouvrement est le plus faible.
   function separate() {
     for (let i = 0; i < NODES.length; i++) {
       for (let j = i + 1; j < NODES.length; j++) {
         const a = NODES[i], b = NODES[j];
-        if (hidden.has(a.group) || hidden.has(b.group)) continue;
+        if (!visible(a) || !visible(b)) continue;
         const dx = b.x - a.x, dy = b.y - a.y;
         const ox = (a.hw + b.hw + 8) - Math.abs(dx);
         const oy = (a.hh + b.hh + 4) - Math.abs(dy);
@@ -273,21 +356,55 @@
         const wa = a.fixed ? 0 : 1, wb = b.fixed ? 0 : 1, tot = wa + wb;
         if (!tot) continue;
         if (ox < oy) {
-          const push = dx < 0 ? -ox : ox;
-          a.x -= push * wa / tot; b.x += push * wb / tot;
+          const p = dx < 0 ? -ox : ox;
+          a.x -= p * wa / tot; b.x += p * wb / tot;
         } else {
-          const push = dy < 0 ? -oy : oy;
-          a.y -= push * wa / tot; b.y += push * wb / tot;
+          const p = dy < 0 ? -oy : oy;
+          a.y -= p * wa / tot; b.y += p * wb / tot;
         }
       }
     }
+
+    updateHulls();
+
+    // Dégagement autour des super-nœuds : un nœud extérieur qui empiète sur
+    // le cercle rendrait l'appartenance au groupe illisible.
+    for (const h of HULLS) {
+      if (!h.on) continue;
+      for (const n of NODES) {
+        if (n.hull === h || !visible(n) || n.fixed) continue;
+        const dx = n.x - h.x, dy = n.y - h.y;
+        const d = Math.hypot(dx, dy) || 1;
+        const want = h.r + Math.max(n.hw, n.hh) + 10;
+        if (d >= want) continue;
+        const k = (want - d) * 0.6;
+        n.x += dx / d * k; n.y += dy / d * k;
+      }
+    }
+
+    // Deux super-nœuds ne doivent pas se chevaucher non plus.
+    for (let i = 0; i < HULLS.length; i++) {
+      for (let j = i + 1; j < HULLS.length; j++) {
+        const a = HULLS[i], b = HULLS[j];
+        if (!a.on || !b.on) continue;
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const d = Math.hypot(dx, dy) || 1;
+        const want = a.r + b.r + 22;
+        if (d >= want) continue;
+        const k = (want - d) / 2 * 0.6, ux = dx / d, uy = dy / d;
+        for (const m of a.live) if (!m.fixed) { m.x -= ux * k; m.y -= uy * k; }
+        for (const m of b.live) if (!m.fixed) { m.x += ux * k; m.y += uy * k; }
+      }
+    }
+    updateHulls();
   }
 
-  // Recadrage : plutôt que de contraindre la simulation à la taille du
-  // cadre — ce qui l'écrase — on la laisse trouver sa géométrie, puis on
-  // ramène doucement l'ensemble au centre et à l'échelle du viewBox.
-  // Les positions elles-mêmes sont transformées : les libellés gardent
-  // donc leur taille, contrairement à un zoom sur le SVG.
+  // ── Recadrage ─────────────────────────────────────────────
+  // Plutôt que de contraindre la simulation à la taille du cadre — ce qui
+  // l'écrase — on la laisse trouver sa géométrie, puis on ramène doucement
+  // l'ensemble au centre et à l'échelle du viewBox. Les positions elles-mêmes
+  // sont transformées : les libellés gardent donc leur taille, contrairement
+  // à un zoom sur le SVG.
   function fit(strength) {
     if (!comps.length) return;
     // Séparation minimale entre composantes, pour qu'on lise deux branches
@@ -319,13 +436,22 @@
       place(c, boxes[i], x + w / 2, PAD.top + availH / 2, sx, sy, strength);
       x += w + gutter + GAP;
     });
+    updateHulls();
   }
 
+  // Boîte englobante d'une composante, libellés et cercles de super-nœuds compris.
   function bounds(nodes) {
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    const seen = new Set();
     for (const n of nodes) {
-      minX = Math.min(minX, n.x - n.r); maxX = Math.max(maxX, n.x + n.r);
-      minY = Math.min(minY, n.y - n.r); maxY = Math.max(maxY, n.y + n.r);
+      minX = Math.min(minX, n.x - n.hw); maxX = Math.max(maxX, n.x + n.hw);
+      minY = Math.min(minY, n.y - n.r);  maxY = Math.max(maxY, n.y + n.hh);
+      if (n.hull && n.hull.on && !seen.has(n.hull.id)) {
+        seen.add(n.hull.id);
+        const h = n.hull;
+        minX = Math.min(minX, h.x - h.r); maxX = Math.max(maxX, h.x + h.r);
+        minY = Math.min(minY, h.y - h.r); maxY = Math.max(maxY, h.y + h.r);
+      }
     }
     return { minX, maxX, minY, maxY, w: Math.max(maxX - minX, 1), h: Math.max(maxY - minY, 1) };
   }
@@ -342,8 +468,7 @@
 
   function settle(iterations) {
     for (let i = 0; i < iterations; i++) {
-      const a = Math.max(0.02, Math.pow(0.985, i));
-      step(a);
+      step(Math.max(0.02, Math.pow(0.985, i)));
       fit(0.14);
     }
     separate();
@@ -356,6 +481,16 @@
     for (const k in attrs) e.setAttribute(k, attrs[k]);
     return e;
   };
+
+  HULLS.forEach(h => {
+    const g = el('g', { class: `tn-hull tn-g-${h.group}` });
+    h.circle = el('circle', { class: 'tn-hull-ring' });
+    h.text = el('text', { class: 'tn-hull-label' });
+    h.text.textContent = h.label;
+    g.appendChild(h.circle); g.appendChild(h.text);
+    h.el = g;
+    gHulls.appendChild(g);
+  });
 
   links.forEach(l => {
     l.el = el('line', { class: `tn-edge tn-edge-${l.rel}` });
@@ -388,16 +523,34 @@
   });
 
   function draw() {
+    for (const h of HULLS) {
+      h.el.classList.toggle('tn-hidden', !h.on);
+      if (!h.on) continue;
+      h.circle.setAttribute('cx', h.x); h.circle.setAttribute('cy', h.y);
+      h.circle.setAttribute('r', h.r);
+      h.text.setAttribute('x', h.x); h.text.setAttribute('y', h.y - h.r + 15);
+    }
     for (const l of links) {
-      l.el.setAttribute('x1', l.source.x); l.el.setAttribute('y1', l.source.y);
-      l.el.setAttribute('x2', l.target.x); l.el.setAttribute('y2', l.target.y);
+      // Une arête branchée sur un super-nœud s'arrête au bord du cercle.
+      const [x1, y1, x2, y2] = trim(l.a, l.b);
+      l.el.setAttribute('x1', x1); l.el.setAttribute('y1', y1);
+      l.el.setAttribute('x2', x2); l.el.setAttribute('y2', y2);
+      l.el.classList.toggle('tn-hidden', !alive(l.a) || !alive(l.b));
     }
     for (const n of NODES) n.el.setAttribute('transform', `translate(${n.x},${n.y})`);
   }
 
+  function trim(a, b) {
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const d = Math.hypot(dx, dy) || 1;
+    const ux = dx / d, uy = dy / d;
+    const ra = a.isHull ? a.r : 0, rb = b.isHull ? b.r : 0;
+    return [a.x + ux * ra, a.y + uy * ra, b.x - ux * rb, b.y - uy * rb];
+  }
+
   // ── Boucle de simulation ──────────────────────────────────
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let alpha = 1, raf = null;
+  let alpha = 0, raf = null;
 
   function tick() {
     step(alpha);
@@ -413,10 +566,10 @@
   }
 
   // La disposition est résolue en une passe synchrone (quelques millisecondes
-  // pour 17 nœuds) plutôt qu'au fil des images : une simulation animée dépend
-  // du nombre d'images réellement rendues, et donnait des compositions
-  // inégales selon la machine ou si l'onglet passait à l'arrière-plan.
-  // L'animation ne sert donc plus qu'à l'apparition, et elle est en CSS.
+  // pour une vingtaine de nœuds) plutôt qu'au fil des images : une simulation
+  // animée dépend du nombre d'images réellement rendues, et donnait des
+  // compositions inégales selon la machine ou si l'onglet passait à
+  // l'arrière-plan. L'animation ne sert donc plus qu'à l'apparition, en CSS.
   computeComponents();
   settle(420);
   draw();
@@ -442,8 +595,14 @@
       n.el.classList.toggle('tn-sel', node === n);
     });
     links.forEach(l => {
-      l.el.classList.toggle('tn-on', !!node && (l.source === node || l.target === node));
+      // Le second argument de classList.toggle() doit être un vrai booléen :
+      // avec `undefined` — ce que renvoie `e.isHull && …` sur un nœud ordinaire —
+      // il bascule la classe au lieu de la forcer, et toutes les arêtes
+      // s'allument. D'où le !! sur le prédicat comme sur le résultat.
+      const touches = e => e === node || !!(e.isHull && e.nodes.includes(node));
+      l.el.classList.toggle('tn-on', !!node && (touches(l.a) || touches(l.b)));
     });
+    HULLS.forEach(h => h.el.classList.toggle('tn-on', !!node && h.nodes.includes(node)));
     renderPanel(node);
   }
 
@@ -462,9 +621,11 @@
     } else if (n.private) {
       action = '<span class="tn-p-private">Private repository — available on request</span>';
     }
+    const part = n.hull ? `<span class="tn-p-part">Part of ${n.hull.label}</span>` : '';
     panel.innerHTML = `
       <span class="tn-p-eyebrow tn-g-${n.group}">${group.label}</span>
       <h3 class="tn-p-title">${n.label}</h3>
+      ${part}
       <p class="tn-p-desc">${n.desc}</p>
       ${tags ? `<div class="tn-p-tags">${tags}</div>` : ''}
       ${action}`;
@@ -510,6 +671,7 @@
       const nx = p.x + pointerOffset.x, ny = p.y + pointerOffset.y;
       if (Math.hypot(nx - n.x, ny - n.y) > 2) moved = true;
       n.x = nx; n.y = ny;
+      updateHulls();
       draw();
       reheat(0.35);
     });
@@ -525,7 +687,6 @@
   });
 
   // ── Légende / filtre ──────────────────────────────────────
-
   GROUPS.forEach(g => {
     const b = document.createElement('button');
     b.className = `tn-leg tn-g-${g.id}`;
@@ -543,15 +704,14 @@
 
   function applyFilter() {
     NODES.forEach(n => {
-      const off = hidden.has(n.group);
+      const off = !visible(n);
       n.el.classList.toggle('tn-hidden', off);
       n.el.setAttribute('tabindex', off ? '-1' : '0');
     });
-    links.forEach(l => {
-      l.el.classList.toggle('tn-hidden', hidden.has(l.source.group) || hidden.has(l.target.group));
-    });
-    if (active && hidden.has(active.group)) highlight(null);
+    if (active && !visible(active)) highlight(null);
     computeComponents();
+    // Relaxation synchrone, comme au premier rendu : compter sur l'animation
+    // rendrait le résultat dépendant des images réellement rendues.
     settle(200);
     draw();
   }
