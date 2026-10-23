@@ -40,7 +40,7 @@
     // ── Suite MOSNA (dans le super-nœud g-mosna) ──
     { id:'mosna-gui', label:'MOSNA GUI', group:'mosna', kind:'tool', r:23,
       desc:'Graphical interface wrapping Tysserand and MOSNA, so wet-lab researchers can build and analyse spatial networks without writing code.',
-      tags:['Python'], url:GH + 'MOSNA_GUI' },
+      tags:['Python','Rust'], url:GH + 'MOSNA_GUI' },
     { id:'mosna-enh', label:'MOSNA Enhanced', group:'mosna', kind:'tool', r:23,
       desc:'MOSNA and the network-building step rewritten in Rust, with a new graphical interface — same analyses, far larger tissues.',
       tags:['Rust'], url:GH + 'MOSNA_Enhanced' },
