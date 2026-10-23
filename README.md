@@ -46,7 +46,7 @@ maison en SVG, sans dépendance. Le modèle (`NODES`, `HULLS`, `EDGES`) est en
 haut du fichier — c'est le seul endroit à modifier pour ajouter un outil ; tout
 le reste s'en déduit.
 
-Structure représentée : `Spatial omics` → `CytoSeg` / `PDACSeg` → `SingleCell`,
+Structure représentée : `Spatial omics` → `SingleCell`,
 puis trois branches à partir de cette table de cellules — la suite MOSNA,
 `AnnData Tools` → `Scanpy / Squidpy`, et la modélisation. La génomique
 (`VCF` → `MORFEE Wrapper`) est une branche à part.

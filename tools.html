@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Owen Griere — Tools</title>
-  <meta name="description" content="Bioinformatics tools and pipelines built by Owen Griere: the MOSNA suite for spatial network analysis, PDAC modeling, segmentation and large-scale variant analysis."/>
+  <meta name="description" content="Bioinformatics tools and pipelines built by Owen Griere: the MOSNA suite for spatial network analysis, PDAC modeling and large-scale variant analysis."/>
   <link rel="canonical" href="https://owengriere.github.io/tools.html"/>
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Owen Griere"/>
   <meta property="og:title" content="Owen Griere — Tools"/>
-  <meta property="og:description" content="Bioinformatics tools and pipelines built by Owen Griere: the MOSNA suite for spatial network analysis, PDAC modeling, segmentation and large-scale variant analysis."/>
+  <meta property="og:description" content="Bioinformatics tools and pipelines built by Owen Griere: the MOSNA suite for spatial network analysis, PDAC modeling and large-scale variant analysis."/>
   <meta property="og:url" content="https://owengriere.github.io/tools.html"/>
   <meta property="og:image" content="https://owengriere.github.io/images/og-cover.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Owen Griere — Tools"/>
-  <meta name="twitter:description" content="Bioinformatics tools and pipelines built by Owen Griere: the MOSNA suite for spatial network analysis, PDAC modeling, segmentation and large-scale variant analysis."/>
+  <meta name="twitter:description" content="Bioinformatics tools and pipelines built by Owen Griere: the MOSNA suite for spatial network analysis, PDAC modeling and large-scale variant analysis."/>
   <meta name="twitter:image" content="https://owengriere.github.io/images/og-cover.png"/>
 
   <link rel="icon" href="images/favicon-32.png" sizes="32x32"/>
@@ -25,14 +25,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@300..600&family=IBM+Plex+Mono:wght@400;500&display=swap"/>
   <link rel="stylesheet" href="css/style.css"/>
 
   <!-- Applique le thème avant le premier rendu : évite le flash clair en mode sombre. -->
   <script>(function(){const s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');})()</script>
   <style>
-  .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:2.5rem}
-  .tool-card{background:var(--bg-card);padding:1.6rem;display:flex;flex-direction:column;gap:.7rem;transition:background .18s}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:0;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:2.5rem}
+  .tool-card{background:var(--bg-card);box-shadow:1px 0 0 var(--border),0 1px 0 var(--border);padding:1.6rem;display:flex;flex-direction:column;gap:.7rem;transition:background .18s}
   .tool-card:hover{background:var(--bg-card-alt)}
   .tc-header{display:flex;justify-content:space-between;align-items:center}
   .tc-logo-wrap{width:48px;height:48px;border-radius:8px;background:var(--bg-card-alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -67,10 +67,10 @@
   /* ── Réseau des outils ───────────────────────────────────────
      Palette par famille. Les deux premières réutilisent les accents
      du site, les autres complètent la roue sans jurer avec. */
-  .tn{--g-mosna:var(--accent);--g-seg:var(--accent-warm);--g-model:#6b5b95;--g-data:#2f6f8f;--g-dep:#8a8378;--g-input:#9a9186;
+  .tn{--g-mosna:var(--accent);--g-model:#6b5b95;--g-data:#2f6f8f;--g-dep:#8a8378;--g-input:#9a9186;
       --tn-edge:var(--border-hi);margin-top:2.5rem}
   [data-theme="dark"] .tn{--g-model:#9d8cd0;--g-data:#5fa5c9;--g-dep:#9a9287;--g-input:#8a8177;--tn-edge:#7d746a}
-  .tn-g-mosna{--g:var(--g-mosna)} .tn-g-seg{--g:var(--g-seg)} .tn-g-model{--g:var(--g-model)}
+  .tn-g-mosna{--g:var(--g-mosna)} .tn-g-model{--g:var(--g-model)}
   .tn-g-data{--g:var(--g-data)} .tn-g-dep{--g:var(--g-dep)} .tn-g-data-obj{--g:var(--g-input)}
 
   .tn-main{display:grid;grid-template-columns:1fr 300px;gap:1.4rem;align-items:stretch}
@@ -196,7 +196,7 @@
         "@type": "ItemList",
         "@id": "https://owengriere.github.io/tools.html#tool-list",
         "name": "Tools developed by Owen Griere",
-        "numberOfItems": 9,
+        "numberOfItems": 7,
         "itemListOrder": "https://schema.org/ItemListUnordered",
         "itemListElement": [
           {
@@ -214,7 +214,8 @@
                 "@id": "https://owengriere.github.io/#person"
               },
               "applicationCategory": "Computational biology software",
-              "isAccessibleForFree": false,
+              "codeRepository": "https://github.com/OwenGriere/MOSNA_Enhanced",
+              "url": "https://github.com/OwenGriere/MOSNA_Enhanced",
               "isPartOf": {
                 "@id": "https://owengriere.github.io/tools.html#mosna-suite"
               }
@@ -326,48 +327,12 @@
             "position": 7,
             "item": {
               "@type": "SoftwareSourceCode",
-              "@id": "https://owengriere.github.io/tools.html#cytoseg",
-              "name": "CytoSeg",
-              "description": "Segmentation method using ellipse optimisation to segment CAFs from marker signal.",
-              "programmingLanguage": [
-                "Python"
-              ],
-              "author": {
-                "@id": "https://owengriere.github.io/#person"
-              },
-              "applicationCategory": "Computational biology software",
-              "isAccessibleForFree": false
-            }
-          },
-          {
-            "@type": "ListItem",
-            "position": 8,
-            "item": {
-              "@type": "SoftwareSourceCode",
               "@id": "https://owengriere.github.io/tools.html#anndata-tools",
               "name": "AnnData Tools",
               "description": "Building and exploring AnnData objects, with Scanpy and Squidpy computations.",
               "programmingLanguage": [
                 "Python",
                 "Rust"
-              ],
-              "author": {
-                "@id": "https://owengriere.github.io/#person"
-              },
-              "applicationCategory": "Computational biology software",
-              "isAccessibleForFree": false
-            }
-          },
-          {
-            "@type": "ListItem",
-            "position": 9,
-            "item": {
-              "@type": "SoftwareSourceCode",
-              "@id": "https://owengriere.github.io/tools.html#pdacseg",
-              "name": "PDACSeg",
-              "description": "Segmentation pipeline for spatial proteomics of PDAC tissues.",
-              "programmingLanguage": [
-                "Python"
               ],
               "author": {
                 "@id": "https://owengriere.github.io/#person"
@@ -421,12 +386,12 @@
     <div class="container">
       <span class="label reveal">Ecosystem</span>
       <h2 class="section-title reveal">How the tools connect</h2>
-      <p class="prose reveal" style="max-width:64ch">Everything on the spatial side converges on one object. Tissue acquisitions are segmented by CytoSeg and PDACSeg into a single-cell table, and that table then feeds three branches: the <strong>MOSNA suite</strong> for spatial network analysis, <strong>AnnData Tools</strong> for Scanpy and Squidpy computations, and the <strong>modeling</strong> group, where measured network statistics constrain an agent-based tumor simulation. The genomics work is a separate branch, from variant calls to annotated 5&prime;UTR mutations.</p>
+      <p class="prose reveal" style="max-width:64ch">Everything on the spatial side converges on one object. Tissue acquisitions are segmented into a single-cell table, and that table then feeds three branches: the <strong>MOSNA suite</strong> for spatial network analysis, <strong>AnnData Tools</strong> for Scanpy and Squidpy computations, and the <strong>modeling</strong> group, where measured network statistics constrain an agent-based tumor simulation. The genomics work is a separate branch, from variant calls to annotated 5&prime;UTR mutations.</p>
 
       <div class="tn reveal" id="tool-network">
         <div class="tn-main">
           <div class="tn-canvas">
-            <svg class="tn-svg" role="img" aria-label="Network diagram of the tools developed by Owen Griere. Spatial omics data feeds the CytoSeg and PDACSeg segmentation tools, which produce a single-cell table. That table branches into three: the MOSNA suite for spatial network analysis, AnnData Tools feeding Scanpy and Squidpy, and the modeling group built on PhysiCell. A separate branch annotates UK Biobank variants with the MORFEE wrapper. The same tools are described individually in the list below.">
+            <svg class="tn-svg" role="img" aria-label="Network diagram of the tools developed by Owen Griere. Spatial omics data is segmented into a single-cell table. That table branches into three: the MOSNA suite for spatial network analysis, AnnData Tools feeding Scanpy and Squidpy, and the modeling group built on PhysiCell. A separate branch annotates UK Biobank variants with the MORFEE wrapper. The same tools are described individually in the list below.">
               <g class="tn-hulls"></g>
               <g class="tn-edges"></g>
               <g class="tn-nodes"></g>
@@ -462,12 +427,12 @@
           <div class="tool-card reveal">
             <div class="tc-header">
               <div class="tc-logo-wrap"><img src="images/logo_MOSNA_Enhanced.png" alt="MOSNA Enhanced"/></div>
-              <span class="tc-lock" title="Private repository"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+              <a href="https://github.com/OwenGriere/MOSNA_Enhanced" class="tc-gh" target="_blank" rel="noopener" aria-label="MOSNA Enhanced on GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg></a>
             </div>
             <div class="tc-name">MOSNA Enhanced</div>
             <p class="tc-desc">MOSNA and network building rewritten in Rust, with a new graphical interface.</p>
             <div class="tc-tags"><span class="badge badge-warm">Rust</span></div>
-            <span class="tc-private">Private repository</span>
+            <a href="https://github.com/OwenGriere/MOSNA_Enhanced" class="tc-link" target="_blank" rel="noopener">View on GitHub &rarr;</a>
           </div>
           <div class="tool-card reveal" style="transition-delay:0.06s">
             <div class="tc-header">
@@ -494,9 +459,9 @@
       <div class="tool-group">
         <div class="tg-header">
           <h3 class="tg-name reveal">Other tools</h3>
-          <span class="tg-count reveal">6 tools</span>
+          <span class="tg-count reveal">4 tools</span>
         </div>
-        <p class="tg-desc reveal">Simulation, segmentation and large-scale variant analysis developed across my research projects.</p>
+        <p class="tg-desc reveal">Simulation, data handling and large-scale variant analysis developed across my research projects.</p>
         <div class="tools-grid">
           <div class="tool-card reveal">
             <div class="tc-header">
@@ -530,32 +495,12 @@
           </div>
           <div class="tool-card reveal" style="transition-delay:0.18s">
             <div class="tc-header">
-              <div class="tc-logo-wrap"><img src="images/logo_CytoSeg.png" alt="CytoSeg"/></div>
-              <span class="tc-lock" title="Private repository"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-            </div>
-            <div class="tc-name">CytoSeg</div>
-            <p class="tc-desc">Segmentation method using ellipse optimisation to segment CAFs from marker signal.</p>
-            <div class="tc-tags"><span class="badge">Python</span></div>
-            <span class="tc-private">Private repository</span>
-          </div>
-          <div class="tool-card reveal" style="transition-delay:0.24s">
-            <div class="tc-header">
               <div class="tc-logo-wrap"><img src="images/logo_AnnData_tools.svg" alt="AnnData Tools"/></div>
               <span class="tc-lock" title="Private repository"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
             </div>
             <div class="tc-name">AnnData Tools</div>
             <p class="tc-desc">Building and exploring AnnData objects, with Scanpy and Squidpy computations.</p>
             <div class="tc-tags"><span class="badge">Python</span><span class="badge badge-warm">Rust</span></div>
-            <span class="tc-private">Private repository</span>
-          </div>
-          <div class="tool-card reveal" style="transition-delay:0.30s">
-            <div class="tc-header">
-              <div class="tc-logo-wrap"><span class="tc-mono" aria-hidden="true">PS</span></div>
-              <span class="tc-lock" title="Private repository"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-            </div>
-            <div class="tc-name">PDACSeg</div>
-            <p class="tc-desc">Segmentation pipeline for spatial proteomics of PDAC tissues.</p>
-            <div class="tc-tags"><span class="badge">Python</span></div>
             <span class="tc-private">Private repository</span>
           </div>
         </div>

@@ -37,21 +37,13 @@
     { id:'vcf', label:'VCF / UK Biobank', group:'data-obj', kind:'data', r:17, lane:0.04,
       desc:'Population-scale variant call sets, including 200,000+ UK Biobank individuals.' },
 
-    // ── Segmentation ──
-    { id:'cytoseg', label:'CytoSeg', group:'seg', kind:'tool', r:21, lane:0.20,
-      desc:'Segmentation by ellipse optimisation, designed to isolate cancer-associated fibroblasts from marker signal.',
-      tags:['Python'], private:true },
-    { id:'pdacseg', label:'PDACSeg', group:'seg', kind:'tool', r:21, lane:0.20,
-      desc:'Segmentation pipeline for spatial proteomics of PDAC tissues — from raw acquisition to labelled cells.',
-      tags:['Python'], private:true },
-
     // ── Suite MOSNA (dans le super-nœud g-mosna) ──
     { id:'mosna-gui', label:'MOSNA GUI', group:'mosna', kind:'tool', r:23,
       desc:'Graphical interface wrapping Tysserand and MOSNA, so wet-lab researchers can build and analyse spatial networks without writing code.',
       tags:['Python'], url:GH + 'MOSNA_GUI' },
     { id:'mosna-enh', label:'MOSNA Enhanced', group:'mosna', kind:'tool', r:23,
       desc:'MOSNA and the network-building step rewritten in Rust, with a new graphical interface — same analyses, far larger tissues.',
-      tags:['Rust'], private:true },
+      tags:['Rust'], url:GH + 'MOSNA_Enhanced' },
     { id:'mosna-clu', label:'MOSNA Cluster', group:'mosna', kind:'tool', r:20,
       desc:'Job orchestration to run MOSNA on HPC clusters such as Genotoul, for cohort-scale batches.',
       tags:['Bash','Python'], private:true },
@@ -105,8 +97,7 @@
   //      'info'  → l'un renseigne l'autre sans échange direct (pointillés)
   const EDGES = [
     // Branche spatiale
-    ['spatial','cytoseg','flow'], ['spatial','pdacseg','flow'],
-    ['cytoseg','singlecell','flow'], ['pdacseg','singlecell','flow'],
+    ['spatial','singlecell','flow'],
     ['singlecell','g-mosna','flow'],
     ['singlecell','anndata','flow'], ['anndata','scanpy','flow'],
     ['singlecell','g-model','flow'],
@@ -125,7 +116,6 @@
 
   const GROUPS = [
     { id:'mosna',    label:'MOSNA suite' },
-    { id:'seg',      label:'Segmentation' },
     { id:'model',    label:'Modeling' },
     { id:'data',     label:'Data & genomics' },
     { id:'dep',      label:'Building blocks' },
