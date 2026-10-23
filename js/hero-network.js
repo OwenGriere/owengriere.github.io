@@ -75,6 +75,7 @@
   }
 
   let nodes = [], dnas = [], rnas = [], prots = [];
+  const NODE_COLORS = ['accent', 'accent', 'warm', 'blue', 'violet'];
 
   function makeDNA() {
     const o = drifter(140);
@@ -129,12 +130,19 @@
   function populate() {
     const area = W * H;
     const small = W < 640;
-    nodes = Array.from({ length: Math.round(area / (small ? 16000 : 13000)) }, () => {
+    // Nœuds répartis sur une grille perturbée : le réseau couvre tout
+    // l'en-tête au lieu de former des amas et des trous.
+    const cell = Math.sqrt(small ? 11000 : 8500);
+    const cols = Math.ceil(W / cell), rows = Math.ceil(H / cell);
+    nodes = [];
+    for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
       const o = drifter(10);
-      o.r = rand(1.2, 2.6);
-      o.c = Math.random() < .7 ? 'accent' : pick(['warm', 'blue', 'muted']);
-      return o;
-    });
+      o.x = (i + rand(.1, .9)) * cell;
+      o.y = (j + rand(.1, .9)) * cell;
+      o.r = rand(1.6, 3.2);
+      o.c = pick(NODE_COLORS);
+      nodes.push(o);
+    }
     const k = small ? .5 : 1;
     dnas  = Array.from({ length: Math.max(1, Math.round(area / 260000 * k)) }, makeDNA);
     rnas  = Array.from({ length: Math.max(1, Math.round(area / 330000 * k)) }, makeRNA);
@@ -261,30 +269,36 @@
   }
 
   // Le réseau : nœuds reliés entre eux et aux molécules proches.
-  const LINK = 150;
+  const LINK = 135;
   function drawNetwork() {
     const hubs = [...dnas, ...rnas, ...prots];
-    ctx.lineWidth = .8;
+    ctx.lineWidth = .9;
     for (let i = 0; i < nodes.length; i++) {
       const a = nodes[i];
       for (let j = i + 1; j < nodes.length; j++) {
         const b = nodes[j];
         const d = Math.hypot(a.x - b.x, a.y - b.y);
         if (d < LINK) {
-          ctx.strokeStyle = col(C.muted, (1 - d / LINK) * .45);
+          // Couleur de l'arête : moyenne des deux extrémités.
+          const ca = C[a.c], cb = C[b.c];
+          ctx.strokeStyle = col([(ca[0] + cb[0]) >> 1, (ca[1] + cb[1]) >> 1, (ca[2] + cb[2]) >> 1],
+                                (1 - d / LINK) * .5);
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         }
       }
       for (const h of hubs) {
         const d = Math.hypot(a.x - h.x, a.y - h.y);
         if (d < LINK * 1.1) {
-          ctx.strokeStyle = col(C.accent, (1 - d / (LINK * 1.1)) * .22);
+          ctx.strokeStyle = col(C.accent, (1 - d / (LINK * 1.1)) * .3);
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(h.x, h.y); ctx.stroke();
         }
       }
     }
     for (const n of nodes) {
-      ctx.fillStyle = col(C[n.c], .7);
+      // Halo discret puis disque plein.
+      ctx.fillStyle = col(C[n.c], .14);
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 2.4, 0, TAU); ctx.fill();
+      ctx.fillStyle = col(C[n.c], .9);
       ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, TAU); ctx.fill();
     }
   }

@@ -32,12 +32,12 @@
   <script>(function(){const s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');})()</script>
   <style>
     /* ── Hero ── */
-    .hero { padding-block: 6rem 5rem; position:relative; overflow:hidden; isolation:isolate; }
+    .hero { padding-block: 6rem 0; position:relative; overflow:hidden; isolation:isolate; }
     /* Réseau animé (js/hero-network.js) : estompé à gauche pour garder le texte lisible. */
     .hero-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none;
-                   -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.55) 40%, #000 75%);
-                           mask-image:linear-gradient(90deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.55) 40%, #000 75%); }
-    @media(max-width:820px){ .hero-canvas { -webkit-mask-image:none; mask-image:none; opacity:.55; } }
+                   -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.72) 40%, #000 75%);
+                           mask-image:linear-gradient(90deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.72) 40%, #000 75%); }
+    @media(max-width:820px){ .hero-canvas { -webkit-mask-image:none; mask-image:none; opacity:.7; } }
     .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 55% 45% at 85% 35%, rgba(45,90,61,.07), transparent); pointer-events:none; }
     [data-theme="dark"] .hero::before { background:radial-gradient(ellipse 55% 45% at 85% 35%, rgba(90,158,111,.09), transparent); }
     .hero-inner { display:grid; grid-template-columns:1fr 330px; gap:4.5rem; align-items:center; position:relative; }
@@ -47,11 +47,28 @@
     .hero-title em { font-style:italic; color:var(--accent); }
     .hero-role { font-size:1.08rem; color:var(--muted); margin-bottom:1.5rem; font-weight:300; }
     .hero-desc { font-size:.97rem; color:var(--muted); line-height:1.82; max-width:46ch; margin-bottom:2.2rem; font-weight:300; }
-    .hero-actions { display:flex; gap:.7rem; flex-wrap:wrap; margin-bottom:2.8rem; }
-    .hero-orgs { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
-    .hero-orgs img { height:22px; opacity:.4; transition:opacity .2s; filter:grayscale(1); }
-    [data-theme="dark"] .hero-orgs img { filter:grayscale(1) brightness(3); opacity:.35; }
-    .hero-orgs img:hover { opacity:.8; }
+    .hero-actions { display:flex; gap:.7rem; flex-wrap:wrap; }
+    /* Bandeau défilant des logos, en pied d'en-tête. La piste contient deux
+       copies identiques : on la translate de -50 % puis on boucle sans à-coup. */
+    .hero-band { margin-top:4.5rem; border-top:1px solid var(--border); padding-block:1.3rem;
+                 background:var(--bg);
+                 overflow:hidden; position:relative; }
+    /* Fondu des bords par dégradés plutôt que par mask-image : un masque isolerait
+       le bandeau et empêcherait les mix-blend-mode des logos d'agir. */
+    .hero-band::before, .hero-band::after { content:''; position:absolute; top:0; bottom:0; width:12%; z-index:1; pointer-events:none; }
+    .hero-band::before { left:0;  background:linear-gradient(90deg, var(--bg), transparent); }
+    .hero-band::after  { right:0; background:linear-gradient(-90deg, var(--bg), transparent); }
+    /* Le transform de l'animation fait de la piste un contexte d'empilement : elle porte
+       donc son propre fond, sans quoi les mix-blend-mode des logos n'auraient rien sur quoi agir. */
+    .hero-band-track { display:flex; width:max-content; background:var(--bg); animation:band 40s linear infinite; }
+    .hero-band:hover .hero-band-track { animation-play-state:paused; }
+    .hero-band-set { display:flex; align-items:center; gap:4.5rem; padding-right:4.5rem; }
+    /* multiply / screen effacent le fond blanc des logos qui en ont un (Inserm, CNRS). */
+    .hero-band img { height:26px; width:auto; opacity:.55; transition:opacity .2s; filter:grayscale(1); mix-blend-mode:multiply; }
+    [data-theme="dark"] .hero-band img { filter:grayscale(1) invert(1); mix-blend-mode:screen; opacity:.5; }
+    .hero-band img:hover { opacity:.9; }
+    @keyframes band { to { transform:translateX(-50%); } }
+    @media(prefers-reduced-motion:reduce){ .hero-band-track { animation:none; } }
     /* Side card */
     .hero-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.8rem; box-shadow:var(--shadow); }
     .hc-top { display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
@@ -255,12 +272,6 @@
           <a href="projects.html" class="btn btn-outline">Research Projects</a>
           <a href="mailto:owen.griere@gmail.com" class="btn btn-ghost">Get in touch</a>
         </div>
-        <div class="hero-orgs fu d5">
-          <img src="images/banners/crct_logo_new_detoure.png" alt="CRCT"/>
-          <img src="images/banners/logo_inserm.png" alt="Inserm"/>
-          <img src="images/banners/logo_CNRS.jpg" alt="CNRS"/>
-          <img src="images/banners/logo_eidd.png" alt="EIDD"/>
-        </div>
       </div>
       <div class="hero-card fu d2">
         <div class="hc-top">
@@ -283,6 +294,38 @@
         </div>
         <a href="docs/CV_academique.pdf" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank" rel="noopener">Download CV</a>
       </div>
+    </div>
+    <div class="hero-band fu d5" aria-label="Affiliations">
+        <div class="hero-band-track">
+          <div class="hero-band-set">
+            <img src="images/banners/crct_logo_new_detoure.png" alt="CRCT"/>
+            <img src="images/banners/logo_inserm.png" alt="Inserm"/>
+            <img src="images/banners/logo_CNRS.jpg" alt="CNRS"/>
+            <img src="images/banners/logo_eidd.png" alt="EIDD"/>
+            <img src="images/banners/crct_logo_new_detoure.png" alt=""/>
+            <img src="images/banners/logo_inserm.png" alt=""/>
+            <img src="images/banners/logo_CNRS.jpg" alt=""/>
+            <img src="images/banners/logo_eidd.png" alt=""/>
+            <img src="images/banners/crct_logo_new_detoure.png" alt=""/>
+            <img src="images/banners/logo_inserm.png" alt=""/>
+            <img src="images/banners/logo_CNRS.jpg" alt=""/>
+            <img src="images/banners/logo_eidd.png" alt=""/>
+          </div>
+          <div class="hero-band-set" aria-hidden="true">
+            <img src="images/banners/crct_logo_new_detoure.png" alt=""/>
+            <img src="images/banners/logo_inserm.png" alt=""/>
+            <img src="images/banners/logo_CNRS.jpg" alt=""/>
+            <img src="images/banners/logo_eidd.png" alt=""/>
+            <img src="images/banners/crct_logo_new_detoure.png" alt=""/>
+            <img src="images/banners/logo_inserm.png" alt=""/>
+            <img src="images/banners/logo_CNRS.jpg" alt=""/>
+            <img src="images/banners/logo_eidd.png" alt=""/>
+            <img src="images/banners/crct_logo_new_detoure.png" alt=""/>
+            <img src="images/banners/logo_inserm.png" alt=""/>
+            <img src="images/banners/logo_CNRS.jpg" alt=""/>
+            <img src="images/banners/logo_eidd.png" alt=""/>
+          </div>
+        </div>
     </div>
   </section>
 

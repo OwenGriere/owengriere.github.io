@@ -170,14 +170,15 @@ section { padding-block:5rem; }
 }
 
 /* ─── Footer ─── */
-.site-footer { background:var(--bg-surface); border-top:1px solid var(--border); padding:3.5rem 0 2rem; }
-.footer-inner { display:flex; justify-content:space-between; align-items:flex-start; gap:2.5rem; flex-wrap:wrap; margin-bottom:2.5rem; }
-.footer-name { font-family:var(--font-d); font-size:1.2rem; font-weight:600; color:var(--text); margin-bottom:.4rem; }
-.footer-desc { font-size:.85rem; color:var(--muted); max-width:26ch; line-height:1.65; font-weight:300; }
-.footer-links { display:flex; flex-direction:column; gap:.4rem; }
-.footer-links a { font-size:.85rem; color:var(--muted); font-weight:300; }
+.site-footer { background:var(--bg-surface); border-top:1px solid var(--border); padding:1.6rem 0 1rem; }
+.footer-inner { display:flex; justify-content:space-between; align-items:center; gap:1.2rem 2.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+.footer-name { font-family:var(--font-d); font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:.1rem; }
+.footer-desc { font-size:.8rem; color:var(--muted); line-height:1.5; font-weight:300; }
+/* Liens répartis en colonnes de trois : le pied de page reste bas. */
+.footer-links { display:grid; grid-template-rows:repeat(3,auto); grid-auto-flow:column; gap:.15rem 2.2rem; }
+.footer-links a { font-size:.8rem; color:var(--muted); font-weight:300; line-height:1.6; padding:0; }
 .footer-links a:hover { color:var(--accent); text-decoration:none; }
-.footer-bottom { border-top:1px solid var(--border); padding-top:1.2rem; font-size:.78rem; color:var(--muted); font-family:var(--font-mono); }
+.footer-bottom { border-top:1px solid var(--border); padding-top:.7rem; font-size:.7rem; color:var(--muted); font-family:var(--font-mono); }
 
 /* ─── Page hero ─── */
 .page-hero { padding-block:4.5rem; border-bottom:1px solid var(--border); }
